@@ -1,0 +1,41 @@
+﻿//day01
+mkdir learngit
+cd learngit
+pwd  //显示当前目录
+git init //初始化repository
+ls-ah //显示隐藏文件
+
+//注意：所有的版本控制系统，其实只能跟踪文本文件的改动。而图片、视频这些二进制文件，虽然也能由版本控制系统管理，但没法跟踪文件的变化。
+//Microsoft的Word格式是二进制格式，因此，版本控制系统是没法跟踪Word文件的改动的。
+//因为文本是有编码的，比如中文有常用的GBK编码，日文有Shift_JIS编码，如果没有历史遗留问题，
+//强烈建议使用标准的UTF-8编码，所有语言使用同一种编码，既没有冲突，又被所有平台所支持。
+
+小结
+现在总结一下今天学的两点内容：
+
+初始化一个Git仓库，使用git init命令。
+
+添加文件到Git仓库，分两步：
+
+使用命令git add <file>，注意，可反复多次使用，添加多个文件；
+使用命令git commit -m <message>，完成。
+
+
+//day02
+vi readme.txt
+git status
+git diff readme.txt
+git diff ./
+git config --global diff.tool bc3
+git config --global difftool.bc3.path "D:/works/Beyond Compare 4/BCompare.exe"
+git difftool readme.txt
+git difftool ./
+y
+
+
+小结
+要随时掌握工作区的状态，使用git status命令。
+
+如果git status告诉你有文件被修改过，用git diff可以查看修改内容。
+
+
