@@ -1,3 +1,3 @@
 git is a distributed version control system.
-git is free software.
+git is free software distributed under the GPL.
 insert operate:先按i，在输入内容,然后按esc,：wq退出
