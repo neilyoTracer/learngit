@@ -370,3 +370,23 @@ git stash apply stash@{0}
 当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。
 
 
+//Feature分支
+git checkout -b feature-vulcan -dev
+git add vulcan.py 
+git commit -m "add feature vulcan"
+git checkout dev 
+git branch -D feature-vulcan
+
+一切顺利的话，feature分支和bug分支是类似的，合并，然后删除。
+
+但是！
+
+就在此时，接到上级命令，因经费不足，新功能必须取消！
+
+虽然白干了，但是这个包含机密资料的分支还是必须就地销毁：
+
+小结
+开发一个新feature，最好新建一个分支；
+
+如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。
+
