@@ -2,6 +2,7 @@
 ():表示附加注释
 查看git当前所有配置项
 git config [--local] | [--global] | [--system] --list
+-:表示分支
 
 //day01
 mkdir learngit
@@ -340,4 +341,20 @@ Git分支十分强大，在团队开发中应该充分应用。
 
 
 //bug分支(git stash)
+git status - dev
+git stash - dev
+git checkout master - dev
+git checkout -b issue-101 -master
+vi readme - issue-101
+git add readme - issue-101
+git commit -m "fix bug 101" - issue-101
+git checkout master - issue-101
+git merge --no-ff -m "merged bug fix 101" issue-101 -master
+git checkout dev -master
+git status
+git stash list
+git stash pop - dev
+git stash apply stash@{0}
+
+
 
