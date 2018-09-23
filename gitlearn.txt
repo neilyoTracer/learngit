@@ -316,3 +316,4 @@ git branch -d feature1
 
 
 //分支管理策略
+git stash
