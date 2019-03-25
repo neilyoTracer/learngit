@@ -1,4 +1,6 @@
-﻿[]:表示可以输入的值
+﻿
+
+[]:表示可以输入的值
 ():表示附加注释
 查看git当前所有配置项
 git config [--local] | [--global] | [--system] --list
