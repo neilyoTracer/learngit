@@ -95,6 +95,57 @@ Origin 'http://127.0.0.1:8081' is therefore not allowed access
 这时候用setTimeout来解决问题
 
 
+----------------------
+
+
+13.关于rem做适配
+
+有时我们会看到有些使用rem的页面里会先给页面根元素一个样式：
+
+html {font-size: 62.5%; /*10 ÷ 16 × 100% = 62.5%*/}
+为什么是62.5%？
+
+大多数浏览器的默认字号是16px，因此1rem=16px，这样不方便我们px和rem的换算，假设1rem=10px，那么100px=10rem，25px=0.25rem。这样就好换算很多，于是就有了上面的10/16。
+
+如果是640的设计稿，需要除以2转化为和iphone5屏幕等宽的320。所以设计稿px单位/2/10转为rem。之后再媒体查询设置每个屏幕大小的font-size百分比，页面会根据上面设置的根font-size适配。
+
+看到这里是不是觉得一切很完美？然而，这里面有两个深坑：
+
+1.我看了网上很多关于rem的资料，基本都说浏览器的默认字号就是16px，然后直接定义font-size:62.5%。但是，rem属于css3的属性，有些浏览器的早期版本和一些国内浏览器的默认字号并不是16px，那么上面的10/16换算就不成立，直接给html定义font-size: 62.5%不成立。
+
+2.chrome强制字体最小值为12px，低于12px按12px处理，那上面的1rem=10px就变成1rem=12px，出现偏差（下面给demo）。
+
+解决方案： 将1rem=10px换为1rem=100px（或者其它容易换算的比例值）;不要在pc端使用rem。
+
+那么上面的页面根元素样式要改为：
+
+html {font-size: 625%; /*100 ÷ 16 × 100% = 625%*/}
+再用本工厂总结得出的各分辨率媒体查询换算：
+
+@media screen and (min-width:360px) and (max-width:374px) and (orientation:portrait) {
+    html { font-size: 703%; }
+}
+@media screen and (min-width:375px) and (max-width:383px) and (orientation:portrait) {
+    html { font-size: 732.4%; }
+}
+@media screen and (min-width:384px) and (max-width:399px) and (orientation:portrait) {
+    html { font-size: 750%; }
+}
+@media screen and (min-width:400px) and (max-width:413px) and (orientation:portrait) {
+    html { font-size: 781.25%; }
+}
+@media screen and (min-width:414px) and (max-width:431px) and (orientation:portrait){
+    html { font-size: 808.6%; }
+}
+@media screen and (min-width:432px) and (max-width:479px) and (orientation:portrait){
+    html { font-size: 843.75%; }
+}
+
+
+----------------------------------------
+
+
+
 
 
 
