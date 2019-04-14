@@ -1,0 +1,145 @@
+﻿1.confirm                                                         确认；确定
+2.prompt                                                          提示；提白；DOS命令
+3.condensed                                                    压缩的；浓缩的
+4.literal                                                            文字，字面
+5.positive                                                         正数
+6.finite                                                             有限的;+in表示无限的
+7.negative                                                        负数
+8.parse                                                             解析
+9.prototype                                                      原型
+10.property                                                      性质
+11.enumerable                                                 可数的，可枚举的
+12.exponential                                                 指数
+13.concat                                                         合并多个数组；连接数组；连接两个字符串
+14.slice                                                             部分；切片
+15.instance                                                       实例
+16.cancel                                                          取消
+17.attribute                                                      特性
+18.garbage collection routine                           垃圾收集程序；无用存储单元收集程序
+19.dereference                                                 废除
+20.reverse                                                        颠倒
+21.precision                                                     精密的
+22.URI                                                              Web上可用的每种资源 - HTML文档、图像、视频片段、程序等 - 
+                                                                        由一个通用资源标志符（Uniform Resource Identifier， 简称＂URI＂）进行定位。   
+                                                                        URL是URI命名机制的一个子集
+23.component                                                  组件
+24.append                                                       附加，贴上
+25.compile                                                       编译，编辑，汇编
+26.assign                                                         分配；指派
+27.navigator                                                    导航员；航海家；驾驶员
+28.agent                                                          代理商
+29.expire                                                         期满；终止
+30.abstract                                                      摘要，抽象的
+31.export                                                         输出；出口
+32.import                                                        输入
+33.extends                                                      扩展；继承
+34.implements                                                工具；执行
+35.synchronized                                                同步；线程
+36.transient                                                       短暂的；瞬态
+37.volatile [vɑlətl]                                              不稳定的；易变的
+38.initialized                                                     初始化
+39.chain                                                           链；束缚
+40.conflict                                                        冲突
+41.tutorial                                                         教程
+42.dimensions                                                   规模，大小
+43.abstract                                                        摘要，抽象的
+44.export                                                           输出；出口
+45.import                                                           输入
+46.extends                                                        扩展；继承
+47.implements                                                 工具；执行
+48.synchronized                                               同步；线程
+49.transient                                                      短暂的；瞬态
+50.volatile [vɑlətl]                                              不稳定的；易变的
+51.argument                                                    参数
+52.toggle                                                         开关；触发器
+53.opacity                                                        不透明
+54.slide         滑动；幻灯片
+55.animate    动画
+56.params     参数
+57.bold     黑体，粗体
+58.border   边界，边框
+59.anchor 锚
+60.ellipsis         省略，省略符号
+61.Contect    环境    Execute Contect Stack    执行环境栈
+62.propagation                     蔓延e.stopPropagation
+63.decoration / decorator     装饰器
+64.annotation / annotator     注解 同decorator
+65.derived                    派生
+66.GenericsType            泛型
+67.implements            实现
+68.annotation            注解
+
+
+
+
+
+custom:
+一、页面结构
+	容器：container
+	页头：header
+	内容：content/container
+	页面主体：main
+	页尾：footer
+	导航：nav
+	侧栏：sidebar
+	栏目：column
+	页面外围控制整体布局高度：wrapper
+二、导航
+	导航：nav
+	主导航：mainnav
+	子导航：subnav
+	顶导航：topnav
+	边导航：sidebar
+	左导航：leftsidebar
+	右导航：rightsidebar
+	菜单：menu
+	子菜单：submenu
+	标题：title	
+	摘要：summary
+三、功能
+	标志：logo
+	广告：banner
+	登录：login
+	登录条：loginbar
+	注册：regsiter
+	搜索：search
+	功能区：shop
+	加入：joinus
+	状态：status
+	按钮：btn
+	滚动：scroll
+	标签页：tab
+	文章列表：list	
+	提示信息：msg
+	当前的：current
+	小技巧：tips
+	图标：icon
+	注释：note
+	指南：guild
+	服务：service
+	热点：hot
+	新闻：news	
+	下载：download
+	投票：vote
+	合作伙伴：pantner
+	友情链接：friendlink
+	版权：copyright
+javascript
+	parsable: 比喻
+	console:控制台
+    declaration enviroenment record:声明上下文对象
+    evaluate：计算
+    sparse:稀疏的
+    rectangle：矩形
+    invocation:调用
+    conditional:条件
+    loop:循环
+    factorial:阶乘
+    enumerable:可枚举的
+    stack:栈
+    queue:队列
+discrete 离散的       Discrete Mathematics
+
+reconciliation   协调
+
+wrapper  封装器
