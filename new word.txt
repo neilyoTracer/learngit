@@ -143,3 +143,5 @@ discrete 离散的       Discrete Mathematics
 reconciliation   协调
 
 wrapper  封装器
+artificial 人造的
+substitutions 替代
