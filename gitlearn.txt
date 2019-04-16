@@ -6,17 +6,17 @@
 git config [--local] | [--global] | [--system] --list
 -:表示分支
 
-//day01
+#day01
 mkdir learngit
 cd learngit
-pwd  //显示当前目录
-git init //初始化repository
-ls-ah //显示隐藏文件
+pwd  #显示当前目录
+git init #初始化repository
+ls-ah #显示隐藏文件
 
-//注意：所有的版本控制系统，其实只能跟踪文本文件的改动。而图片、视频这些二进制文件，虽然也能由版本控制系统管理，但没法跟踪文件的变化。
-//Microsoft的Word格式是二进制格式，因此，版本控制系统是没法跟踪Word文件的改动的。
-//因为文本是有编码的，比如中文有常用的GBK编码，日文有Shift_JIS编码，如果没有历史遗留问题，
-//强烈建议使用标准的UTF-8编码，所有语言使用同一种编码，既没有冲突，又被所有平台所支持。
+#注意：所有的版本控制系统，其实只能跟踪文本文件的改动。而图片、视频这些二进制文件，虽然也能由版本控制系统管理，但没法跟踪文件的变化。
+#Microsoft的Word格式是二进制格式，因此，版本控制系统是没法跟踪Word文件的改动的。
+#因为文本是有编码的，比如中文有常用的GBK编码，日文有Shift_JIS编码，如果没有历史遗留问题，
+#强烈建议使用标准的UTF-8编码，所有语言使用同一种编码，既没有冲突，又被所有平台所支持。
 
 小结
 现在总结一下今天学的两点内容：
@@ -29,12 +29,12 @@ ls-ah //显示隐藏文件
 使用命令git commit -m <message>，完成。
 
 
-//day02
+#day02
 vi readme.txt
 git status
 git diff readme.txt
 git diff ./
-//可以配置比较工具
+#可以配置比较工具
 git config --global diff.tool bc3
 git config --global difftool.bc3.path "D:/works/Beyond Compare 4/BCompare.exe"
 git difftool readme.txt
@@ -49,7 +49,7 @@ y
 
 
 
-//day03
+#day03
 git log
 git log --pretty=oneline
 git reset --hard HEAD^[^^ [OR] ~100(number)]
@@ -58,8 +58,8 @@ git reset --hard 5db6f2(commit_id)
 git reflog
 git reset --hard 5db6f2a
 
-//Git的版本回退速度非常快，因为Git在内部有个指向当前版本的HEAD指针，
-//当你回退版本的时候，Git仅仅是把HEAD从指向append GPL：
+#Git的版本回退速度非常快，因为Git在内部有个指向当前版本的HEAD指针，
+#当你回退版本的时候，Git仅仅是把HEAD从指向append GPL：
 
 小结
 现在总结一下：
@@ -72,7 +72,7 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
 
 
 
-//day04
+#day04
 工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。
 
 Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，
@@ -84,7 +84,7 @@ Git的版本库里存了很多东西，其中最重要的就是称为stage（或
 
 
 
-//day05
+#day05
 git status
 vi readme.txt
 git add readme.txt
@@ -92,7 +92,7 @@ git status
 vi readme.txt
 git commit -m "git tracks changes"
 git status
-git diff HEAD -- readme.txt //和版本库中最新提交的readme.txt对比
+git diff HEAD -- readme.txt #和版本库中最新提交的readme.txt对比
 git difftool HEAD -- readme.txt
 git add readme.txt
 git commit -m "git tracks changes of files"
@@ -110,7 +110,7 @@ git diff HEAD -- readme.txt
 
 
 
-//day06
+#day06
 vi readme.txt
 git status
 git checkout -- readme.txt
@@ -118,7 +118,7 @@ cat readme.txt
 vi readme.txt
 git add readme.txt
 git status
-git reset HEAD readme.txt  //区别于版本回退，git reset --hard commit_id/HEAD^
+git reset HEAD readme.txt  #区别于版本回退，git reset --hard commit_id/HEAD^
 git checkout --readme.txt 
 git status
 
@@ -143,7 +143,7 @@ git checkout -- file命令中的--很重要，没有--，就变成了“切换�
 
 
 
-//删除文件
+#删除文件
 git add test.txt
 git commit -m "add test.txt"
 rm test.txt 
@@ -157,7 +157,7 @@ git checkout - test.txt
 另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：
 git checkout -- test.txt
 
-//注意：git rm跟git add是一样的效果，都是操作暂存区，还需要commit才能删除分支上的文件
+#注意：git rm跟git add是一样的效果，都是操作暂存区，还需要commit才能删除分支上的文件
 
 小结
 命令git rm用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，
@@ -165,7 +165,7 @@ git checkout -- test.txt
 
 
 
-//远程respository(仓库)
+#远程respository(仓库)
 
 第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：
 
@@ -180,18 +180,18 @@ $ ssh-keygen -t rsa -C "youremail@example.com"
 
 
 
-//添加远程仓库
+#添加远程仓库
 git remote add origin git@github.com:michaelliao/learngit.git
 
 如果已经存在，不准添加则
 git remote rm origin 
 再添加
 or
-//
+#
 git remote set-url origin 
 
 
-//给远程库添加多个url地址
+#给远程库添加多个url地址
 前提
 一般来说，我们为git增加远程库，一般都是
 git remote add origin <url> ( 你可以使用真实的地址来代替 \<url\> )
@@ -205,9 +205,9 @@ git remote add origin <url> ( 你可以使用真实的地址来代替 \<url\> )
 使用流程
 首先，我们从零开始， 假设你现在想要增加3个远程库地址，分别为 :
 
-\<url1\> https://git.oschina.net/shede333/swioslibary.git
-\<url2\> https://git.oschina.net/shede333/swscrollbar.git
-\<url3\> https://github.com/shede333/CoreAnimationTestSW.git
+\<url1\> https:#git.oschina.net/shede333/swioslibary.git
+\<url2\> https:#git.oschina.net/shede333/swscrollbar.git
+\<url3\> https:#github.com/shede333/CoreAnimationTestSW.git
 
 首先，先增加第一个地址 git remote add origin <url1>
 然后增加第二个地址 git remote set-url --add origin <url2>
@@ -237,14 +237,14 @@ git remote -v:显示当前所有远程库的详细信息，显示格式为 远�
 
 ---------------------
 
-本文来自 南宫木java 的CSDN 博客 ，全文地址请点击：https://blog.csdn.net/u012022003/article/details/53734730?utm_source=copy 
+本文来自 南宫木java 的CSDN 博客 ，全文地址请点击：https:#blog.csdn.net/u012022003/article/details/53734730?utm_source=copy 
 
 
 
-//从远程库克隆
+#从远程库克隆
 git clone git@github.com:neilyoTracer/gitskills.git
 
-你也许还注意到，GitHub给出的地址不止一个，还可以用https://github.com/michaelliao/gitskills.git这样的地址。实际上，Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议。
+你也许还注意到，GitHub给出的地址不止一个，还可以用https:#github.com/michaelliao/gitskills.git这样的地址。实际上，Git支持多种协议，默认的git:#使用ssh，但也可以使用https等其他协议。
 
 使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
 
@@ -253,8 +253,8 @@ git clone git@github.com:neilyoTracer/gitskills.git
 
 Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
 
-//创建与合并分支
-git branch -b dev //创建一个dev分支,并切换到这个分支上
+#创建与合并分支
+git branch -b dev #创建一个dev分支,并切换到这个分支上
 (
     git branch dev
     git checkout dev
@@ -267,7 +267,7 @@ git status
 git add .
 git commit -m "xxxx"
 git merge dev
-git branch -d dev //删除分支
+git branch -d dev #删除分支
 
 因为创建、合并和删除分支非常快，所以Git鼓励你使用分支完成某个任务，
 合并后再删掉分支，
@@ -289,7 +289,7 @@ Git鼓励大量使用分支：
 删除分支：git branch -d <name>
 
 
-//解决冲突
+#解决冲突
 git checkout -b feature1
 vi readme
 git add readme
@@ -318,7 +318,7 @@ git branch -d feature1
 
 
 
-//分支管理策略
+#分支管理策略
 git checkout -b dev
 git add readme.txt
 git commit -m "add merge"
@@ -342,7 +342,7 @@ Git分支十分强大，在团队开发中应该充分应用。
 
 
 
-//bug分支(git stash)
+#bug分支(git stash)
 git status - dev
 git stash - dev
 git checkout master - dev
@@ -359,7 +359,7 @@ git stash pop - dev
 git stash apply stash@{0}
 
 
-//注意：删除临时分支时，请处于master分支上
+#注意：删除临时分支时，请处于master分支上
 
 工作区是干净的，刚才的工作现场存到哪去了？用git stash list命令看看：
 一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
@@ -374,12 +374,15 @@ git stash apply stash@{0}
 
 
 
-//Feature分支
+#Feature分支
 git checkout -b feature-vulcan -dev
 git add vulcan.py 
 git commit -m "add feature vulcan"
 git checkout dev 
 git branch -D feature-vulcan
+
+
+git branch -r -d origin/branch-name #删除远端分支
 
 一切顺利的话，feature分支和bug分支是类似的，合并，然后删除。
 
@@ -393,4 +396,5 @@ git branch -D feature-vulcan
 开发一个新feature，最好新建一个分支；
 
 如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。
+
 
