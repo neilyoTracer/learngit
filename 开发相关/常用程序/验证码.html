@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+    <head>
+          <meta charset="UTF-8">
+          <meta name="Generator" content="EditPlus®">
+          <meta name="Author" content="">
+          <meta name="Keywords" content="">
+          <meta name="Description" content="">
+          <title>我的第一个HTML页面</title>
+     </head>
+     <body>
+          <script>
+              //1.生成所有备选字符
+              var chars=[];
+              for(var u=48;u<=57;u++){
+                    chars.push(String.fromCharCode(u));
+              }
+              for(u=97;u<=122;u++){
+                    chars.push(String.fromCharCode(u));
+              }
+              for(u=65;u<=90;u++){
+                    chars.push(String.fromCharCode(u));
+              }
+              //2.定义函数随机生成验证码
+              function getCode(){
+                   var code=[];
+                    for(var i=0;i<4;i++){
+                        var r=Math.floor(Math.random()*(61+1));
+                        code.push(chars[r]);
+                    }
+                    return code.join("");
+              }
+              var code=getCode();
+              //debugger;
+               //3.请用户反复输入验证
+               var input;
+               while((input=prompt("请输入验证码"+code)).toLowerCase()!=code.toLowerCase()){
+                    code=getCode();
+                    alert("验证码输入错误，请重新输入");
+               }
+               document.write("<h1>验证通过</h1>");
+          </script>    
+     </body>
+</html>

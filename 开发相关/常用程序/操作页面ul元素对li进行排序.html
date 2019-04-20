@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Generator" content="EditPlus®">
+        <meta name="Author" content="">
+        <meta name="Keywords" content="">
+        <meta name="Description" content="">
+        <title>我的第一个HTML页面</title>
+    </head>
+    <body>
+          <ul id="ulNames">
+               <li>smith</li>
+               <li>jerry</li>
+               <li>tom</li>
+               <li>rose</li>
+               <li>eric</li>
+               <li>lucy</li>
+          </ul>
+          <script>
+               ulNames.innerHTML="<li>"+
+               (
+                    ulNames.innerHTML
+                    .replace(/^\s*<li>|<\/li>\s*$/g,"")
+                    .split(/<\/li>\s*<li>/)
+                    .sort()
+                    .join("</li><li>")
+               )
+               +"</li>";
+               debugger;
+               //var mail="zhangdong@tedu.cn";
+
+               //var uname=;
+               //var domain=;
+          </script> 
+    </body>
+</html>

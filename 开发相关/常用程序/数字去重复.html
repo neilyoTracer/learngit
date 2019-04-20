@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Generator" content="EditPlus®">
+        <meta name="Author" content="">
+        <meta name="Keywords" content="">
+        <meta name="Description" content="">
+        <title>我的第一个HTML页面</title>
+    </head>
+    <body>
+          <script>
+               //var emps=[];//新建空数组emps
+               //while(true){
+                    //var input=prompt("请输入员工姓名");
+                    //if(input=="exit"){
+                         //break;
+                    //}
+                    //emps[emps.length]=input;
+               //}
+               //console.log(String(emps));
+     //反复输入员工姓名保存到数组中；
+               //var input;
+               //var emps=[];
+               //while((input=prompt("请输入员工姓名"))!="exit"){
+                    //emps[emps.length]=input;
+               //}
+               //console.log(String(emps));
+     //定义函数，找出一个整数数组中的最大值
+               //function max_num(arr){
+                    //var max=arr[0];
+                    //for(var i=1;i<arr.length;i++){
+                         //if(arr[i]>max){
+                             //max=arr[i];
+                         //}
+                    //}
+                    //return max;
+               //}
+               //var arr1=[3,1,6,2]
+               //console.log(max_num(arr1));
+     //定义函数，去掉数组中重复元素,算法1：笨
+               //function unique1(arr){
+                    //for(var i=0,result=[];i<arr.length;i++){
+                       //for(var j=0;j<result.length;j++){
+                            //if(result[j]==arr[i]){
+                                 //break;
+                              //}
+                         //}  
+                         //if(j==result.length){
+                            //result[result.length]=arr[i];
+                         //}
+                    //}
+                    //return result;
+               //}
+               //console.log(String(unique1([2,3,2,1,3,4,1])),
+               //String(unique1([2,2,4,5,1,1,6,2,3,3])),
+               //String(unique1([1,1,1,1,1])));
+     //定义函数，去掉数组中重复元素,算法2：牛
+               function unique2(arr){
+                    //定义一个result空数组，定义一个hash空数组，开始从arr的0下标遍历arr;
+                    for(var i=0,result=[],hash=[];i<arr.length;i++){
+                         //判断以arr的元素为下标的hash数组元素是否为空，如果为空，则赋值为true;
+                         if(hash[arr[i]]===undefined){
+                              hash[arr[i]]=true;
+                              //接下来把本次循环的arr[i]追加到result的末尾
+                              result[result.length]=arr[i];
+                         }//结束判断
+                    }//（结束循环）
+                    return result;
+               }
+               console.log(String(unique2([2,3,2,1,3,4,1])),
+               String(unique2([2,2,4,5,1,1,6,2,3,3])),
+               String(unique2([1,1,1,1,1])));
+          </script>  
+    </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body {
+      text-align: center;
+    }
+
+    #container {
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      margin: 0 auto;
+    }
+
+    #trash {
+      opacity: .3;
+    }
+  </style>
+</head>
+<body>
+<h1>拖放删除</h1>
+<img src="img/trash.png" alt="" id="trash"/>
+<hr/>
+<div id="container">
+  <img src="img/p1.png" id="p3" alt=""/>
+  <img src="img/p2.png" id="p4" alt=""/>
+  <img src="img/p3.png" id="p5" alt=""/>
+</div>
+<script>
+  //全局变量:记录被拖动的飞机是哪一个
+  //    var draggedPlane = null;//全局对象污染问题
+  /*拖动源对象可能触发的事件*/
+  var list = document.querySelectorAll('#container img');
+  for (var i = 0; i < list.length; i++) {
+    var p = list[i];//遍历每个IMG飞机元素
+    p.ondragstart = function (e) {
+//        draggedPlane = this;//记录被拖动的飞机对象
+//        console.log(e.dataTransfer);
+      //记录被拖动的飞机的id号 - 用数据传输对象
+      e.dataTransfer.setData('PlaneID',this.id);//setData设置数据
+    }
+    p.ondrag = function (e) {
+    }
+    p.ondragend = function (e) {
+    }
+  }
+
+  trash.ondragenter = function (e) {
+    this.style.opacity = '1';
+  }
+  trash.ondragover = function (e) {
+    e.preventDefault();
+  }
+  trash.ondragleave = function (e) {
+    this.style.opacity = '.3';
+  }
+  trash.ondrop = function (e) {
+    this.style.opacity = '.3';
+    //删除当前被拖动的小飞机IMG元素
+//      container.removeChild(draggedPlane);
+    //使用数据传输对象读取源对象保存的数据
+    var pid = e.dataTransfer.getData('PlaneID');
+    var p = document.getElementById(pid);
+    container.removeChild(p);
+  }
+</script>
+</body>
+</html>

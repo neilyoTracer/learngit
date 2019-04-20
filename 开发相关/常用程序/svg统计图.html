@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body {
+      text-align: center;
+    }
+    svg {
+      background: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <h1>SVG统计图</h1>
+
+  <svg id="svg1" width="800" height="500">
+    <!--坐标轴小组-->
+    <g id="gAxis" stroke="#333" fill="transparent">
+      <!--X轴-->
+      <line x1="50" y1="450" x2="750" y2="450"></line>
+      <line x1="740" y1="440" x2="750" y2="450"></line>
+      <line x1="740" y1="460" x2="750" y2="450"></line>
+      <!--Y轴-->
+      <line x1="50" y1="450" x2="50" y2="50"></line>
+      <line x1="40" y1="60" x2="50" y2="50"></line>
+      <line x1="60" y1="60" x2="50" y2="50"></line>
+    </g>
+
+    <!--定义特效对象-->
+    <defs id="effects"></defs>
+
+    <!--柱状图小组-->
+    <g id="gBar" stroke="#333"></g>
+  </svg>
+
+
+  <script src="js/jquery-1.11.3.js"></script>
+  <script>
+    $.ajax({
+      url: 'data/1.php',
+      success: function(list){
+        console.log('成功获取到服务器返回的数据')
+        console.log(list);
+        doResponse(list);
+      },
+      error: function(){
+        console.log('AJAX异步请求失败！')
+      }
+    });
+
+    function doResponse(list){
+      var w = 800;  //SVG画布的宽
+      var h = 500;  //SVG画布的高
+      //svg1.width = w;  //无效！！
+      //svg1.height = h; //无效！！
+      svg1.setAttribute('width', w);
+      svg1.setAttribute('height', h);
+
+      /*根据数据的数量，动态创建线性渐变特效对象*/
+      var html = '';
+      for(var i=0; i<list.length; i++){
+        html += `
+          <linearGradient id="g${i}" x1="0" y1="0" x2="0" y2="100%">
+            <stop stop-color="${rc(0,255)}" offset="0"></stop>
+            <stop stop-color="#fff" offset="100%" stop-opacity="0"></stop>
+          </linearGradient>
+        `;
+      }
+      effects.innerHTML = html;
+
+
+      /*遍历服务器端数据，生成HTML字符串拼接入DOM*/
+      var barWidth = (800-50*2)/(1.5*list.length+0.5);//每个柱子的宽度
+      var html = ''; //要拼接的字符串
+      $.each(list, function(i, course){
+        var w = barWidth;   //每个柱子的宽
+        var h = (500-50*2)*(course.value)/10;  //每个柱子的高
+        var x = (1.5*i+0.5)*barWidth + 50;  //每个柱子的X
+        var y = 500-50-h;  //每个柱子的Y
+        html += `
+          <rect width="${w}" height="${h}" x="${x}" y="${y}" fill="url(#g${i})"></rect>
+        `;
+      });
+      gBar.innerHTML = html;
+
+    }
+
+
+    /*random color：返回指定范围内的随机颜色*/
+    function rc(min, max){
+      var r = Math.floor(Math.random()*(max-min)+min);
+      var g = Math.floor(Math.random()*(max-min)+min);
+      var b = Math.floor(Math.random()*(max-min)+min);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+  </script>
+</body>
+</html>

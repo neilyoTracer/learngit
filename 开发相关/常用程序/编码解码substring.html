@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+    <head>
+          <meta charset="UTF-8">
+          <meta name="Generator" content="EditPlus®">
+          <meta name="Author" content="">
+          <meta name="Keywords" content="">
+          <meta name="Description" content="">
+          <title>我的第一个HTML页面</title>
+     </head>
+     <body>
+          <script>
+               var msg="今晚308，w84u";
+               function encode(msg){
+                    var code="";//创建一个空的字符串
+                    for(var i=0;i<msg.length;i++){//遍历整个字符串
+                         //获得每个字符的unicode编码
+                         var u=msg.charCodeAt(i);
+                         //判断unicode编码的长度，以最长的汉字的unicode位数为准，如果少于5位，在前边用0补齐
+                         //if(u<100) u="000"+u;
+                         //else if(u<1000) u="00"+u;
+                         //else if(u<10000) u="0"+u;
+                         //code+=u;
+                         //第二种方法：用获得的unicode编码跟10000相加
+                         //（因为汉字的unicode编码有5位,我们想要获得5位的unicode编码才好用于解码，)
+                         code+=(u+100000+"").substring(1);//这里需要注意的是把一个数字值转化成字符串，
+                                                          //根本不需要调用任何函数或函数，直接拿这个数字+""即得到数字的字符串形式
+                    }
+                    return code;
+               }
+               var encoded_msg=encode(msg);
+               console.log(encoded_msg);
+               function decode(msg){
+                    var dcode="";//声明空字符串
+                    for(var i=0;i<msg.length;i+=5){//按5位一组遍历msg字符串
+                         //用Number(u)获得当前组的字符串的unicode码保存在变量中
+                         var u=msg.substring(i,i+5);
+                         //把得到unicode码再转换成相对应的字符累加到decode中
+                         dcode+=String.fromCharCode(u);
+                    }//结束遍历
+                    return dcode;
+               }
+               var decoded_msg=decode(encoded_msg);
+               console.log(decoded_msg);
+          </script>
+          
+     </body>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Generator" content="EditPlus®">
+        <meta name="Author" content="">
+        <meta name="Keywords" content="">
+        <meta name="Description" content="">
+        <title>我的第一个HTML页面</title>
+    </head>
+    <body>
+          <script>
+               var str="床前明月光，一行白鹭上青天，日照香炉生紫烟";
+               var names=["明月",'白鹭','青天','紫烟'];
+               var reg/*对象实例*/=new RegExp/*构造函数*/(names.join("|"),"g");//这样生成的正则是动态的，因为nams.join("|")的结果取决于nams数组
+               var kws=str.match(reg);
+               console.log(kws);
+          </script>  
+    </body>
+</html>

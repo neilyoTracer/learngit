@@ -1,0 +1,44 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>事件处理</title>
+<meta charset="utf-8" />
+
+</head>
+<body>
+ 	<form>
+		姓名:<input name="username"/>
+		密码:<input type="password" name="pwd"/>
+		<input type="submit"/>
+	</form>
+  <script>
+    //将location.search转为一个对象
+    //比如: ?username=zhangdong&pwd=123456
+    //->params:{ username:"zhangdong",pwd:"123456"}
+    //访问username的值: params.username
+    function parseSearch(){
+      //获得location的search,保存在search
+      var search=location.search;
+      var obj={};//创建空对象obj
+      if(search!=""){//如果search不是""
+        //选取search中1位置后的剩余内容，按&切割，保存在splits中
+        var splits=search.slice(1).split("&");
+        //遍历splits中每个字符串
+        for(var i=0;i<splits.length;i++){
+          //将splits中当前字符串按=切割，保存在arr中
+          var arr=splits[i].split("=");
+          //为obj添加新属性，属性名为arr中0位置的元素值,属性值为arr中1位置的元素值
+          obj[arr[0]]=arr[1];
+        }//(遍历结束)
+      }
+      return obj;//返回obj
+    }
+    var params=parseSearch();
+    console.dir(params);
+    /*{
+        username:zhangdong,
+        pwd:123456
+      }*/
+  </script>
+</body>
+</html>

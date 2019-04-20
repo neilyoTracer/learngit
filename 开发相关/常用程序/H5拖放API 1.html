@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    *{
+      box-sizing: content-box;
+    }
+    #chosen{
+      width:200px;
+      padding: 10px;
+      border:1px solid #aaa;
+      margin:0 auto;
+    }
+    #listBox {
+      border:1px solid #aaa;
+      min-height: 100px;
+      text-align: center;
+      padding:20px;
+    }
+  </style>
+</head>
+<body>
+<div id="chosen">
+  <img src="img/p0.png" alt="" id="p0"/>
+</div>
+<hr/>
+<div id="listBox">
+  <img src="img/p1.png" alt="" id="p3"/>
+  <img src="img/p2.png" alt="" id="p4"/>
+  <img src="img/p3.png" alt="" id="p5"/>
+</div>
+
+<script>
+  //拖动listBox中的飞机到chosenBox上
+  //被拖动的源对象
+  var list = document.querySelectorAll('#listBox img');
+  for(var i=0;i<list.length;i++){
+    var p = list[i];//遍历每一个飞机
+    p.ondragstart = function(e){
+      e.dataTransfer.setData('PlaneID',this.id);
+    }
+    p.ondrag = function(e){}
+    p.ondragend = function(e){}
+  }
+  //被拖动的目标对象chosen
+  chosen.ondragenter = function(e){}
+  chosen.ondragover = function(e){
+    e.preventDefault();
+  }
+  chosen.ondragleave = function(e){}
+  chosen.ondrop = function(e){
+    var pid = e.dataTransfer.getData('PlaneID');
+    var p = document.getElementById(pid);
+    p0.style.display = 'none';
+    //若chosen中此时除了p0还有其他飞机,应该放回#list
+    for(var i = 0,len=this.children.length;i<len;i++){
+      var c = this.children[i];
+      if(c.id !== 'p0'){
+        listBox.appendChild(c);
+      }
+    }
+    //p只有一个,而且原来是listBox的孩子,现在转移到了chosen里了,除非p.cloneNode才会让listBox里的p不消失
+     this.appendChild(p);
+
+  }
+  //被拖动的目标对象listBox
+  listBox.ondragenter = function(e){}
+  listBox.ondragover = function(e){
+    e.preventDefault();
+  }
+  listBox.ondragleave = function(e){}
+  listBox.ondrop = function(e){
+    var pid = e.dataTransfer.getData('PlaneID');
+    var p = document.getElementById(pid);
+    this.appendChild(p);
+    p0.style.display = 'block';
+  }
+</script>
+</body>
+</html>

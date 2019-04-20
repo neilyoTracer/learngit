@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Insert a title</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <script>
+      var max=Number.MAX_VALUE;
+      console.log(max);
+      var years=max/1000/3600/24/365;
+      console.log(years);
+      var birth=new Date("1983/12/26");
+      var now=new Date();
+      var ms=now-birth;
+      var days=ms/1000/3600/24;
+      console.log(days);
+
+      var now=new Date();
+      var target=new Date("2017/01/28");
+      var s=parseInt((target-now)/1000);
+      var days=parseInt(s/3600/24);
+      var hs=parseInt(s/3600%24);
+      var ms=parseInt(s/60%60);
+      var ss=s%60;
+      document.write(`距新年还有${days}天${hs}小时${ms}分${ss}秒`);
+    </script>
+  </body>
+</html>

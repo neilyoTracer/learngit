@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<h1>H5标准出现之后使用SVG标签</h1>
+<svg width="500" height="400" id="s1">
+  <g id="effects">
+
+  </g>
+  <g fill="transparent" stroke="#333" stroke-linejoin="round" alignment-baseline="baseline">
+    <polyline points="45,55 50,50 55,55 50,50 50,350 450,350 445,345 450,350 445,355"></polyline>
+    <text x="32" y="50">10</text>
+    <text x="40" y="110">8</text>
+    <text x="40" y="170">6</text>
+    <text x="40" y="230">4</text>
+    <text x="40" y="290">2</text>
+    <text x="40" y="350">0</text>
+  </g>
+  <g id="g1" stroke="#aaa">
+
+  </g>
+
+</svg>
+<script src="js/jquery-1.11.3.js"></script>
+<script>
+  $.ajax({
+    url: 'data/1.php',
+    success: function (data) {
+      doData(data);
+    }
+  })
+  function doData(data) {
+    for (var i = 0, html = '', htmlEffects = ''; i < data.length; i++) {
+      var tech = data[i];
+      var jg = 20;
+      var w = (400 - 20 * 7) / data.length;
+      var h = 300 * tech.value / 10;
+      var x = 50 + jg / 2 + i * (jg + w);
+      var y = 350 - h;
+      html += `<rect width="${w}" height="${h}" x="${x}" y="${y}" style="fill:url(#g${i})"></rect>`
+      html += `<text font-size="12" font-family="microsoft YaHei" alignment-baseline="before-edge" x="${x + 5}" y="${y + h}">${tech.label}</text>`
+      html += `<text font-size="12" font-family="microsoft YaHei" alignment-baseline="before-edge" x="${x + 15}" y="${y - 20}">${tech.value}</text>`
+      htmlEffects += `
+        <linearGradient id="g${i}" x1="0" y1="0" x2="0" y2="100%">
+          <stop offset="0" stop-color="${rc()}"></stop>
+          <stop offset="1" stop-color="#aaa" stop-opacity="0"></stop>
+        </linearGradient>
+        `;
+    }
+    $('#g1').html(html);
+    $('#effects').html(htmlEffects);
+  }
+  $('#s1').on('mouseenter','#g1 rect', function(){
+    $(this).attr('stroke','#333');
+  })
+  $('#s1').on('mouseleave','#g1 rect', function(){
+    $(this).attr('stroke','#aaa');
+  })
+  function rc() {
+    var r = Math.floor(Math.random() * 256)
+    var g = Math.floor(Math.random() * 256)
+    var b = Math.floor(Math.random() * 256)
+    return `rgb(${r},${g},${b})`
+  }
+</script>
+</body>
+</html>

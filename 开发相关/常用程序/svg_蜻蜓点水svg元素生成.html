@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body {
+      text-align: center;
+    }
+
+    /*svg {*/
+      /*background: #e0e0e0;*/
+      /*/!*width: 500px;*!/*/
+      /*/!*height:400px;*!/*/
+    /*}*/
+  </style>
+</head>
+<body>
+<svg id="svg" width="500" height="400">
+  <!--<circle id="c1" r="100" cx="250" cy="200" fill="#00f" stroke="#f00" stroke-width="10"></circle>-->
+</svg>
+<script src="js/jquery-1.11.3.js"></script>
+<script>
+  //  var cx = 0;
+  //  var cxDir = 1;
+  //  setInterval(function(){
+  //    cx = parseFloat(c1.getAttribute('cx'));
+  //    cx += 5*cxDir;
+  //    c1.setAttribute('cx',cx);
+  //    if(cx>=400) cxDir = -1;
+  //    else if(cx<=100) cxDir = 1;
+  //  },50)
+  function rc() {
+    var r = Math.floor(Math.random() * 256);
+    var g = Math.floor(Math.random() * 256);
+    var b = Math.floor(Math.random() * 256);
+    return `rgb(${r},${g},${b})`;
+  }
+  function rn(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+  for (var i = 0; i < 30; i++) {
+    var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('r', rn(10, 40));
+    c.setAttribute('fill', rc());
+    c.setAttribute('fill-opacity', 1);
+    c.setAttribute('cx', rn(0, 500));
+    c.setAttribute('cy', rn(0, 400));
+    c.animating = false;
+    svg.appendChild(c);
+  }
+  svg.addEventListener('click', function (e) {
+    var tar = e.target;
+    if (tar.nodeName === 'circle') {
+      if (!tar.animating) {
+        tar.animating = true;
+        var timer = setInterval(function () {
+          var r = parseFloat(tar.getAttribute('r'));
+          var a = parseFloat(tar.getAttribute('fill-opacity'));
+          //        console.log(a);
+          r += 2;
+          a -= 0.05;
+          tar.setAttribute('r', r);
+          tar.setAttribute('fill-opacity', a);
+          if (a <= 0.05) {
+            clearInterval(timer);
+            timer = null;
+            svg.removeChild(tar);
+          }
+        }, 50)
+      }
+    }
+  })
+</script>
+</body>
+</html>

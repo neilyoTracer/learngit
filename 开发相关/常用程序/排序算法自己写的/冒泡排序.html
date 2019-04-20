@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+    <head>
+          <meta charset="UTF-8">
+          <meta name="Generator" content="EditPlus®">
+          <meta name="Author" content="">
+          <meta name="Keywords" content="">
+          <meta name="Description" content="">
+          <title>我的第一个HTML页面</title>
+     </head>
+     <body>
+          <script>
+               //冒泡排序法
+               function bubbling(arr){
+                    
+                    /*定义外层循环，完成整个排序过程需要经历数组元素个数-1次排序
+                    定义i从1次开始，循环数组的元素个数-1次*/
+                    for(var i=1;i<=arr.length-1;i++){
+                         //定义内层循环j从arr数组下标0开始，循环数组个数-i次
+                         for(var j=0;j<arr.length-i;j++){
+                              //两两比较下标为j和j+1的元素大小，如果发现arr[j]>arr[j+1]，交换以j和j+1为下标的两个相邻元素
+                              if(arr[j]>arr[j+1]){
+                                   //arr[j]^=arr[j+1];
+                                   //arr[j+1]^=arr[j];
+                                   //arr[j]^=arr[j+1];这种交换只支持数字值
+                                   arr[j]=[arr[j+1],arr[j+1]=arr[j]][0];//a=[b,b=a][0],这种支持数字和字符串
+                              }
+                         }//结束内层循环
+                    }//外层循环结束
+                    console.log(String(arr));
+               }
+               bubbling([9,6,5,3,7,2,10,1,2,3,4,5,7]);
+               bubbling(['George','William','James','Scott','Rose']);
+          </script>    
+     </body>
+</html>

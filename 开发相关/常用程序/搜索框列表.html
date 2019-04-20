@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AJAXdangdang网系统</title>
+    <style>
+        ul{
+            width:150px;
+            list-style:none;
+            margin:0;padding:0;
+            display:none;
+            border:1px solid #aaa;
+        }
+        ul>li{
+            cursor:pointer;padding:0;
+        }
+        ul>li:hover{
+            background:#E5DA5C;
+        }
+        .clear:after{
+            content:"";display:block;
+            clear:both;
+        }
+        :focus{
+            outline:0;
+        }
+    </style>
+</head>
+<body>
+    <h1>搜索图书</h1>
+    <form action="#" method="post"  autocomplete="off">
+        <input type="text" name="name"  autocomplete="off">
+        <ul id="books"></ul>
+    </form>
+    <script>
+        var form=document.forms[0];
+//        form.name.onfocus=function(e){
+//            e.preventDefault();
+//        }
+        form.name.onkeyup=function(e){
+            var reg=/^\s+.*|.*\s+$/;
+            var me=this;
+            if(me.value==""||reg.test(me.value)){//1.第一种隐藏ul的情况
+                me.nextElementSibling.style.display='none';
+                me.nextElementSibling.innerHTML="";
+                return;
+            }
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange=function(){
+                if(this.readyState==4&&this.status==200){
+                    var html=this.responseText;
+                    if(/*html!="name required"&&*/html!="empty"){
+                            //上面注释部分不需要了,是因为oninput事件结束时me.value
+                            //如果等于"",则不会创建xhr对象,也就不会发请求
+                        me.nextElementSibling.style.display='block';
+                        me.nextElementSibling.innerHTML=html;
+                    }else{//2.第二种
+                        me.nextElementSibling.style.display='none';
+                        me.nextElementSibling.innerHTML="";
+                    }
+                }
+            }
+                xhr.open("GET","book_search.php?name="+me.value,true);
+                xhr.send(null);
+        }
+        document.body.onclick=function(e){//3.第三种
+            console.log("你点击了body;");//这里body很短所以点上面一点
+            form.lastElementChild.innerHTML="";
+            form.lastElementChild.style.display="none";
+        }
+        form.name.nextElementSibling.addEventListener("click",function(e){
+            var tar= e.target;
+            if(tar.nodeName=="LI"){
+                this.previousElementSibling.value=tar.innerHTML;
+                this.innerHTML="";
+                this.style.display="none";
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Generator" content="EditPlus®">
+        <meta name="Author" content="">
+        <meta name="Keywords" content="">
+        <meta name="Description" content="">
+        <title>我的第一个HTML页面</title>
+    </head>
+    <body>
+          <script>
+          var reg=/^\d{6}$/;//从头到位只能是\d{6}
+          while(!reg.test(prompt("输入密码"))){
+               alert("密码格式不符");
+          }
+          document.write("<h1>验证通过</h1>");
+          </script>  
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Insert a title</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <script>
+      function format(date){
+        //定义数组week:["日","一",...,"六"]
+        var week=['日','一','二','三','四','五','六'];
+        //获得当前时间now
+        var now=new Date();
+        //获得now的年保存在y
+        var y=now.getFullYear();
+        //获得now的月+1后保存在M中
+        var M=now.getMonth()+1;
+        //如果M<10，就改为0+M
+        if(M<10) M='0'+M;
+        //获得now的日保存在d
+        var d=now.getDate();
+        //如果d<10，就改为0+d
+          if(d<10) d='0'+d;
+        //获得now的星期保存在day中
+        var day=now.getDay();
+        //获得week中day位置的字保存回day中
+        day=week[day];
+        //获得now的小时h
+        var h=now.getHours();
+        //声明变量am赋值为:
+         //如果h<12，就赋值为上午，否则为下午
+         var am=h<12?'上午':'下午';
+        //如果h>12,就改为h-12
+        h=h>12?h-12:h;
+        //如果h<10,就改为0+h
+        if(h<10) h='0'+h;
+        //获得now的分钟m
+        var m=now.getMinutes();
+        //如果m<10，就改为0+m
+        if(m<10) m='0'+m;
+        //返回 y年M月d日 星期day amh:m
+        return `${y}年${M}月${d}日 星期${day} ${am}${h}:${m}`;
+      }//2017年01月03日 星期二 下午5:40
+      console.log(format(new Date()));
+    </script>
+  </body>
+</html>

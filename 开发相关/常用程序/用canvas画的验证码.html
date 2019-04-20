@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<h1>使用Canvas在客户端绘制验证码图片</h1>
+
+<p>注意:真实项目中验证码都是用服务器端程序(PHP)来绘制</p>
+
+<p>此练习仅做函数练习示例</p>
+
+<canvas id="c1"></canvas>
+<script>
+  var w = 150;
+  var h = 30;
+  c1.width = w;
+  c1.height = h;
+
+  var ctx = c1.getContext('2d');
+
+  //1.填充一个矩形,作为背景颜色
+  ctx.fillStyle = rc(180,230);
+  ctx.fillRect(0,0,w,h);
+  //2.绘制5个随机文字
+  var pool = 'ABCDEFGHJKLMNPQRSTUVWXY3456789';
+  for(var i =0; i<5;i++){
+    var txt = pool[rn(0,pool.length)];
+
+    var fontSize = rn(12,30);
+    ctx.font = fontSize + 'px SimHei';
+//    console.log(ctx.measureText(txt).width);
+//    console.log(fontSize);
+    var color = rc(80,180);
+    ctx.fillStyle = color;
+    ctx.textBaseline = 'top';
+    ctx.save();
+    ctx.translate(30*i+30/2,30/2);
+    ctx.rotate(rn(-45,45)*Math.PI/180);
+    var x = -ctx.measureText(txt).width/2;
+    var y = -fontSize/2;
+    ctx.fillText(txt,x,y);
+    ctx.restore();
+  }
+  //3.绘制6条干扰直线
+  for(var i =0;i<6;i++){
+    ctx.beginPath();
+    var x1 = rn(0,w);
+    var y1 = rn(0,h);
+    ctx.moveTo(x1,y1);
+    var x2 = rn(0,w);
+    var y2 = rn(0,h);
+    ctx.lineTo(x2,y2);
+
+    ctx.strokeStyle = rc(0,255);
+    ctx.stroke();
+  }
+  //4.绘制30个干扰点
+  for(var i =0 ;i<30;i++){
+    ctx.beginPath();
+    var x = rn(0,w);
+    var y = rn(0,h);
+    ctx.arc(x,y,1,0,2*Math.PI);
+    ctx.fillStyle = rc(0,255);
+    ctx.fill();
+  }
+  /*random number取范围随机数*/
+  function rn(min,max){
+    return Math.floor(Math.random()*(max-min)+min)
+  }
+  /*random color取范围随机颜色*/
+  function rc(min,max){
+    var r = Math.floor(Math.random()*(max-min)+min);
+    var g = Math.floor(Math.random()*(max-min)+min);
+    var b = Math.floor(Math.random()*(max-min)+min);
+    return `rgb(${r},${g},${b})`
+  }
+</script>
+</body>
+</html>

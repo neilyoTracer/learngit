@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Insert a title</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <script>
+      function bubbleSort(arr){
+        //外层循环控制轮数r
+        for(var r=1;r<arr.length;r++){
+          //内层循环控制遍历每个元素的i
+          for(var i=0;i<arr.length-r;i++){
+            //如果arr中i位置的值>i+1位置的值
+            if(arr[i]>arr[i+1]){
+              //交换arr中i位置和i+1位置的值
+              arr[i]=
+                [arr[i+1],arr[i+1]=arr[i]][0];
+              //a=[b,b=a][0];
+            }
+          }
+        }
+      }
+      var arr1=
+        ["tom","jerry","rose","jack","scott","eric","smith"];
+      var arr2=[3,1,7,4,2,5,6];
+      var arr3=[3,12,23,123,2,1];
+              //1,2,3,12,23,123
+      //bubbleSort(arr3);
+      //定义升序比较器函数
+      function cmpASC(a,b){return a-b;}
+      function cmpDESC(a,b){return b-a;}
+      //将比较器函数传入sort中
+      arr3.sort(cmpASC);
+      console.log(String(arr3));
+      //[1,2,3,4,5,6,7]
+      arr3.reverse();
+      console.log(String(arr3));
+    </script>
+  </body>
+</html>

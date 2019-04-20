@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Insert a title</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <script>
+      //1~33之间随机生成6个不重复的整数红球
+      //1~16之间随机生成1个蓝球
+      function doubleball(){
+        var reds=[]//声明空数组reds
+        //反复: 只要reds中少于6个球
+        while(reds.length<6){
+          //在1~33之间生成一个随机整数r
+          var r=Math.floor(Math.random()*33+1);
+          //遍历reds
+          for(var i=0;i<reds.length;i++){
+            //如果reds中当前元素等于r
+            if(reds[i]==r) break;//退出循环
+          }
+          //如果i等于reds的元素个数,将r压入reds中
+          if(i==reds.length) reds.push(r);
+        }//(循环结束)
+        //将reds按数字升序排列
+        reds.sort((a,b)=>a-b);
+        //在1~16之间随机生成一个整数b
+        var b=Math.floor(Math.random()*16+1);
+        //返回reds转为字符串，拼上|, 拼上b
+        return String(reds)+" | "+b;
+      }
+      document.write(doubleball()+"<br>");
+      document.write(doubleball()+"<br>");
+      document.write(doubleball()+"<br>");
+      document.write(doubleball()+"<br>");
+      document.write(doubleball()+"<br>");
+    </script>
+  </body>
+</html>

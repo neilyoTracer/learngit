@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body{
+      text-align: center;
+    }
+    canvas{
+      background: #ccc;
+      /*使用CSS指定画布的宽和高是对画布进行缩放*/
+      /*width: 800px;*/
+      /*height: 600px;*/
+    }
+  </style>
+</head>
+<body>
+  <h3>使用Canvas绘制统计图</h3>
+  <canvas id="c2" width="800" height="600"></canvas>
+  <script src="js/jquery-1.11.3.js"></script>
+  <script>
+    var ctx=c2.getContext("2d");
+//    ctx.fillRect(0,0,50,50);
+    ctx.strokeRect(50,50,700,500);
+    //使用ajax异步请求服务器端的JSON接口数据
+    $.ajax({
+      url:"data/2.php",
+      success:function(list){
+//        console.dir(list);
+        doResponse(list);
+      },
+      error:function(){
+
+      }
+    })
+    function doResponse(list){
+      var count=list.length;
+      var barWidth=700/(2*count+1);
+      for(var i=0;i<list.length;i++){
+        var dept=list[i];
+        var w = barWidth;
+        var h = dept.value;
+        var x = (2*i+1)*barWidth+50;
+        var y = 600-50-h;
+        //绘制矩形轮廓
+        ctx.strokeRect(x,y,w,h);
+        ctx.textBaseline='top';
+
+        //填充矩形内容
+        var g=ctx.createLinearGradient(x,y,x,y+h);
+        g.addColorStop(0,rc());
+        g.addColorStop(1,'#fff');
+        ctx.fillStyle=g;
+        ctx.fillRect(x,y,w,h);
+        ctx.font='bold 16px microsoft YaHei';
+        ctx.fillText(dept.label,x,y+h);
+        ctx.fillText(dept.value,x,y-20);
+      }
+    }
+    //random color:返回一个随机的颜色
+    function rc(){
+      var r = Math.floor(Math.random()*256);
+      var g = Math.floor(Math.random()*256);
+      var b = Math.floor(Math.random()*256);
+      return `rgb(${r},${g},${b})`;
+    }
+  </script>
+</body>
+</html>

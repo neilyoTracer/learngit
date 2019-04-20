@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+    <head>
+          <meta charset="UTF-8">
+          <meta name="Generator" content="EditPlus®">
+          <meta name="Author" content="">
+          <meta name="Keywords" content="">
+          <meta name="Description" content="">
+          <title>我的第一个HTML页面</title>
+     </head>
+     <body>
+     <script>
+     //另外一个版本
+       //function getNum(max,min,n){
+      //for(var i=0,arr=[],res=[];i<n;i++){
+           //var run=Math.floor(Math.random()*(max-min+1)+min);
+           //arr.push(run);
+           //if(res.indexOf(arr[i])==-1){
+               //res.push(arr[i]);
+           //}else{
+               //arr.pop();
+               //i--;
+            //}
+       //}
+        //return res;
+    //}
+//var arrres=getNum(10,10,1);
+//console.log(arrres);
+    //自己写的
+    function ran(min,max,n){
+                    var arr=[];//创建空数组arr
+                    while(arr.length<n){//反复：如果arr中元素个数小于n
+                         var r=Math.floor(Math.random()*(max-min+1)+min);//在min到max之间生成一个随机数r
+                         for(var i=0;i<arr.length;i++){//遍历arr
+                              if(arr[i]==r) break;//如果arr中当前元素=r则结束遍历
+                         }
+                         //判断i是否等于arr.length，如果等于
+                         if(i==arr.length) arr.push(r);//则将r压入到arr中
+                    }//结束循环
+                    arr.sort((a,b)=>a-b);//对arr进行排序
+                    return String(arr);
+              }
+               document.write(ran(9,15,3)+"<br>");
+               document.write(ran(1,20,3)+"<br>");
+               document.write(ran(10,20,5)+"<br>");
+               document.write(ran(10,100,3)+"<br>");
+               document.write(ran(10,20,3)+"<br>");
+</script>
+     </body>
+</html>
