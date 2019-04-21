@@ -1,4 +1,4 @@
-﻿1.confirm                                                         确认；确定
+1.confirm                                                         确认；确定
 2.prompt                                                          提示；提白；DOS命令
 3.condensed                                                    压缩的；浓缩的
 4.literal                                                            文字，字面
@@ -146,3 +146,4 @@ wrapper  封装器
 artificial 人造的
 substitutions 替代
 Invoke method  调用方法
+encapsulates 将...封装进内部

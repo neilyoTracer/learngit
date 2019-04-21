@@ -1,17 +1,17 @@
-¿ª·¢Ìî¿ÓÊÖ²á
+å¼€å‘å¡«å‘æ‰‹å†Œ
 
-1.ng build --aot Ö»´ò°ü²»Ñ¹Ëõ ÓÃÀ´¼ì²éÏßÉÏ±¨´í
-2.http://localhost:4200/null ±¨´í,¼ì²éÍ¼Æ¬ÊÇ·ñÓÐÄ¬ÈÏÂ·¾¶£¨Î´ÕÒµ½×ÊÔ´ºóµÄÄ¬ÈÏÂ·¾¶£©
-3.nz-select ±ØÐëÔÚformControl»òÕßngModelÖ¸ÁîÊ±²Å»á´¥·¢ngModelChange
-4.ERROR Error: Uncaught (in promise): Error: StaticInjectorError(Webapp AppModule)[InjectionToken nz-i18n] - ´Ë´íÎóÊÇÒòÎªÎ´ÔÚ¸ùÄ£¿éµ¼Èëng-zorro»òµ¼ÈëºóÎ´ÕýÈ·°´¹ÙÍøÅäÖÃi18nÁîÅÆ
+1.ng build --aot åªæ‰“åŒ…ä¸åŽ‹ç¼© ç”¨æ¥æ£€æŸ¥çº¿ä¸ŠæŠ¥é”™
+2.http://localhost:4200/null æŠ¥é”™,æ£€æŸ¥å›¾ç‰‡æ˜¯å¦æœ‰é»˜è®¤è·¯å¾„ï¼ˆæœªæ‰¾åˆ°èµ„æºåŽçš„é»˜è®¤è·¯å¾„ï¼‰
+3.nz-select å¿…é¡»åœ¨formControlæˆ–è€…ngModelæŒ‡ä»¤æ—¶æ‰ä¼šè§¦å‘ngModelChange
+4.ERROR Error: Uncaught (in promise): Error: StaticInjectorError(Webapp AppModule)[InjectionToken nz-i18n] - æ­¤é”™è¯¯æ˜¯å› ä¸ºæœªåœ¨æ ¹æ¨¡å—å¯¼å…¥ng-zorroæˆ–å¯¼å…¥åŽæœªæ­£ç¡®æŒ‰å®˜ç½‘é…ç½®i18nä»¤ç‰Œ
 ----
-5.¶Ë¿Ú±»Õ¼ÓÃ
-Microsoft Windows [°æ±¾ 10.0.17763.379]
-(c) 2018 Microsoft Corporation¡£±£ÁôËùÓÐÈ¨Àû¡£
+5.ç«¯å£è¢«å ç”¨
+Microsoft Windows [ç‰ˆæœ¬ 10.0.17763.379]
+(c) 2018 Microsoft Corporationã€‚ä¿ç•™æ‰€æœ‰æƒåˆ©ã€‚
 
 C:\WINDOWS\system32>fuser
-'fuser' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËÐÐµÄ³ÌÐò
-»òÅú´¦ÀíÎÄ¼þ¡£
+'fuser' ä¸æ˜¯å†…éƒ¨æˆ–å¤–éƒ¨å‘½ä»¤ï¼Œä¹Ÿä¸æ˜¯å¯è¿è¡Œçš„ç¨‹åº
+æˆ–æ‰¹å¤„ç†æ–‡ä»¶ã€‚
 
 C:\WINDOWS\system32>netstat -aon|findstr "8080"
 
@@ -27,11 +27,11 @@ C:\WINDOWS\system32>tasklist|findstr "5368"
 TransHost.exe                 5368 Services                   0      5,040 K
 
 C:\WINDOWS\system32>kill
-'kill' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËÐÐµÄ³ÌÐò
-»òÅú´¦ÀíÎÄ¼þ¡£
+'kill' ä¸æ˜¯å†…éƒ¨æˆ–å¤–éƒ¨å‘½ä»¤ï¼Œä¹Ÿä¸æ˜¯å¯è¿è¡Œçš„ç¨‹åº
+æˆ–æ‰¹å¤„ç†æ–‡ä»¶ã€‚
 
 C:\WINDOWS\system32>taskkill /pid 5368 /f
-³É¹¦: ÒÑÖÕÖ¹ PID Îª 5368 µÄ½ø³Ì¡£
+æˆåŠŸ: å·²ç»ˆæ­¢ PID ä¸º 5368 çš„è¿›ç¨‹ã€‚
 
 C:\WINDOWS\system32>tasklist|findstr "14512"
 
@@ -43,84 +43,84 @@ C:\WINDOWS\system32>
 
 ----
 
-6.Can't resolve all parameters for ConfirmComponent: ([object Object], ?, [object Object])ÀàËÆ±¨´í½â¾ö·½·¨
+6.Can't resolve all parameters for ConfirmComponent: ([object Object], ?, [object Object])ç±»ä¼¼æŠ¥é”™è§£å†³æ–¹æ³•
 constructor(@Inject(forwardRef(() => MobileService)) public ms: MobileService) {
    console.log(ms);
 }
 
-½«@inject£¨forwardRef£¨£¨£©=>MobileService£©£©Ìí¼Óµ½Ô­Ê¼ÎÊÌâÔ´´úÂëÖÐ¹¹Ôìº¯ÊýµÄ²ÎÊý½«½â¾ö´ËÎÊÌâ¡£
+å°†@injectï¼ˆforwardRefï¼ˆï¼ˆï¼‰=>MobileServiceï¼‰ï¼‰æ·»åŠ åˆ°åŽŸå§‹é—®é¢˜æºä»£ç ä¸­æž„é€ å‡½æ•°çš„å‚æ•°å°†è§£å†³æ­¤é—®é¢˜ã€‚
 
-7.µ±Ê¼ÖÕÓöµ½git´úÂë¿âÈ¨ÏÞÎÊÌâÊ±,Ê¹ÓÃ
-git credential-manager uninstall #½â¾öÈ¨ÏÞ³åÍ»ÎÊÌâ
-git config --global credential.helper store #½â¾öÃ¿´ÎÀ­´úÂë¶¼ÐèÒªÊäÈëÃÜÂë
+7.å½“å§‹ç»ˆé‡åˆ°gitä»£ç åº“æƒé™é—®é¢˜æ—¶,ä½¿ç”¨
+git credential-manager uninstall #è§£å†³æƒé™å†²çªé—®é¢˜
+git config --global credential.helper store #è§£å†³æ¯æ¬¡æ‹‰ä»£ç éƒ½éœ€è¦è¾“å…¥å¯†ç 
 
 
 -----------------
 
-8.ÆÕÍ¨script±êÇ©ÊÇ¿ÉÒÔ¼ÓÔØ¿çÓò½Å±¾µÄ,µ«Èç¹û¸ø¿çÓòscript±êÇ©Ìí¼ÓÁËcrossoriginÊôÐÔ
-(ÇÒ·þÎñÆ÷¶ËÃ»ÓÐÉèÖÃAccess-Control-Allow-OriginÏìÓ¦Í·)¾Í»á³öÏÖÈçÏÂ´íÎó:
+8.æ™®é€šscriptæ ‡ç­¾æ˜¯å¯ä»¥åŠ è½½è·¨åŸŸè„šæœ¬çš„,ä½†å¦‚æžœç»™è·¨åŸŸscriptæ ‡ç­¾æ·»åŠ äº†crossoriginå±žæ€§
+(ä¸”æœåŠ¡å™¨ç«¯æ²¡æœ‰è®¾ç½®Access-Control-Allow-Originå“åº”å¤´)å°±ä¼šå‡ºçŽ°å¦‚ä¸‹é”™è¯¯:
 Access to Script at 'http://127.0.0.1:8081/index.js' from origin 'http://127.0.0.1:8081' has been blocked by CORS(cross origin resource sharing) policy:
 No 'Access-Control-Allow-Origin' header is present on the requested resource.
 Origin 'http://127.0.0.1:8081' is therefore not allowed access 
 
 --------------------------
 
-9.react ×é¼þ·µ»ØÖ»ÄÜÓÐÒ»¸ö¸ùÔªËØ¡£ÕâÒ²ÊÇÎÒÃÇÒªÓÃÒ»¸ö<div>À´°ü¹üËùÓÐ<Welcome />ÔªËØµÄÔ­Òò¡£
+9.react ç»„ä»¶è¿”å›žåªèƒ½æœ‰ä¸€ä¸ªæ ¹å…ƒç´ ã€‚è¿™ä¹Ÿæ˜¯æˆ‘ä»¬è¦ç”¨ä¸€ä¸ª<div>æ¥åŒ…è£¹æ‰€æœ‰<Welcome />å…ƒç´ çš„åŽŸå› ã€‚
 
 --------------------------
 
 
-10.git dist Ä¿Â¼ÅÅ³ý²»ÁË
-ÎÊÌâÃèÊö
-ÔÚÓÐµÄÏîÄ¿ÖÐ£¬ÐèÒªÅÅ³ý dist Ä¿Â¼²»±» git ¹ÜÀí£¬
-Ò»°ã¶¼ÊÇÔÚ .gitignore ÎÄ¼þ Ìí¼Ó ¡®dist/¡¯;µ«ÊÇÓÐµÄÊ±ºò·¢ÏÖÃ»ÓÃ¡£
+10.git dist ç›®å½•æŽ’é™¤ä¸äº†
+é—®é¢˜æè¿°
+åœ¨æœ‰çš„é¡¹ç›®ä¸­ï¼Œéœ€è¦æŽ’é™¤ dist ç›®å½•ä¸è¢« git ç®¡ç†ï¼Œ
+ä¸€èˆ¬éƒ½æ˜¯åœ¨ .gitignore æ–‡ä»¶ æ·»åŠ  â€˜dist/â€™;ä½†æ˜¯æœ‰çš„æ—¶å€™å‘çŽ°æ²¡ç”¨ã€‚
 
-½â¾ö·½°¸
-Ô­ÒòÊÇÊ×´ÎÌá½»¿ÉÄÜ¾Í½« dist Ôö¼Óµ½ÁË git ²Ö¿â£¬
-ËùÒÔ¼ì²éÏÂ git ²Ö¿âÈç¹ûÓÐ dist Ä¿Â¼£¬È»ºó½« git²Ö¿âµÄ dist Ä¿Â¼É¾³ý£¬
-ÔÙ pull ±¾µØºÏ²¢£¬×îºó dist Ä¿Â¼¾ÍÅÅ³ýÁË¹ÜÀí
+è§£å†³æ–¹æ¡ˆ
+åŽŸå› æ˜¯é¦–æ¬¡æäº¤å¯èƒ½å°±å°† dist å¢žåŠ åˆ°äº† git ä»“åº“ï¼Œ
+æ‰€ä»¥æ£€æŸ¥ä¸‹ git ä»“åº“å¦‚æžœæœ‰ dist ç›®å½•ï¼Œç„¶åŽå°† gitä»“åº“çš„ dist ç›®å½•åˆ é™¤ï¼Œ
+å† pull æœ¬åœ°åˆå¹¶ï¼Œæœ€åŽ dist ç›®å½•å°±æŽ’é™¤äº†ç®¡ç†
 
 
 --------------------- 
 
-11.¹ØÓÚindex.xxx¼¯ÖÐµ¼³ö±¾Ä¿Â¼ÎÄ¼þµÄÎÊÌâ:
-Èç¹ûÓÃÁËindex.xxx¼¯ÖÐµ¼³ö±¾Ä¿Â¼µÄÎÄ¼þ£¬ÎÄ¼þÀïµÄÎÄ¼þ²»ÄÜÈç¹ûÓÐ»¥ÏàÒÀÀµ£¬¾Í²»ÄÜÔÙÊ¹ÓÃindexµÄÂ·¾¶ÁË£¬²»È»»áÔì³Ébug
+11.å…³äºŽindex.xxxé›†ä¸­å¯¼å‡ºæœ¬ç›®å½•æ–‡ä»¶çš„é—®é¢˜:
+å¦‚æžœç”¨äº†index.xxxé›†ä¸­å¯¼å‡ºæœ¬ç›®å½•çš„æ–‡ä»¶ï¼Œæ–‡ä»¶é‡Œçš„æ–‡ä»¶ä¸èƒ½å¦‚æžœæœ‰äº’ç›¸ä¾èµ–ï¼Œå°±ä¸èƒ½å†ä½¿ç”¨indexçš„è·¯å¾„äº†ï¼Œä¸ç„¶ä¼šé€ æˆbug
 
 ----------------------
 
 
-12.¹ØÓÚ ExpressionChangedAfterItHasBeenCheckedError
+12.å…³äºŽ ExpressionChangedAfterItHasBeenCheckedError
 
-Ò»°ãÔÙdom¸üÐÂÖ®Ç°¸Ä×é¼þ°ó¶¨µÄÊý¾Ý²»»á³öÕâ¸ö´íÎó£¬±ÈÈçngOninitÀï¸Ä£¬µ«ÔÙdom¸üÐÂÖ®ºóÔÙ¸ÄÖµ¾Í»á³öÎÊÌâ£¬±ÈÈçngAfterViewInitÀï¸Ädom°ó¶¨Êý¾Ý
-ÕâÊ±ºòÓÃsetTimeoutÀ´½â¾öÎÊÌâ
+ä¸€èˆ¬å†domæ›´æ–°ä¹‹å‰æ”¹ç»„ä»¶ç»‘å®šçš„æ•°æ®ä¸ä¼šå‡ºè¿™ä¸ªé”™è¯¯ï¼Œæ¯”å¦‚ngOninité‡Œæ”¹ï¼Œä½†å†domæ›´æ–°ä¹‹åŽå†æ”¹å€¼å°±ä¼šå‡ºé—®é¢˜ï¼Œæ¯”å¦‚ngAfterViewInité‡Œæ”¹domç»‘å®šæ•°æ®
+è¿™æ—¶å€™ç”¨setTimeoutæ¥è§£å†³é—®é¢˜
 
 
 ----------------------
 
 
-13.¹ØÓÚrem×öÊÊÅä
+13.å…³äºŽremåšé€‚é…
 
-ÓÐÊ±ÎÒÃÇ»á¿´µ½ÓÐÐ©Ê¹ÓÃremµÄÒ³ÃæÀï»áÏÈ¸øÒ³Ãæ¸ùÔªËØÒ»¸öÑùÊ½£º
+æœ‰æ—¶æˆ‘ä»¬ä¼šçœ‹åˆ°æœ‰äº›ä½¿ç”¨remçš„é¡µé¢é‡Œä¼šå…ˆç»™é¡µé¢æ ¹å…ƒç´ ä¸€ä¸ªæ ·å¼ï¼š
 
-html {font-size: 62.5%; /*10 ¡Â 16 ¡Á 100% = 62.5%*/}
-ÎªÊ²Ã´ÊÇ62.5%£¿
+html {font-size: 62.5%; /*10 Ã· 16 Ã— 100% = 62.5%*/}
+ä¸ºä»€ä¹ˆæ˜¯62.5%ï¼Ÿ
 
-´ó¶àÊýä¯ÀÀÆ÷µÄÄ¬ÈÏ×ÖºÅÊÇ16px£¬Òò´Ë1rem=16px£¬ÕâÑù²»·½±ãÎÒÃÇpxºÍremµÄ»»Ëã£¬¼ÙÉè1rem=10px£¬ÄÇÃ´100px=10rem£¬25px=0.25rem¡£ÕâÑù¾ÍºÃ»»ËãºÜ¶à£¬ÓÚÊÇ¾ÍÓÐÁËÉÏÃæµÄ10/16¡£
+å¤§å¤šæ•°æµè§ˆå™¨çš„é»˜è®¤å­—å·æ˜¯16pxï¼Œå› æ­¤1rem=16pxï¼Œè¿™æ ·ä¸æ–¹ä¾¿æˆ‘ä»¬pxå’Œremçš„æ¢ç®—ï¼Œå‡è®¾1rem=10pxï¼Œé‚£ä¹ˆ100px=10remï¼Œ25px=0.25remã€‚è¿™æ ·å°±å¥½æ¢ç®—å¾ˆå¤šï¼ŒäºŽæ˜¯å°±æœ‰äº†ä¸Šé¢çš„10/16ã€‚
 
-Èç¹ûÊÇ640µÄÉè¼Æ¸å£¬ÐèÒª³ýÒÔ2×ª»¯ÎªºÍiphone5ÆÁÄ»µÈ¿íµÄ320¡£ËùÒÔÉè¼Æ¸åpxµ¥Î»/2/10×ªÎªrem¡£Ö®ºóÔÙÃ½Ìå²éÑ¯ÉèÖÃÃ¿¸öÆÁÄ»´óÐ¡µÄfont-size°Ù·Ö±È£¬Ò³Ãæ»á¸ù¾ÝÉÏÃæÉèÖÃµÄ¸ùfont-sizeÊÊÅä¡£
+å¦‚æžœæ˜¯640çš„è®¾è®¡ç¨¿ï¼Œéœ€è¦é™¤ä»¥2è½¬åŒ–ä¸ºå’Œiphone5å±å¹•ç­‰å®½çš„320ã€‚æ‰€ä»¥è®¾è®¡ç¨¿pxå•ä½/2/10è½¬ä¸ºremã€‚ä¹‹åŽå†åª’ä½“æŸ¥è¯¢è®¾ç½®æ¯ä¸ªå±å¹•å¤§å°çš„font-sizeç™¾åˆ†æ¯”ï¼Œé¡µé¢ä¼šæ ¹æ®ä¸Šé¢è®¾ç½®çš„æ ¹font-sizeé€‚é…ã€‚
 
-¿´µ½ÕâÀïÊÇ²»ÊÇ¾õµÃÒ»ÇÐºÜÍêÃÀ£¿È»¶ø£¬ÕâÀïÃæÓÐÁ½¸öÉî¿Ó£º
+çœ‹åˆ°è¿™é‡Œæ˜¯ä¸æ˜¯è§‰å¾—ä¸€åˆ‡å¾ˆå®Œç¾Žï¼Ÿç„¶è€Œï¼Œè¿™é‡Œé¢æœ‰ä¸¤ä¸ªæ·±å‘ï¼š
 
-1.ÎÒ¿´ÁËÍøÉÏºÜ¶à¹ØÓÚremµÄ×ÊÁÏ£¬»ù±¾¶¼Ëµä¯ÀÀÆ÷µÄÄ¬ÈÏ×ÖºÅ¾ÍÊÇ16px£¬È»ºóÖ±½Ó¶¨Òåfont-size:62.5%¡£µ«ÊÇ£¬remÊôÓÚcss3µÄÊôÐÔ£¬ÓÐÐ©ä¯ÀÀÆ÷µÄÔçÆÚ°æ±¾ºÍÒ»Ð©¹úÄÚä¯ÀÀÆ÷µÄÄ¬ÈÏ×ÖºÅ²¢²»ÊÇ16px£¬ÄÇÃ´ÉÏÃæµÄ10/16»»Ëã¾Í²»³ÉÁ¢£¬Ö±½Ó¸øhtml¶¨Òåfont-size: 62.5%²»³ÉÁ¢¡£
+1.æˆ‘çœ‹äº†ç½‘ä¸Šå¾ˆå¤šå…³äºŽremçš„èµ„æ–™ï¼ŒåŸºæœ¬éƒ½è¯´æµè§ˆå™¨çš„é»˜è®¤å­—å·å°±æ˜¯16pxï¼Œç„¶åŽç›´æŽ¥å®šä¹‰font-size:62.5%ã€‚ä½†æ˜¯ï¼Œremå±žäºŽcss3çš„å±žæ€§ï¼Œæœ‰äº›æµè§ˆå™¨çš„æ—©æœŸç‰ˆæœ¬å’Œä¸€äº›å›½å†…æµè§ˆå™¨çš„é»˜è®¤å­—å·å¹¶ä¸æ˜¯16pxï¼Œé‚£ä¹ˆä¸Šé¢çš„10/16æ¢ç®—å°±ä¸æˆç«‹ï¼Œç›´æŽ¥ç»™htmlå®šä¹‰font-size: 62.5%ä¸æˆç«‹ã€‚
 
-2.chromeÇ¿ÖÆ×ÖÌå×îÐ¡ÖµÎª12px£¬µÍÓÚ12px°´12px´¦Àí£¬ÄÇÉÏÃæµÄ1rem=10px¾Í±ä³É1rem=12px£¬³öÏÖÆ«²î£¨ÏÂÃæ¸ødemo£©¡£
+2.chromeå¼ºåˆ¶å­—ä½“æœ€å°å€¼ä¸º12pxï¼Œä½ŽäºŽ12pxæŒ‰12pxå¤„ç†ï¼Œé‚£ä¸Šé¢çš„1rem=10pxå°±å˜æˆ1rem=12pxï¼Œå‡ºçŽ°åå·®ï¼ˆä¸‹é¢ç»™demoï¼‰ã€‚
 
-½â¾ö·½°¸£º ½«1rem=10px»»Îª1rem=100px£¨»òÕßÆäËüÈÝÒ×»»ËãµÄ±ÈÀýÖµ£©;²»ÒªÔÚpc¶ËÊ¹ÓÃrem¡£
+è§£å†³æ–¹æ¡ˆï¼š å°†1rem=10pxæ¢ä¸º1rem=100pxï¼ˆæˆ–è€…å…¶å®ƒå®¹æ˜“æ¢ç®—çš„æ¯”ä¾‹å€¼ï¼‰;ä¸è¦åœ¨pcç«¯ä½¿ç”¨remã€‚
 
-ÄÇÃ´ÉÏÃæµÄÒ³Ãæ¸ùÔªËØÑùÊ½Òª¸ÄÎª£º
+é‚£ä¹ˆä¸Šé¢çš„é¡µé¢æ ¹å…ƒç´ æ ·å¼è¦æ”¹ä¸ºï¼š
 
-html {font-size: 625%; /*100 ¡Â 16 ¡Á 100% = 625%*/}
-ÔÙÓÃ±¾¹¤³§×Ü½áµÃ³öµÄ¸÷·Ö±æÂÊÃ½Ìå²éÑ¯»»Ëã£º
+html {font-size: 625%; /*100 Ã· 16 Ã— 100% = 625%*/}
+å†ç”¨æœ¬å·¥åŽ‚æ€»ç»“å¾—å‡ºçš„å„åˆ†è¾¨çŽ‡åª’ä½“æŸ¥è¯¢æ¢ç®—ï¼š
 
 @media screen and (min-width:360px) and (max-width:374px) and (orientation:portrait) {
     html { font-size: 703%; }
@@ -140,7 +140,7 @@ html {font-size: 625%; /*100 ¡Â 16 ¡Á 100% = 625%*/}
 @media screen and (min-width:432px) and (max-width:479px) and (orientation:portrait){
     html { font-size: 843.75%; }
 }
-
+çœ‹çœ‹è¿™ä¸ªä¾‹å­: https://cloud.tencent.com/developer/article/1388306
 
 ----------------------------------------
 

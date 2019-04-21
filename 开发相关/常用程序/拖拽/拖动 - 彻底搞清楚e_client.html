@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<style>
+		html,body { 
+			height:100%;
+		}
+		#container { 
+			width:600px;
+			height:600px;
+			position: relative;
+			border: 1px dashed lightcoral;
+		}
+		#mouse-area { 
+			width:200px;
+			height:200px;
+			position: absolute;
+			top:200px;
+			left:200px;
+			border-radius: 4px;
+			background: lightblue;
+			transition: box-shadow .3s ease-in-out;
+		}
+
+		.moving { 
+			box-shadow: 0 0 15px rgba(0,0,0,.5); 
+		}
+	</style>
+</head>
+
+<body>
+	<div id=container>
+		<div id="mouse-area"></div>
+	</div>
+	<script>
+		let isDrop = false,disX = 0,disY = 0;
+		const element = document.getElementById('mouse-area');
+		element.addEventListener('mousedown', (e) => { 
+			console.log(e);
+			if(!isDrop) isDrop = true;
+			element.classList.add('moving');
+			console.log('mouse client X: ', e.clientX);
+			console.log('mouse client Y: ', e.clientY);
+			const offsetLeft = element.offsetLeft;
+			const offsetTop = element.offsetTop;
+			console.log('element offset left', offsetLeft);
+			console.log('element offset top', offsetTop);
+			disX = e.clientX - offsetLeft;
+			disY = e.clientY - offsetTop;
+		});
+
+		window.addEventListener('mousemove', (e) => { 
+			if(!isDrop) return;
+			cx = e.clientX;
+			cy = e.clientY;
+
+			let left = cx - disX;
+			let top = cy - disY;
+
+			if(left < 0) { 
+				left = 0;
+			}
+
+			if(left > 400) { 
+				left = 400;
+			}
+
+			if(top < 0) { 
+				top = 0;
+			}
+
+			if(top > 400) { 
+				top = 400;
+			}
+
+			element.style.left = `${left}px`;
+			element.style.top = `${top}px`;
+		});
+
+		window.addEventListener('mouseup',(e) => { 
+			if(!isDrop) return;
+			element.classList.remove('moving');
+			isDrop = false;
+		});
+	</script>
+</body>
+
+</html>
