@@ -1,3 +1,5 @@
+var inherit = require('./(例6-1)inherit');
+
 // 例 9-7: JavaScript中的枚举类型
 // 这个函数创建一个新的枚举类型, 实参对象表示类的每个实例的名字和值
 // 注意这个构造函数也会抛出异常: 不能使用它来创建该类型的新实例
@@ -11,7 +13,7 @@ function enumeration(namesToValues) {
 	var proto = enumeration.prototype = { 
 		constructor: enumeration,
 		toString: function() { return this.name; },  // 返回名字
-		valueOf: function() { return this.valueOf; }, // 返回值
+		valueOf: function() { return this.value; }, // 返回值
 		toJSON: function() { return this.name; } // 转换为JSON
 	}
 
@@ -35,3 +37,5 @@ function enumeration(namesToValues) {
 	return enumeration;
 }
 
+
+module.exports = enumeration;

@@ -11,3 +11,5 @@ function inherit(p) {
 	f.prototype = p;
 	return new f();   // 使用f创建p的继承对象
 } 
+
+module.exports = inherit;
