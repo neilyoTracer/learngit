@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<style>
+		html,
+		body {
+			height: 100%;
+		}
+
+		#container {
+			width: 600px;
+			height: 600px;
+			position: relative;
+			border: 1px dashed lightcoral;
+		}
+
+		#mouse-area {
+			width: 200px;
+			height: 200px;
+			position: absolute;
+			top: 200px;
+			left: 200px;
+			border-radius: 4px;
+			background: lightblue;
+			transition: box-shadow .3s ease-in-out;
+		}
+
+		.moving {
+			box-shadow: 0 0 15px rgba(0, 0, 0, .5);
+		}
+
+		.example-handle {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			color: #333;
+			cursor: move;
+			width: 24px;
+			height: 24px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id=container>
+		<div id="mouse-area">
+			<div class="example-handle" cdkDragHandle>
+				<svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+					<path
+						  d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
+					</path>
+					<path d="M0 0h24v24H0z" fill="none"></path>
+				</svg>
+			</div>
+		</div>
+	</div>
+	<script>
+		let isDrop = false, disX = 0, disY = 0;
+		const element = document.getElementById('mouse-area');
+		dragHandleEle = document.querySelector('.example-handle');
+		dragHandleEle.addEventListener('mousedown',(e) => { 
+			if(!isDrop) isDrop = true;
+		})
+		
+		element.addEventListener('mousedown', (e) => {
+			console.log(e);
+			if (!isDrop) return;
+			element.classList.add('moving');
+			console.log('mouse client X: ', e.clientX);
+			console.log('mouse client Y: ', e.clientY);
+			const offsetLeft = element.offsetLeft;
+			const offsetTop = element.offsetTop;
+			console.log('element offset left', offsetLeft);
+			console.log('element offset top', offsetTop);
+			disX = e.clientX - offsetLeft;
+			disY = e.clientY - offsetTop;
+		});
+
+		window.addEventListener('mousemove', (e) => {
+			if (!isDrop) return;
+			cx = e.clientX;
+			cy = e.clientY;
+
+			let left = cx - disX;
+			let top = cy - disY;
+
+			if (left < 0) {
+				left = 0;
+			}
+
+			if (left > 400) {
+				left = 400;
+			}
+
+			if (top < 0) {
+				top = 0;
+			}
+
+			if (top > 400) {
+				top = 400;
+			}
+
+			element.style.left = `${left}px`;
+			element.style.top = `${top}px`;
+		});
+
+		window.addEventListener('mouseup', (e) => {
+			if (!isDrop) return;
+			element.classList.remove('moving');
+			isDrop = false;
+		});
+	</script>
+</body>
+
+</html>
