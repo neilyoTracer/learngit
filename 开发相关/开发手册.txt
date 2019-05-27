@@ -149,5 +149,37 @@ html {font-size: 625%; /*100 ÷ 16 × 100% = 625%*/}
 
 -----------------------------------------
 
+15. 在使用观察者对象的时候,传给Observable的observer => { }订阅函数参数,在rxjs内部对这个函数的参数observer进行了封装
+使用Subscriber类,new Subscriber(observer),这样之后observer实际上就拥有了这个Subscriber的上下文,所以在函数体内部,执行next回调的时候
+必须显示的写出observer.next来执行,不能把observer直接赋值给一个字面量对象,不然的话rxjs内部会丢失上下文抛错
+具体例子写法:
+
+createLocationObservable(): Observable<any> {
+        return Observable.create(observer => {
+            // const { next, error } = observer;  
+            const geoOptions = {
+                enableHighAccuracy: true,
+                maximumAge: 30000,
+                timeout: 27000
+            };
+            let watchId;
+
+            if ('geolocation' in navigator) {
+                watchId = navigator.geolocation.watchPosition(
+                    position => observer.next(position), // 如果这里直接写next,就要报错
+                    error => observer.error('locate faild'),
+                    geoOptions
+                );
+            } else {
+                observer.error('locate faild');
+            }
+
+            return { unsubscribe() { navigator.geolocation.clearWatch(watchId); } };
+        });
+    }
+
+
+-----------------------------------------------------------------------------------------------
+
 
 
