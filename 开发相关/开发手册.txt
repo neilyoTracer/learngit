@@ -182,7 +182,7 @@ createLocationObservable(): Observable<any> {
 -----------------------------------------------------------------------------------------------
 
 
-16.npm install --save ../xxx.tgz 本地包需要node8.9以上版本好像才行不然会不识别后面的本地包路径,直接执行整个package.json安装
+16.npm每次重新安装包的时候把,比如重新安装本地包时npm install --save ../xxx.tgz 本地包需要删除package-lock.json,不然会依照这个文件直接执行上次的整个package.json安装
 另外如果安装包时报错Unexpected end of JSON input while parsing near '...^0.5.0","mocha":"^1.2',类似这样的错解决方法:
 npm cache clean --force
 
