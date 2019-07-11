@@ -1,0 +1,28 @@
+######################
+# Project Specific
+
+######################
+# Node
+######################
+/node/
+node_tmp/
+node_modules/
+npm-debug.log.*
+/.awcache/*
+/.cache-loader/*
+
+######################
+# SASS
+######################
+.sass-cache/
+
+
+
+
+######################
+# Visual Studio Code
+######################
+.vscode/
+
+
+
