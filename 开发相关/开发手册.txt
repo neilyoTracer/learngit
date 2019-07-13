@@ -189,9 +189,17 @@ npm cache clean --force
 
 ---------------------------------------------------------------------------------------------------
 
+17.linux 上删除文件夹下的所有文件
+[jiangxd@mpdev-itraffic-front-end dev]$ sudo -s rm -rf /opt/dev/docke-compose/dockerProdApp/*
+[sudo] password for jiangxd: 
+Sorry, try again.
+[sudo] password for jiangxd: 
+[jiangxd@mpdev-itraffic-front-end dev]$ 
+
+-------------------------------------------------------------------------------------------------------
+
+linux用管理员权限删除文件
+sudo -s rm -rf /opt/dev/docke-compose/dockerProdApp/*
 
 
-17. 在需要某个页面执行window.onunload回调的时候，先关闭框架的热更新，angular的在main.ts里面
-
-
---------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
