@@ -5,4 +5,5 @@ git config --global credential.helper store #解决每次拉代码都需要输�
 git 重设git remote url 
 git remote set-url  origin https://xxx@github.org/hello/etl.git
 
-
+git push --force
+git push --force-with-lease   #强制推送
