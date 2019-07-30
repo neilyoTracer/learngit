@@ -198,8 +198,16 @@ Sorry, try again.
 
 -------------------------------------------------------------------------------------------------------
 
-linux用管理员权限删除文件
-sudo -s rm -rf /opt/dev/docke-compose/dockerProdApp/*
+18. 解决google浏览器input auto-fill样式问题
+
+// 需要黑色背景的input
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px #313133 inset;
+	-webkit-text-fill-color: #ffffff !important;
+	border: 1px solid #797979 !important;
+	outline: none !important;
+}
 
 
-------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------
