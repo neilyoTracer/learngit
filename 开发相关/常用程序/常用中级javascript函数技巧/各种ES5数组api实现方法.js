@@ -98,3 +98,17 @@ const selfReduce = function(fn, initialValue) {
 	}
 	return res;
 }
+
+// 8. 使用 reduce 实现数组的 flat 方法
+const selfFlat = function(depth = 1) { 
+	let arr = Array.prototype.slice.call(this);
+	if(depth === 0) { return arr; }
+	return arr.reduce((pre, cur) => {
+		if(Array.isArray(cur)) { 
+			return [...pre, ...selfFlat.call(cur)];
+		} else { 
+			return [...pre, cur];
+		}
+	} , []);
+}
+
