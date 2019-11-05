@@ -1,0 +1,173 @@
+{\rtf1\ansi\ansicpg936\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red17\green142\blue255;\red0\green0\blue0;
+\red38\green38\blue38;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\csgray\c0;\cssrgb\c0\c63529\c100000;\cssrgb\c0\c0\c0;
+\cssrgb\c20000\c20000\c20000;\cssrgb\c100000\c100000\c100000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww15540\viewh12540\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 1.chmod 777 
+\f1 <folder name>  \'b8\'f8\'c4\'b3\'b8\'f6\'ce\'c4\'bc\'fe\'b8\'f9\'bc\'b6\'c8\'a8\'cf\'de\
+\
+\
+2.\'b2\'e9\'bf\'b4\'b6\'cb\'bf\'da\'d5\'bc\'d3\'c3\'c7\'e9\'bf\'f6\'a3\'ac\'b2\'a2\'c9\'b1\'cb\'c0\'bd\'f8\'b3\'cc\
+
+\f2\fs22 \cf2 \CocoaLigature0 static-100-0-120-15:apigateway-local - new huanghuarui$ sudo lsof -i:18080\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+COMMAND  PID USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME\
+java    3187 root   58u  IPv6 0x2c8921184ead3923      0t0  TCP *:18080 (LISTEN)\
+static-100-0-120-15:apigateway-local - new huanghuarui$ sudo kill -9 3187\
+static-100-0-120-15:apigateway-local - new huanghuarui$ sudo lsof -i:18080\
+static-100-0-120-15:apigateway-local - new huanghuarui$ \
+\
+\
+3.
+\f1 \'b2\'e9\'d1\'af\'d5\'fd\'d4\'da\'d4\'cb\'d0\'d0
+\f2 java
+\f1 \'bd\'f8\'b3\'cc
+\f2 \
+Last login: Mon Sep 23 15:48:25 on ttys000\
+huanghuaruideMacBook-Pro-2:~ huanghuarui$ ps -ef | grep java\
+    0  5234     1   0  3:55
+\f1 \'cf\'c2\'ce\'e7
+\f2  ttys000    0:00.03 sudo java -Djavax.net.ssl.trustStorePassword=STeng!neer!ng -Djavax.net.ssl.trustStore=truststore.jks -Djavax.net.ssl.trustStoreType=JKS -jar api-gateway-0.0.3-SNAPSHOT.war\
+    0  5235  5234   0  3:55
+\f1 \'cf\'c2\'ce\'e7
+\f2  ttys000    3:22.33 /usr/bin/java -Djavax.net.ssl.trustStorePassword=STeng!neer!ng -Djavax.net.ssl.trustStore=truststore.jks -Djavax.net.ssl.trustStoreType=JKS -jar api-gateway-0.0.3-SNAPSHOT.war\
+  501  5768  5761   0 10:15
+\f1 \'cf\'c2\'ce\'e7
+\f2  ttys001    0:00.00 grep java\
+huanghuaruideMacBook-Pro-2:~ huanghuarui$ sudo kill -9 5234\
+Password:\
+huanghuaruideMacBook-Pro-2:~ huanghuarui$ sudo kill -9 5235\
+huanghuaruideMacBook-Pro-2:~ huanghuarui$ ps -ef | grep java\
+  501  5776  5761   0 10:17
+\f1 \'cf\'c2\'ce\'e7
+\f2  ttys001    0:00.00 grep java\
+huanghuaruideMacBook-Pro-2:~ huanghuarui$ \
+\
+\
+4.
+\f1 \'d4\'f6\'bc\'d3\'c2\'b7\'d3\'c9\'a1\'a3
+\f2\fs26 \CocoaLigature1 sudo route add {\field{\*\fldinst{HYPERLINK "10.0.0.0"}}{\fldrslt \cf3 10.0.0.0}} -netmask {\field{\*\fldinst{HYPERLINK "255.0.0.0"}}{\fldrslt \cf3 255.0.0.0}} {\field{\*\fldinst{HYPERLINK "192.168.2.25"}}{\fldrslt \cf3 192.168.2.25}}\cf3 \
+\
+\cf4 Linux 
+\f1 \'c3\'fc\'c1\'ee\'bc\'af
+\f2 \
+
+\f1 \'b9\'d8\'b1\'d5\'cf\'b5\'cd\'b3
+\f2 ipv6
+\f1 \'d6\'a7\'b3\'d6
+\f2  \
+sysctl net.ipv6.conf.all.disable_ipv6=1 \
+\
+Mac OS\
+
+\f1 \'cc\'ed\'bc\'d3\'c2\'b7\'d3\'c9
+\f2 \
+route -n add -net distip -netmask 255.0.0.0 -gateway\
+
+\f1 \'c9\'be\'b3\'fd\'c2\'b7\'d3\'c9
+\f2 \
+route -v delete -net 10.10.12.0
+\f1 \'a3\'a8\'c4\'b3\'cd\'f8\'b6\'ce\'a3\'a9
+\f2  -gateway 10.10.12.1\
+
+\f1 \'b2\'e9\'bf\'b4\'cb\'f9\'d3\'d0\'c2\'b7\'d3\'c9\'b1\'ed
+\f2 \
+netstat -rn\
+
+\f1 \'b2\'e9\'bf\'b4\'c4\'ac\'c8\'cf\'cd\'f8\'b9\'d8
+\f2 \
+route -n get default\
+route -n get www.yahoo.com\
+\
+5. 
+\f1 \'d3\'c3
+\f2 unrar
+\f1 \'bd\'e2\'d1\'b9\'ce\'c4\'bc\'fe\'a3\'ac
+\f2 unbar x file.rar\
+\
+6
+\f1 .   
+\f3\fs28 \cf5 \cb6 \expnd0\expndtw0\kerning0
+find / -name httpd.conf\
+\
+7. Linux
+\f1 \'b8\'f8\'ce\'c4\'bc\'fe\'bc\'d3\'d6\'b4\'d0\'d0\'c8\'a8\'cf\'de \
+\'c7\'d0\'bb\'bb\'b8\'fa\'d3\'c3\'bb\'a7\'c8\'a8\'cf\'de\
+
+\f2\fs22 \cf2 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 sh-3.2# sudo -i\
+huanghuaruideMacBook-Pro:~ root# \
+huanghuaruideMacBook-Pro:~ root#\
+
+\f1 \'b2\'e9\'bf\'b4\'ce\'c4\'bc\'fe\'c8\'a8\'cf\'de
+\f2  ls -l
+\f1\fs28 \cf5 \cb6 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+
+\f2\fs22 \cf2 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 huanghuaruideMacBook-Pro:apigateway-balan_withrenewtoken root# sudo chmod +x apigateway-start.sh \
+huanghuaruideMacBook-Pro:apigateway-balan_withrenewtoken root# ls -l\
+\
+8.Mac 
+\f1 \'b8\'f8\'ce\'c4\'bc\'fe\'bc\'d0\'b8\'c4\'d3\'c3\'bb\'a7\'d6\'f7
+\f2 \
+huanghuaruideMacBook-Pro:project huanghuarui$ ls -l\
+total 0\
+drwxr-xr-x  12 huanghuarui  staff  384 10  6 22:37 Blog\
+drwxr-xr-x  13 huanghuarui  staff  416  9 27 09:04 Dubai_ITS\
+drwxr-xr-x   7 huanghuarui  staff  224  9 20 15:11 SJ\
+drwxrwxrwx   5 huanghuarui  staff  160  4  1  2019 SJ_WEB_UI\
+drwxr-xr-x   7 huanghuarui  staff  224 10 23 18:38 Vietnam_ITS\
+drwx------@ 13 huanghuarui  staff  416  9 19 17:51 dynamic-component-loader\
+drwxrwxrwx  10 huanghuarui  staff  320 10  4 23:02 hr-gulp-demo\
+drwxrwxrwx  26 huanghuarui  staff  832  9  1 21:15 hrDesktop\
+drwxrwxrwx  15 huanghuarui  staff  480  9  1 22:24 hrDesktop-Note\
+drwxrwxrwx  15 huanghuarui  staff  480  9  1 22:23 hrDesktop-administration\
+drwxrwxrwx  16 huanghuarui  staff  512  9  1 21:16 hrDesktop-crm\
+drwxrwxrwx  14 huanghuarui  staff  448  9  2 17:02 hrDesktop-data-center\
+drwxrwxrwx  15 huanghuarui  staff  480  9  1 22:23 hrDesktop-online-learning\
+drwxrwxrwx  16 huanghuarui  staff  512  9  1 22:24 hrDesktop-report\
+drwxr-xr-x   6 huanghuarui  staff  192  8 31 17:43 learnC\
+drwxr-xr-x  15 huanghuarui  staff  480  8 31 23:26 learngit\
+drwxr-xr-x  17 huanghuarui  staff  544  9 17 16:48 ng6-golden-layout\
+drwxrwxrwx  23 huanghuarui  staff  736  9  1 22:32 ngAdmin\
+drwxr-xr-x  23 huanghuarui  staff  736 11  4 22:52 react-admin\
+drwxr-xr-x  19 huanghuarui  staff  608 10 21 22:40 react-demos\
+drwxrwxrwx  17 root         staff  544 11  1 23:43 react-pxq\
+drwxr-xr-x  10 huanghuarui  staff  320 10  6 19:52 react-typescript-demo\
+drwx------@ 13 huanghuarui  staff  416  9 19 18:51 router\
+huanghuaruideMacBook-Pro:project huanghuarui$ sudo chown -R huanghuarui react-\
+react-admin/           react-pxq/             \
+react-demos/           react-typescript-demo/ \
+huanghuaruideMacBook-Pro:project huanghuarui$ sudo chown -R huanghuarui react-pxq/\
+huanghuaruideMacBook-Pro:project huanghuarui$ ls -l\
+total 0\
+drwxr-xr-x  12 huanghuarui  staff  384 10  6 22:37 Blog\
+drwxr-xr-x  13 huanghuarui  staff  416  9 27 09:04 Dubai_ITS\
+drwxr-xr-x   7 huanghuarui  staff  224  9 20 15:11 SJ\
+drwxrwxrwx   5 huanghuarui  staff  160  4  1  2019 SJ_WEB_UI\
+drwxr-xr-x   7 huanghuarui  staff  224 10 23 18:38 Vietnam_ITS\
+drwx------@ 13 huanghuarui  staff  416  9 19 17:51 dynamic-component-loader\
+drwxrwxrwx  10 huanghuarui  staff  320 10  4 23:02 hr-gulp-demo\
+drwxrwxrwx  26 huanghuarui  staff  832  9  1 21:15 hrDesktop\
+drwxrwxrwx  15 huanghuarui  staff  480  9  1 22:24 hrDesktop-Note\
+drwxrwxrwx  15 huanghuarui  staff  480  9  1 22:23 hrDesktop-administration\
+drwxrwxrwx  16 huanghuarui  staff  512  9  1 21:16 hrDesktop-crm\
+drwxrwxrwx  14 huanghuarui  staff  448  9  2 17:02 hrDesktop-data-center\
+drwxrwxrwx  15 huanghuarui  staff  480  9  1 22:23 hrDesktop-online-learning\
+drwxrwxrwx  16 huanghuarui  staff  512  9  1 22:24 hrDesktop-report\
+drwxr-xr-x   6 huanghuarui  staff  192  8 31 17:43 learnC\
+drwxr-xr-x  15 huanghuarui  staff  480  8 31 23:26 learngit\
+drwxr-xr-x  17 huanghuarui  staff  544  9 17 16:48 ng6-golden-layout\
+drwxrwxrwx  23 huanghuarui  staff  736  9  1 22:32 ngAdmin\
+drwxr-xr-x  23 huanghuarui  staff  736 11  4 22:52 react-admin\
+drwxr-xr-x  19 huanghuarui  staff  608 10 21 22:40 react-demos\
+drwxrwxrwx  17 huanghuarui  staff  544 11  1 23:43 react-pxq\
+drwxr-xr-x  10 huanghuarui  staff  320 10  6 19:52 react-typescript-demo\
+drwx------@ 13 huanghuarui  staff  416  9 19 18:51 router\
+huanghuaruideMacBook-Pro:project huanghuarui$ 
+\fs26 \cf4 \CocoaLigature1 \
+}

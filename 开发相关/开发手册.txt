@@ -1,4 +1,4 @@
-﻿开发填坑手册
+开发填坑手册
 
 1.ng build --aot 只打包不压缩 用来检查线上报错
 2.http://localhost:4200/null 报错,检查图片是否有默认路径（未找到资源后的默认路径）
@@ -239,3 +239,80 @@ Angular 会把 @NgModule.providers 中的提供商添加到应用的根注入器
 
 
 ----------------------------------------------------------------------------------------------------------
+
+22. 判断数组长度，切记不要用 === [] ，永远不要判断两个对象全等，始终会返回false
+
+
+----------------------------------------------------------------------------------------------------------
+
+23. Mac 运行npm报错，
+> fsevents@1.2.9 install /Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents
+> node install
+
+node-pre-gyp WARN Using needle for node-pre-gyp https download 
+node-pre-gyp WARN Pre-built binaries not installable for fsevents@1.2.9 and node@10.16.3 (node-v64 ABI, unknown) (falling back to source compile with node-gyp) 
+
+
+node-pre-gyp WARN Hit error EACCES: permission denied, mkdir '/Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents/lib' 
+gyp ERR! configure error 
+gyp ERR! stack Error:        EACCES: permission denied, mkdir '/Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents/build'
+
+
+gyp ERR! System Darwin 18.7.0
+gyp ERR! command "/usr/local/bin/node" "/usr/local/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js" "configure" "--fallback-to-build" "--module=/Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents/lib/binding/Release/node-v64-darwin-x64/fse.node" "--module_name=fse" "--module_path=/Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents/lib/binding/Release/node-v64-darwin-x64" "--napi_version=4" "--node_abi_napi=napi" "--napi_build_version=0" "--node_napi_label=node-v64"
+gyp ERR! cwd /Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents
+gyp ERR! node -v v10.16.3
+gyp ERR! node-gyp -v v3.8.0
+gyp ERR! not ok 
+node-pre-gyp ERR! build error 
+node-pre-gyp ERR! stack Error: Failed to execute '/usr/local/bin/node /usr/local/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js configure --fallback-to-build --module=/Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents/lib/binding/Release/node-v64-darwin-x64/fse.node --module_name=fse --module_path=/Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents/lib/binding/Release/node-v64-darwin-x64 --napi_version=4 --node_abi_napi=napi --napi_build_version=0 --node_napi_label=node-v64' (1)
+node-pre-gyp ERR! stack     at ChildProcess.<anonymous> (/Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents/node_modules/node-pre-gyp/lib/util/compile.js:83:29)
+node-pre-gyp ERR! stack     at ChildProcess.emit (events.js:198:13)
+node-pre-gyp ERR! stack     at maybeClose (internal/child_process.js:982:16)
+node-pre-gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:259:5)
+node-pre-gyp ERR! System Darwin 18.7.0
+node-pre-gyp ERR! command "/usr/local/bin/node" "/Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents/node_modules/node-pre-gyp/bin/node-pre-gyp" "install" "--fallback-to-build"
+node-pre-gyp ERR! cwd /Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents
+node-pre-gyp ERR! node -v v10.16.3
+node-pre-gyp ERR! node-pre-gyp -v v0.12.0
+node-pre-gyp ERR! not ok 
+Failed to execute '/usr/local/bin/node /usr/local/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js configure --fallback-to-build --module=/Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents/lib/binding/Release/node-v64-darwin-x64/fse.node --module_name=fse --module_path=/Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents/lib/binding/Release/node-v64-darwin-x64 --napi_version=4 --node_abi_napi=napi --napi_build_version=0 --node_napi_label=node-v64' (1)
+npm WARN hr-gulp-demo@1.0.0 No repository field.
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.9 (node_modules/fsevents):
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.9 install: `node install`
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: Exit status 1
+
++ gulp@4.0.2
++ gulp-typescript@5.0.1
++ typescript@3.6.3
+added 6 packages from 55 contributors, updated 1 package and audited 6789 packages in 136.096s
+found 0 vulnerabilities
+
+huanghuaruideMacBook-Pro-2:hr-gulp-demo huanghuarui$ 
+huanghuaruideMacBook-Pro-2:hr-gulp-demo huanghuarui$ 
+huanghuaruideMacBook-Pro-2:hr-gulp-demo huanghuarui$ sudo npm install --save-dev typescript gulp gulp-typescript --unsafe-perm=true --allow-root
+Password:
+
+> fsevents@1.2.9 install /Users/huanghuarui/work/project/hr-gulp-demo/node_modules/fsevents 
+
+----------------------------------------------------------------------------------------------------------
+
+24.angular 提供商数组简写
+providers:[Logger]
+providers:[{ provide: Logger, useClass: Logger }] 
+⚠️注意不要拼错 是provide
+不然报错
+⚠️ Invalid provider for the NgModule 'DynamicTestModule' - only instances of Provider and Type are allowed, got: [?[object Object]?, ...]
+
+__________________________________________________________________________________________________________
+
+25.查看npm 全局安装包
+npm list -g -depth=0
+
+__________________________________________________________________________________________________________
+
+26.nzTable报错
+EquipmentListComponent.html:57 ERROR Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ngForOf: '. Current value: 'ngForOf: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]'.
+检查是否模版变量重复
+
+__________________________________________________________________________________________________________
