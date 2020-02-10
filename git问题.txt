@@ -1,6 +1,7 @@
-﻿git credential-manager uninstall #解决权限冲突问题
+git credential-manager uninstall #解决权限冲突问题
 
 git config --global credential.helper store #解决每次拉代码都需要输入密码
+git config --global credential.helper osxkeychain
 
 git 重设git remote url 
 git remote set-url  origin https://xxx@github.org/hello/etl.git
