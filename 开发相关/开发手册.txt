@@ -469,3 +469,43 @@ ________________________________________________________________________________
 
 
 __________________________________________________________________________________________________________
+
+
+45. 一定要注意在重复执行的函数里使用setTimeout，如果挂载的回调使用了函数的局部变量，则会形成闭包，函数的活动对象会保存在内存当中，
+当回调执行的时候，这个变量会是几秒之前的值，如果和现在执行时的变量进行比较，则有可能会不一样
+
+__________________________________________________________________________________________________________
+
+
+46. error: SyntaxError: Unexpected token   in JSON at position 0 at JSON.parse (<anonymous>) at 
+XMLHttpRequest.onLoad (http://localhost:4200/vendor.js:37126:51) at ZoneDelegate.push..[表情]de_modules/zone.js/dist/zone.js.ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:3428:31) at Object.onInvokeTask (http://localhost:4200/vendor.js:82671:33) at ZoneDelegate.push..[表情]de_modules/zone.js/dist/zone.js.ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:3427:60) at Zone.push..[表情]de_modules/zone.js/dist/zone.js.Zone.runTask (http://localhost:4200/polyfills.js:3200:47) at ZoneTask.push..[表情]de_modules/zone.js/dist/zone.js.ZoneTask.invokeTask [as invoke] (http://localhost:4200/polyfills.js:3503:34) at invokeTask (http://localhost:4200/polyfills.js:4749:14) at XMLHttpRequest.globalZoneAwareCallback (http://localhost:4200/polyfills.js:4786:21)
+message: "Unexpected token   in JSON at position 0"
+这个后台接口返回状态码200但报这个错需要修改post请求的responseType
+
+__________________________________________________________________________________________________________
+
+
+47. **我草泥马，a标签点击下载没反应，看一下是不是在document上面加了click事件，然后preventDefault了，这样会导致无法下载**
+
+
+__________________________________________________________________________________________________________
+
+
+48. 注意不要使用rxjs的subscription.add API 某些情况下会导致请求被取消
+
+__________________________________________________________________________________________________________
+
+
+49. 从一个外部文件引入某个对象后，对象的某些属性丢失了，查看这个对象所在的文件是否存在循环引用的问题
+
+__________________________________________________________________________________________________________
+
+50. {} instanceof Object 报错是因为
+因为instanceof 的前操作数 需要是一个对象，
+但是{} 同时也是空的代码块，所以js无法识别{}是代码块还是空对象，
+--- js 语句优先
+优先识别为代码块就报错了。。。
+({}) instanceof Object 这样就不会报错
+
+
+___________________________________________________________________________________________________________

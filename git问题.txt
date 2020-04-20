@@ -8,3 +8,21 @@ git remote set-url  origin https://xxx@github.org/hello/etl.git
 
 git push --force
 git push --force-with-lease   #强制推送
+
+git代理清除
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
+输出代理：
+$echo $http_proxy
+$echo $https_proxy
+$echo $HTTPS_PROXY
+$echo $HTTP_PROXY
+
+http代理配置：
+export HTTP_PROXY=http://proxy.somewhere.com:80
+export HTTPS_PROXY=http://proxy.somewhere.com:80
+
+git代理配置：
+git config --global https.proxy http://127.0.0.1:1080
+git config --global https.proxy https://127.0.0.1:1080
