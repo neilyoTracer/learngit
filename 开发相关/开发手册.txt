@@ -308,6 +308,7 @@ ________________________________________________________________________________
 
 25.查看npm 全局安装包
 npm list -g -depth=0
+npm ls -g -depth=0
 
 __________________________________________________________________________________________________________
 
@@ -516,3 +517,69 @@ ________________________________________________________________________________
 
 
 ___________________________________________________________________________________________________________
+
+
+51. input框的oninput事件可以直接拿到用变量value引用input输入值
+
+
+___________________________________________________________________________________________________________
+
+
+52. angular属性绑定中html属性和dom属性的区别例子:
+disabled Attribute 是另一个例子。按钮的 disabled Property 默认为 false，因此按钮是启用的。
+
+当你添加 disabled Attribute 时，仅仅它的出现就将按钮的 disabled Property 初始化成了 true，因此该按钮就被禁用了。
+
+content_copy
+<button disabled>Test Button</button>
+添加和删​​除 disabled Attribute 会禁用和启用该按钮。 但是，Attribute 的值无关紧要，这就是为什么您不能通过编写 <button disabled="false">仍被禁用</button> 来启用此按钮的原因。
+
+要控制按钮的状态，请设置 disabled Property，
+
+虽然技术上说你可以设置 [attr.disabled] 属性绑定，但是它们的值是不同的，Property 绑定要求一个布尔值，而其相应的 Attribute 绑定则取决于该值是否为 null 。例子如下：
+
+content_copy
+<input [disabled]="condition ? true : false">
+<input [attr.disabled]="condition ? 'disabled' : null">
+通常，要使用 Property 绑定而不是 Attribute 绑定，因为它更直观（是一个布尔值），语法更短，并且性能更高。
+
+例子2: 
+<!-- Notice the colSpan property is camel case -->
+<tr><td [colSpan]="2">Span 2 columns</td></tr>
+
+___________________________________________________________________________________________________________
+
+
+53. angular多个类绑定比较方便的用法:
+多个类绑定
+
+[class]="classExpr"	string	"my-class-1 my-class-2 my-class-3"
+{[key: string]: boolean | undefined | null}	{foo: true, bar: false}
+Array<string>	['foo', 'bar']
+
+
+___________________________________________________________________________________________________________
+
+
+54. 内置模板函数
+类型转换函数 $any()
+有时候，绑定表达式可能会在 AOT 编译时报类型错误，并且它不能或很难指定类型。要消除这种报错，你可以使用 $any() 转换函数来把表达式转换成 any 类型，范例如下：
+
+src/app/app.component.html
+content_copy
+<p>The item's undeclared best by date is: {{$any(item).bestByDate}}</p>
+当 Angular 编译器把模板转换成 TypeScript 代码时，$any 表达式可以防止 TypeScript 编译器在进行类型检查时报错说 bestByDate 不是 item 对象的成员。
+
+$any() 转换函数可以和 this 联合使用，以便访问组件中未声明过的成员。
+
+src/app/app.component.html
+content_copy
+<p>The item's undeclared best by date is: {{$any(this).bestByDate}}</p>
+$any() 转换函数可以用在绑定表达式中任何可以进行方法调用的地方。
+
+
+___________________________________________________________________________________________________________
+
+
+
+
