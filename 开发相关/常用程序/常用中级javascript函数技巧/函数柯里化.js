@@ -31,6 +31,19 @@ function compose(f, g) {
         return f.call(this, g.apply(this, arguments));
     }
 }
+
+function multipleCompose(...funcs) {
+    if (funcs.length === 0) {
+        return arg => arg;
+    }
+
+    if (funcs.length === 1) { 
+        return rest[0]
+    }
+
+    return funcs.reduceRight((prev, curr) => (...arg) => curr(prev(...arg)));
+}
+
 // ex:
 const square = x => x * x;
 const sum = (x, y) => x + y;
@@ -42,6 +55,6 @@ console.log(res3);
 const power = (x, n) => x << (n - 1);
 const curriedPower = curry(power);
 const powerofsquareofsum = compose(curriedPower, squareofsum);
-const res4 = powerofsquareofsum(2,3)(3);
+const res4 = powerofsquareofsum(2, 3)(3);
 console.log(res4);
 

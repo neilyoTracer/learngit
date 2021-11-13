@@ -1,5 +1,7 @@
-git credential-manager uninstall #解决权限冲突问题
+git credential-manager uninstall #解决权限冲突问题 - 这个只能用于windows
 可以解决找不到代码库的问题
+SSL certificate problem: certificate has expired
+git config http.sslVerify false
 
 git config --global credential.helper store #解决每次拉代码都需要输入密码
 git config --global credential.helper osxkeychain
@@ -14,16 +16,16 @@ git代理清除
 git config --global --unset http.proxy
 git config --global --unset https.proxy
 
-输出代理：
-$echo $http_proxy
-$echo $https_proxy
-$echo $HTTPS_PROXY
-$echo $HTTP_PROXY
-
-http代理配置：
-export HTTP_PROXY=http://proxy.somewhere.com:80
-export HTTPS_PROXY=http://proxy.somewhere.com:80
-
 git代理配置：
 git config --global https.proxy http://127.0.0.1:1080
 git config --global https.proxy https://127.0.0.1:1080
+
+npm代理清除
+npm config delete proxy
+npm config delete https-proxy
+
+npm代理:
+npm config set proxy http://127.0.0.1:7890
+npm config set https-proxy http://127.0.0.1:7890
+
+

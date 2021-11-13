@@ -147,3 +147,9 @@ artificial 人造的
 substitutions 替代
 Invoke method  调用方法
 encapsulates 将...封装进内部
+Branded with a mark.     刻骨铭心
+so far 到目前为止
+polish 抛光
+essential 基本的
+essentially 本质上
+briefly 简要地
