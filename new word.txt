@@ -153,3 +153,4 @@ polish 抛光
 essential 基本的
 essentially 本质上
 briefly 简要地
+stands for 代表
