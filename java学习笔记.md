@@ -442,3 +442,52 @@ package_sample
    └─ mr
       └─ jun
          └─ Arrays.class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-————————————————————————————————————————————————
+
+@Configuration
+@ComponentScan
+@PropertySource("app.properties") // 表示读取classpath的app.properties
+public class AppConfig { 
+    @Value("${app.zone:Z}")
+    String zoneId;
+
+    @Bean
+    ZoneId createZoneId(@Value("${app.zone:Z}") String zoneId) { 
+        return ZoneId.of(zoneId);
+    }
+}
+
+@Component
+public class SmtpConfig { 
+    @Value("${smtp.host}")
+    private String host;
+
+    @Value("${smtp.port:25}")
+    private int port;
+
+    public String getHost() { 
+        return host;
+    }
+
+    public int getPort() { 
+        return port;
+    }
+}

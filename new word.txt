@@ -154,3 +154,60 @@ essential 基本的
 essentially 本质上
 briefly 简要地
 stands for 代表
+reduction 减少,缩小,降低
+extent 广度，范围，程度
+lag 走的慢
+intellectual 智力的
+leverage 利用
+look for 寻找
+canonical 权威的，规范的，标准的
+traffic 流量
+potential 潜在的
+whereas 然而
+are not necessarily 不一定
+happens to 突然
+E-Commerce 电子商务
+indicate 表示，说明
+Thanks to 多亏了，由于
+overlook 忽略
+relatively 相对来说
+on-demand 按需
+respect 遵守
+compelling 引人入胜的，引人注目的
+common 常见
+a set of 一组，一套
+massive 巨大的
+scale 规模
+imagine 猜想，认为，假设
+massive scale 巨大的规模
+demote 降级
+ecosystem 生态系统
+comes to 到达，谈到
+pledge 承诺
+in the interest of 为了...
+disclose 透露
+pattern 模式
+some sort of 某种
+facilitate 帮助，促进
+maintain 维护
+make up 构成
+press 新闻，记者，报刊
+vital 至关重要
+rely 依赖
+measure 衡量，测量，估算
+initiative 新方案，提倡，计划
+strive for 追求
+perception 感知，悟性
+take... into account 把... 考虑在内
+regardless 不管，无论
+come at the cost of xxx 以xxx为代价,不惜代价
+at the expense of xxx 以xxx为代价
+downside 缺点
+announce 宣布
+In addition to xxx 除xxx之外还有。。。
+advanced 高级的
+scenarios 场景
+Optional Module Loading and Other Advanced Loading Scenarios
+可选模块加载和其他高级加载场景
+Red Flags 危险信号
+Recursive 递归
