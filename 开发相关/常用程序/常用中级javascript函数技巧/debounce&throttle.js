@@ -1,7 +1,7 @@
 
 // 停止某个操作一段时间之后才执行相应的监听函数fn
 function debounce(fn, delay, context) {
-    const _timer;
+    let _timer;
 
     return (...args) => {
         if (timer) { clearTimeout(_timer); _timer = null; }
@@ -12,7 +12,7 @@ function debounce(fn, delay, context) {
 
 // 就是固定函数fn执行的速率,单位时间间隔内只会执行一次
 function throttle(fn, interval = 250, context) {
-    const _last = 0;
+    let _last = 0;
 
     return (...args) => {
         const now = new Date();
@@ -32,7 +32,6 @@ function throttle(fn, interval = 250, context) {
  */
 const debounce2 = (fn, time = 17, options = {
     leading: true,
-    trailing: true,
     context: null
 }) => {
     let timer;
@@ -40,15 +39,14 @@ const debounce2 = (fn, time = 17, options = {
         if (timer) {
             clearTimeout(timer);
         }
-        if (options.leading && !timer) {
-            timer = setTimeout(null, time);
+
+        if(options.leading && !timer) { 
             fn.apply(options.context, args);
-        } else if (options.trailing) {
-            timer = setTimeout(() => {
-                fn.apply(options.context, args);
-                timer = null;
-            }, time);
         }
+        timer = setTimeout(() => {
+            fn.apply(options.context, args);
+            timer = null;
+        }, time);
     }
 
     _debounce.cancel = function () {
@@ -60,7 +58,7 @@ const debounce2 = (fn, time = 17, options = {
 }
 
 /**
- * leading 为是否在进入时立即执行一次， trailing 为是否在事件触发结束后额外再触发一次，
+ * leading 为是否在进入时立即执行一次， trailing 为是否在事件触发结束后过time后额外再触发一次，
  * 原理是利用定时器，如果在规定时间内再次触发事件会将上次的定时器清除，即不会执行函数并重新设置一个新的定时器，
  * 直到超过规定时间自动触发定时器中的函数同时通过闭包向外暴露了一个 cancel 函数，使得外部能直接清除内部的计数器
  */
@@ -77,18 +75,18 @@ const throttle2 = (fn, time = 17, options = { leading: true, trailing: false, co
                 timer = null;
                 fn.apply(options.context, args);
             }, time)
-        } else if (now - previous > time) { 
+        } else if (now - previous > time) {
             fn.apply(options.context, args);
             previous = now;
-        } else if (options.trailing) { 
+        } else if (options.trailing) {
             clearTimeout(timer);
-            timer = setTimeout(() => { 
+            timer = setTimeout(() => {
                 fn.apply(options.context, args);
-            }, time); 
+            }, time);
         }
     }
 
-    _throttle.cancel = () => { 
+    _throttle.cancel = () => {
         previous = 0;
         clearTimeout(timer);
         timer = null;

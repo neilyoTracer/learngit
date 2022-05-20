@@ -3,28 +3,31 @@
 
 <head>
 	<style>
-		html,body { 
-			height:100%;
+		html,
+		body {
+			height: 100%;
 		}
-		#container { 
-			width:600px;
-			height:600px;
+
+		#container {
+			width: 600px;
+			height: 600px;
 			position: relative;
 			border: 1px dashed lightcoral;
 		}
-		#mouse-area { 
-			width:200px;
-			height:200px;
+
+		#mouse-area {
+			width: 200px;
+			height: 200px;
 			position: absolute;
-			top:200px;
-			left:200px;
+			top: 200px;
+			left: 200px;
 			border-radius: 4px;
 			background: lightblue;
 			transition: box-shadow .3s ease-in-out;
 		}
 
-		.moving { 
-			box-shadow: 0 0 15px rgba(0,0,0,.5); 
+		.moving {
+			box-shadow: 0 0 15px rgba(0, 0, 0, .5);
 		}
 	</style>
 </head>
@@ -33,12 +36,48 @@
 	<div id=container>
 		<div id="mouse-area"></div>
 	</div>
+
+	<!-- debounce2函数测试 -->
+	<button id="test">test</button>
 	<script>
-		let isDrop = false,disX = 0,disY = 0;
+
+		function testLog() { 
+			console.log('test');
+		}
+		const debounce2 = (fn, time = 17, options = {
+			leading: true,
+			context: null
+		}) => {
+			let timer;
+			const _debounce = function (...args) {
+				if (timer) {
+					clearTimeout(timer);
+				}
+
+				if (options.leading && !timer) {
+					fn.apply(options.context, args);
+				}
+				timer = setTimeout(() => {
+					fn.apply(options.context, args);
+					timer = null;
+				}, time);
+			}
+
+			_debounce.cancel = function () {
+				clearTimeout(timer);
+				timer = null;
+			}
+
+			return _debounce;
+		}
+
+		test.addEventListener('click', debounce2(testLog, 2000, {leading: true}));
+
+		let isDrop = false, disX = 0, disY = 0;
 		const element = document.getElementById('mouse-area');
-		element.addEventListener('mousedown', (e) => { 
+		element.addEventListener('mousedown', (e) => {
 			console.log(e);
-			if(!isDrop) isDrop = true;
+			if (!isDrop) isDrop = true;
 			element.classList.add('moving');
 			console.log('mouse client X: ', e.clientX);
 			console.log('mouse client Y: ', e.clientY);
@@ -50,27 +89,27 @@
 			disY = e.clientY - offsetTop;
 		});
 
-		window.addEventListener('mousemove', (e) => { 
-			if(!isDrop) return;
+		window.addEventListener('mousemove', (e) => {
+			if (!isDrop) return;
 			cx = e.clientX;
 			cy = e.clientY;
 
 			let left = cx - disX;
 			let top = cy - disY;
 
-			if(left < 0) { 
+			if (left < 0) {
 				left = 0;
 			}
 
-			if(left > 400) { 
+			if (left > 400) {
 				left = 400;
 			}
 
-			if(top < 0) { 
+			if (top < 0) {
 				top = 0;
 			}
 
-			if(top > 400) { 
+			if (top > 400) {
 				top = 400;
 			}
 
@@ -78,8 +117,8 @@
 			element.style.top = `${top}px`;
 		});
 
-		window.addEventListener('mouseup',(e) => { 
-			if(!isDrop) return;
+		window.addEventListener('mouseup', (e) => {
+			if (!isDrop) return;
 			element.classList.remove('moving');
 			isDrop = false;
 		});

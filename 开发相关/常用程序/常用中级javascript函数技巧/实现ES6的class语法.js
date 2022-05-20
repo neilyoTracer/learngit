@@ -1,6 +1,6 @@
-function inherit(subClass, superClass) { 
-    subClass.prototype = Object.create(superClass.prototype, { 
-        constructor: { 
+function inherit(subClass, superClass) {
+    subClass.prototype = Object.create(superClass.prototype, {
+        constructor: {
             enumerable: false,
             configurable: true,
             writable: true,
