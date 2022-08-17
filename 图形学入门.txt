@@ -1,0 +1,17 @@
+空间中存在向量 let a = a->
+它的长度为 let len = ||a->|| 
+Unit Vector单位向量 计作a^, 用来表示某个方向
+a^ = a / len;
+
+向量的乘法
+a-> * b-> = ||a->||*||b->||cos(theta)
+---->
+cos(theta) = a^ * b^
+
+#Day04
+3D transformtions
+Viewing transformation
+ - View/Camera transformation
+ - Project(投影) transformation
+  - Orthographic(正交) projection
+  - Perspective(透视) projection

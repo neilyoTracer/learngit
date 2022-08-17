@@ -762,6 +762,97 @@ npm uninstall -g webpack
 
 可以在系统上的任何位置运行此命令，因为当前所在的文件夹无关紧要。
 
-#
+# npm全局或本地的软件包
+可能已经在系统上安装了一些全局软件包。 可以通过在命令行上运行以下命令查看：
+
+BASH
+npm list -g --depth 0
+
+
+# npm 依赖与开发依赖
+当使用 npm install <package-name> 安装 npm 软件包时，是将其安装为依赖项。
+
+该软件包会被自动地列出在 package.json 文件中的 dependencies 列表下（在 npm 5 之前：必须手动指定 --save）。
+
+当添加了 -D 或 --save-dev 标志时，则会将其安装为开发依赖项（会被添加到 devDependencies 列表）。
+
+开发依赖是仅用于开发的程序包，在生产环境中并不需要。 例如测试的软件包、webpack 或 Babel。
+
+当投入生产环境时，如果输入 npm install 且该文件夹包含 package.json 文件时，则会安装它们，因为 npm 会假定这是开发部署。
+
+需要设置 --production 标志（npm install --production），以避免安装这些开发依赖项。
+
+# Node.js 包运行器npx
+npx 是一个非常强大的命令，从 npm 的 5.2 版本（发布于 2017 年 7 月）开始可用。
+
+如果不想安装 npm，则可以安装 npx 为独立的软件包。
+
+npx 可以运行使用 Node.js 构建并通过 npm 仓库发布的代码。
+
+## 轻松地运行本地命令
+Node.js 开发者过去通常将大多数可执行命令发布为全局的软件包，以使它们处于路径中且可被立即地执行。
+
+这很痛苦，因为无法真正地安装同一命令的不同版本。
+
+运行 npx commandname 会自动地在项目的 node_modules 文件夹中找到命令的正确引用，而无需知道确切的路径，也不需要在全局和用户路径中安装软件包。
+
+## 无需安装的命令执行
+npx 的另一个重要的特性是，无需先安装命令即可运行命令。
+
+这非常有用，主要是因为：
+
+不需要安装任何东西。
+可以使用 @version 语法运行同一命令的不同版本。
+使用 npx 的一个典型演示是使用 cowsay 命令。 cowsay 会打印一头母牛，并在命令中说出你写的内容。 例如：
+
+cowsay "你好" 会打印：
+
+CONSOLE
+ _______
+< 你好 >
+ -------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+只有之前已从 npm 全局安装了 cowsay 命令，才可以这样做，否则，当尝试运行该命令时会获得错误。
+
+npx 可以运行该 npm 命令，而无需在本地安装：
+
+BASH
+npx cowsay "你好"
+
+
+会执行这个工作。
+
+这是一个有趣但无用的命令。 其他场景有：
+
+运行 vue CLI 工具以创建新的应用程序并运行它们：npx @vue/cli create my-vue-app。
+使用 create-react-app 创建新的 React 应用：npx create-react-app my-react-app。
+还有更多其他的场景。
+
+当被下载完，则下载的代码会被擦除。
+
+## 使用不同的Node.js版本运行代码
+使用 @ 指定版本，并将其与 node npm 软件包 结合使用：
+
+BASH
+npx node@10 -v #v10.18.1
+npx node@12 -v #v12.14.1
+
+这有助于避免使用 nvm 之类的工具或其他 Node.js 版本管理工具。
+
+## 直接从URL运行任意代码片段
+npx 并不限制使用 npm 仓库上发布的软件包。
+
+可以运行位于 GitHub gist 中的代码，例如：
+
+BASH
+npx https://gist.github.com/zkat/4bc19503fe9e9309e2bfaa2c58074d32
+
+当然，当运行不受控制的代码时，需要格外小心，因为**强大的功能带来了巨大的责任**。
+
 
 
