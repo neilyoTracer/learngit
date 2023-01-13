@@ -4,7 +4,7 @@ function debounce(fn, delay, context) {
     let _timer;
 
     return (...args) => {
-        if (timer) { clearTimeout(_timer); _timer = null; }
+        if (_timer) { clearTimeout(_timer); _timer = null; }
 
         _timer = setTimeout(() => fn.apply(context, args), delay);
     }
