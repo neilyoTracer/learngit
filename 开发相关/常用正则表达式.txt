@@ -19,6 +19,20 @@ function\s*([$_]*\w+.*?)                          :匹配函数名
 \B(?=(?:\d{3})+(?!\d))          :匹配的是后面是3*n个数字的非单词边界(\B)  
 用法: 数字格式化 1,234,567,890 解释：匹配的是后面是3*n个数字的非单词边界(\B)
 解释：3个数字为一组，后面已加逗号，不再是数字
+eg:
+function formatNumber(num) {
+  // 先将数字转为字符串
+  let str = num.toString();
+  // 使用正则表达式匹配整数部分和小数部分
+  let parts = str.split('.');
+  let intPart = parts[0];
+  let decimalPart = parts.length > 1 ? '.' + parts[1] : '';
+  // 将整数部分每隔三位插入逗号分隔符
+  intPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // 返回格式化后的结果
+  return intPart + decimalPart;
+}
+
 
 \b[a-z]                    :匹配单词的首字母
 
