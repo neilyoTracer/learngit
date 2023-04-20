@@ -1235,3 +1235,37 @@ ________________________________________________________________________________
 
 
 ___________________________________________________________________________________________________________
+
+
+98. flex布局
+对于一个flex的容器，有两个并列的子元素，第二个元素是含有nz-table的,最好采用一下样式
+.plan-content {
+        height: calc(100% - 145px);
+        width: 100%;
+        .left-part {
+            height: 100%;
+            border-right: 1px solid gray;
+            margin-right: 12px;
+            padding: 5px;
+        }
+        .right-part {
+            padding: 5px;
+            height: 100%;
+            overflow: auto;
+            border-left: 1px solid grey;
+        }
+    }
+如果第一个元素含有nz-tree 布局错乱是由于nz-tree造成的，需要给nz-tree外面再弄一个div才能解决这个问题
+ <div class="plan-content flex">
+        <div class="left-part">
+            <div style="width: 340px;min-height: 200px;overflow: auto">
+                <hmi-plan-tree #planTree></hmi-plan-tree>
+            </div>
+        </div>
+        <div class="right-part">
+            <hmi-plan-table></hmi-plan-table>
+        </div>
+    </div>
+___________________________________________________________________________________________________________
+
+

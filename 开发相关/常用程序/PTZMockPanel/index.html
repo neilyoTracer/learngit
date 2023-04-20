@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTZ</title>
+    <style>
+        ul {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        li {
+            list-style: none;
+        }
+        img {
+            border: none;
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+        ul.pie {
+            position: relative;
+            margin: 10px;
+            padding: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            list-style: none;
+            overflow: hidden;
+        }
+
+        ul.pie > li.slice {
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 50%;
+            transform-origin: 0% 100%;
+        }
+
+        .pie > li,
+        .center {
+            background-color: #eeeeee;
+            border: 1px solid white;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .pie > li.slice > img {
+            margin-top: 25px;
+            margin-left: 8px;
+            width: 17px;
+        }
+
+        .slice-one {
+            transform: rotate(-22.5deg) skewY(-45deg);
+        }
+
+        .slice-one img {
+            transform: skewY(45deg) rotate(22.5deg);
+        }
+
+        .slice-two {
+            transform: rotate(22.5deg) skewY(-45deg);
+        }
+
+        .slice-two img {
+            transform: skewY(45deg) rotate(22.5deg);
+        }
+
+        .slice-three {
+            transform: rotate(67.5deg) skewY(-45deg);
+        }
+
+        .slice-three img {
+            transform: skewY(45deg) rotate(22.5deg);
+        }
+
+        .slice-four {
+            transform: rotate(112.5deg) skewY(-45deg);
+        }
+
+        .slice-four img {
+            transform: skewY(45deg) rotate(22.5deg);
+        }
+
+        .slice-five {
+            transform: rotate(157.5deg) skewY(-45deg);
+        }
+
+        .slice-five img {
+            transform: skewY(45deg) rotate(22.5deg);
+        }
+
+        .slice-six {
+            transform: rotate(202.5deg) skewY(-45deg);
+        }
+
+        .slice-six img {
+            transform: skewY(45deg) rotate(22.5deg);
+        }
+
+        .slice-seven {
+            transform: rotate(247.5deg) skewY(-45deg);
+        }
+
+        .slice-seven img {
+            transform: skewY(45deg) rotate(22.5deg);
+        }
+
+        .slice-eight {
+            transform: rotate(292.5deg) skewY(-45deg);
+        }
+
+        .slice-eight img {
+            transform: skewY(45deg) rotate(22.5deg);
+        }
+
+        .center {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            top: 19px;
+            left: 20px;
+            border-radius: 50%;
+            background: url(image/ref.png) no-repeat center center / 70% 70%;
+            background-color: #eeeeee;
+            background-position: 10px 10px;
+            border: 1px solid white;
+            box-sizing: border-box;
+        }
+
+        .pie > li:hover,
+        .center:hover {
+            box-shadow: rgb(11, 234, 235) 0px 0px 10px inset;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="pie">
+        <li tag="1" class="slice-one slice pzt-func"><img src="image/up2.png" alt=""></li>
+        <li tag="5" class="slice-two slice pzt-func"> <img src="image/up2.png" alt=""></li>
+        <li tag="3" class="slice-three slice pzt-func"> <img src="image/up2.png" alt=""></li>
+        <li tag="6" class="slice-four slice pzt-func"> <img src="image/up2.png" alt=""></li>
+        <li tag="2" class="slice-five slice pzt-func"><img src="image/up2.png" alt=""> </li>
+        <li tag="8" class="slice-six slice pzt-func"> <img src="image/up2.png" alt=""></li>
+        <li tag="4" class="slice-seven slice pzt-func"><img src="image/up2.png" alt=""> </li>
+        <li tag="7" class="slice-eight slice pzt-func"> <img src="image/up2.png" alt=""></li>
+        <div tag="18" class="center pzt-func"></div>
+    </ul>
+</body>
+
+</html>
