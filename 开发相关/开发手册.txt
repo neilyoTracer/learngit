@@ -1269,3 +1269,276 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________________
 
 
+
+99. Angular中的Input传值
+1. 父组件引用了子组件
+2. 在父组件中改变传给子组件的变量（不是通过引用直接改子组件里的那个）
+3. 在父组件中读取引用的子组件的相应的Input变量
+4. 此变量不会同步更新，要等到下个变更检测周期才会变化
+
+
+___________________________________________________________________________________________________________
+
+100. 5个比较实用的原生API
+1. getBoundingClientRect()
+Element.getBoundingClientRect() 方法返回一个 DOMRect 对象，该对象提供有关元素大小及其相对于视口的位置的信息。
+domRect = element.getBoundingClientRect();
+返回左、上、右、下、x、y、宽度和高度元素的值。
+
+Image
+
+例如，获取DOM元素相对于页面左上角的top和left定位距离的值。
+
+const h3 = document.querySelector("h3");
+const rect = h3.getBoundingClientRect();
+const topElement = document.documentElement;
+
+const positionTop = topElement.scrollTop + rect.top;
+const positionLeft = topElement.scrollLeft + rect.left;
+2. window.getComputedStyle() 
+
+window.getComputedStyle() 方法返回一个 CSSStyleDeclaration 对象，其类型与样式属性相同，其中包含元素的计算样式。
+
+document.defaultView.getComputedStyle(element, [pseudo-element])
+// or
+window.getComputedStyle(element, [pseudo-element])
+它有两个参数，第一个是计算样式的元素，第二个是伪元素；如果伪元素不存在，则传递 null。
+
+例子：
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        #root {
+            background-color: pink;
+            width: 100px;
+            height: 200px;
+        }
+        #root::after {
+            content: 'Haskell';
+            display: table;
+            clear: both;
+        }
+</style>
+</head>
+<body>
+    <div id="root" style="background-color: rgb(135, 206, 235);"></div>
+</body>
+<script>
+    function getStyleByAttr(node, name) {
+        return window.getComputedStyle(node, null)[name]
+    }
+    const node = document.getElementById('root')
+    // rgb(135, 206, 235)
+    console.log(getStyleByAttr(node, 'backgroundColor'))
+    // 100px
+    console.log(getStyleByAttr(node, 'width'))
+    // 200px
+    console.log(getStyleByAttr(node, 'height'))
+    // table
+    console.log(window.getComputedStyle(node, '::after').display)
+    // Haskell
+    console.log(window.getComputedStyle(node, '::after').content)
+</script>
+</html>
+3. once: true
+once: true 不是 API，看起来也不像。用于属性配置，有了它，lodash的once就不用了。
+const container = document.querySelector<HTMLDivElement>('.container');
+
+container?.addEventListener('click', () => {
+  console.log('I will only do it once !')
+}, {
+  // After configuring once, it will be called at most once
+  once: true
+})
+4. getModifierState()
+
+如果指定的修改键被按下或激活，则 getModifierState() 方法返回 true。
+
+例如，我们可以使用它来监听用户在打字时是否按下了尺寸切换键，然后根据情况给出适当的提示。
+
+<input type="text" size="40" onkeydown="myFunction(event)">
+
+<p id="demo"></p>
+
+<script>
+    function myFunction(event) {
+        var x = event.getModifierState("CapsLock");
+        document.getElementById("demo").innerHTML = "Caps Lock: " + x;
+    }
+</script>
+5.clipboard.readText()
+
+clipboard，我敢肯定，是一个常用的功能。
+
+要从剪贴板中读取文本，请调用 navigator.clipboard.readText() 并等待返回的 Promise 进行解析。
+
+async function getClipboardContents() {
+  try {
+    const text = await navigator.clipboard.readText();
+    console.log('Pasted content: ', text);
+  } catch (err) {
+    console.error('Failed to read clipboard contents: ', err);
+  }
+}
+要将文本复制到剪贴板，只需调用 writeText()。
+
+async function copyPageUrl() {
+  try {
+    await navigator.clipboard.writeText(location.href);
+    console.log('Page URL copied to clipboard');
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
+}
+
+___________________________________________________________________________________________________________
+
+
+101. 关于angular第3方ui库，表单部分要特别小心
+例如 引入一个ng-zorro的nz-select组件，在ngModel指令绑定值的时候不生效的问题
+首先应该思考的是ngModel的指令是formsModule提供的angular原生指令，所以必须确保导入了相关的原生模块
+然后才是看和nz-option的value值是否对应
+
+
+
+___________________________________________________________________________________________________________
+
+
+
+102. 在使用地图的时候，如果地图组件是应用的顶层组件，
+则需要设置高度为 ** 100vh **  (***应该说，任何嵌入angular路由的顶层组件都应该这样设置***)
+否则地图将无法展示
+
+
+
+___________________________________________________________________________________________________________
+
+
+
+103. overflow: hidden
+left: 100%; 
+transform: translateX(-100%);
+相对于容器元素这样定位或者移动的话，会跑出容器以外，注意设置overflow:hidden，不然容器有可能会被撑大，可能会出现滚动条
+
+
+
+___________________________________________________________________________________________________________
+
+
+
+104. nz-slider踩坑
+nz-slider因为使用了OnPush策略，而其value值不是采用input输入，所以界面并不能同步更新
+直接采用ChangeDetectorRef服务进行组件变更检测，还是不起作用
+原因: 一般写法上采用的是ngModel模版表单的方式进行值绑定，ngModel本身也是异步更新，所以仍然会导致错过手动的变更检测
+解决办法: 直接改为响应式表单绑定，之后再采用手动变更检测就可以同步更新界面
+
+复习: 采用OnPush的变更检测策略的组件将会停止angular本身的周期性自动变更检测
+OnPush 变更检测会指示 Angular 仅在以下情况下为组件子树自动运行变更检测：
+
+1. 子树的根组件接收到作为模板绑定的结果的新输入。Angular 将输入的当前值和过去值使用 == 进行比较， Input值引用的变化
+
+2. Angular 处理使用了 OnPush 变更检测策略的组件中的事件时， 比如在界面上点击该组件
+
+
+
+
+
+
+___________________________________________________________________________________________________________
+
+
+
+105.svg.js分组动画
+
+html:
+<html>
+<body>
+ 
+<h1>My first SVG</h1>
+ 
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <rect id="test" width="100" height="50" stroke="#333"
+    fill="#333"
+  
+  stroke-width="1"></rect>
+</svg>
+ 
+</body>
+</html>
+
+
+js:
+const rect = document.getElementById('test');
+const svgRect = SVG(rect);
+const timeline = new SVG.Timeline();
+svgRect.timeline(timeline);
+/* svgRect.animate(4000, 0, 'absolute').move(200, 50).loop(); // start at time 0 of timeline */
+/* svgRect.animate(100, 2000, 'absolute').attr({fill: '#f03'}).loop(); // start at time 200 of timeline */
+
+
+___________________________________________________________________________________________________________
+
+
+
+106. 要想控制台设备尺寸切换后，ui布局正常
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+
+___________________________________________________________________________________________________________
+
+
+
+107.FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+set NODE_OPTIONS=--max_old_space_size=8192
+
+
+___________________________________________________________________________________________________________
+
+
+
+
+***108.angular的EventEmitter不要乱用变量名，取名要特别小心，比如取成select的话，会同时触发文字的选中原生select事件
+直接导致意向不到的结果，$event会变成dom事件对象，而不是emit的对象
+
+
+
+___________________________________________________________________________________________________________
+
+
+
+
+***109. CMD(CommonJS) & AMD(RequireJS) 模块封装简易方法 
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    factory((global.ArcgisToGeojsonUtils = {}));
+  }(this, function (exports) { 
+    'use strict';
+  
+  
+    function arcgisToGeoJSON (arcgis, idAttribute) {
+     
+    }
+  
+    function geojsonToArcGIS (geojson, idAttribute) {
+    }
+  
+    var index = { arcgisToGeoJSON: arcgisToGeoJSON, geojsonToArcGIS: geojsonToArcGIS };
+  
+    exports.arcgisToGeoJSON = arcgisToGeoJSON;
+    exports.geojsonToArcGIS = geojsonToArcGIS;
+    exports['default'] = index;
+  
+  }));
+  // 导入
+  import ArcgisToGeojsonUtils from 'xxx/xxx.js'; 这个是把exports.defualt赋值给ArcgisToGeojsonUtils
+  import * as xxx from 'xxx/xxx.js'; 这个时候的话，是吧整个exports作为一个对象赋值给了xxx
+
+
+
+___________________________________________________________________________________________________________
+
+
+
