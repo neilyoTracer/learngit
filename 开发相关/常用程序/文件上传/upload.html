@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>upload</title>
+</head>
+<body>
+    upload
+
+    <form enctype="multipart/form-data">
+        <input type="file" name="fileInput" id="fileInput">
+        <input type="button" value="上传" onclick="uploadFile()">
+    </form>
+
+    上传结果
+    <span id="uploadResult"></span>
+
+    <script>
+        const uploadResult = document.getElementById('uploadResult');
+
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if(!file) {
+                return;
+            }
+
+            const xhr = new XMLHttpRequest();
+
+            // 处理上传进度
+            xhr.upload.onprogress = function(e) {
+                const pc = 100 * e.loaded / e.total;
+                uploadResult.innerHTML = '上传进度: ' + pc + '%';
+            }
+
+            // 上传完成调用
+            xhr.onload = function() {
+                if(xhr.status === 200) {
+                    uploadResult.innerHTML = '上传完成!' + xhr.responseText;
+                }
+            }
+
+            xhr.onerror = function() { 
+                uploadResult.innerHTML = '上传失败!';
+            }
+
+            // 发送请求
+            xhr.open('POST', '/upload', true);
+            const formData = new FormData();
+            formData.append('file', file);
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>

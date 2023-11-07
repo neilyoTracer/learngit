@@ -1446,6 +1446,7 @@ OnPush 变更检测会指示 Angular 仅在以下情况下为组件子树自动�
 
 
 
+
 ___________________________________________________________________________________________________________
 
 
@@ -1533,9 +1534,216 @@ ________________________________________________________________________________
   
   }));
   // 导入
-  import ArcgisToGeojsonUtils from 'xxx/xxx.js'; 这个是把exports.defualt赋值给ArcgisToGeojsonUtils
+  import ArcgisToGeojsonUtils from 'xxx/xxx.js'; 这个是把exports.defualt赋值给ArcgisToGeojsonUtils只有放了default属性才能这样导入
   import * as xxx from 'xxx/xxx.js'; 这个时候的话，是吧整个exports作为一个对象赋值给了xxx
+  import {arcgisToGeoJSON} from 'xxx/xxx.js' 导入当个方法
 
+
+
+___________________________________________________________________________________________________________
+
+***110.循环引用
+关联49
+写了一个model.ts
+内容是
+export interface DynComponent {
+	data: any;
+}
+
+// @ts-ignore
+import {Type} from "@angular/core";
+import {TestPopup1Component} from "@app/modules/dyn-comp-loader/test-components/test-popup1.component";
+import {TestPopup2Component} from "@app/modules/dyn-comp-loader/test-components/test-popup2.component";
+import {IncidentRecordComponent} from "@app/modules/panel-table/incident-record/incident-record.component";
+import {WorkOrderComponent} from "@app/modules/panel-table/work-order/work-order.component";
+import {TechnicalAlarmComponent} from "@app/modules/panel-table/technical-alarm/technical-alarm.component";
+import {RoadWorkComponent} from "@app/modules/panel-table/road-work/road-work.component";
+import {ReadingAlarmComponent} from "@app/modules/panel-table/reading-alarm/reading-alarm.component";
+import {TrafficAlertComponent} from "@app/modules/panel-table/traffic-alert/traffic-alert.component";
+import {TechnicalAlarmDetailComponent} from "@app/modules/details/technical-alarm-detail/technical-alarm-detail.component";
+import {AllAlarmComponent} from "@app/modules/panel-table/all-alarm/all-alarm.component";
+import {DynComponentName} from "@app/modules/dyn-comp-loader/model/dyn-name.model";
+import {DynComponent} from "@app/modules/dyn-comp-loader/model/dyn.interface";
+// @ts-ignore
+export const DynNameToComponent: { [key: DynComponentName]: Type<DynComponent> } = {
+	[DynComponentName.TEST1]: TestPopup1Component,
+	[DynComponentName.TEST2]: TestPopup2Component,
+	[DynComponentName.IR]: IncidentRecordComponent,
+	[DynComponentName.WO]: WorkOrderComponent,
+	[DynComponentName.TA]: TechnicalAlarmComponent,
+	[DynComponentName.RW]: RoadWorkComponent,
+	[DynComponentName.RA]: ReadingAlarmComponent,
+	[DynComponentName.TRA]: TrafficAlertComponent,
+	[DynComponentName.TARA]: AllAlarmComponent,
+	[DynComponentName.ALARMD]: TechnicalAlarmDetailComponent,
+};
+
+export enum DynComponentName {
+	TEST1 = 'dyn-test1',
+	TEST2 = 'dyn-test2',
+	IR = 'dyn-incident-record',
+	WO = 'dyn-work-order',
+	TA = 'dyn-technical-alarm',
+	RW = 'dyn-road-work',
+	RA = 'dyn-environmental-monitoring',
+	TRA = 'dyn-traffic-alert',
+	TARA = 'dyn-all-alarm',
+	ALARMD = 'dyn-alarm-detail'
+}
+
+这样，当这些组件用了这些model，然后这个model.ts又引用了这些组件所在的文件，循环引用的问题出现了
+会导致难以解决的问题
+比如莫名其妙的模板报错，比如提示组件未注册
+例子 NG8001 NG0303这类错误
+'xxxx' is not a known element 
+Can't bind to 'ngIf' since it isn't a known property of 
+
+
+___________________________________________________________________________________________________________
+
+
+
+111. relative定位的元素撑大width100%的父级元素
+flex-auto的元素，子元素都是width100%，但遇到超长的relative定位的子元素，宽度会被撑大，界面布局失效
+这个时候直接改成absolute的定位，可以解决此问题
+
+
+
+___________________________________________________________________________________________________________
+
+
+
+***112. 利用git的git cherry-pick 功能回退线上代码
+在gitlab的代码页面，点击需要回退的那次commit，在commit详情界面点击右上角的 options 按钮 就可以用cherry-pick重新发起这次commit的合并请求
+
+
+
+___________________________________________________________________________________________________________
+
+
+113. 关于getScreenCTM
+1. getCTM  ->  nearestViewportElement
+2. getScreenCTM -> screen
+3. getTransformToElement(SVGElement) -> svg element
+
+屏幕 -> 文档 的转换矩阵 getScreenCTM().inverse()
+
+文档 -> 屏幕 getBoundingClientRect()
+
+获取转换后的坐标
+svg.createSVGPoint().matrixTransform(getScreenCTM().inverse())
+eg: 
+const svgContent = eventContext_.getSVGContent(); // canvas
+
+// 1. create a svg point
+const tpt = svgRoot.createSVGPoint(); // a point on canvas
+
+// 2. set point x,y by client x,y
+tpt.x = evt.clientX;
+tpt.y = evt.clientY;
+
+// 3. call point's matrixTransform with svgContent.getScreenCTM().inverse() to get the svg doc point
+const svgP = tpt.matrixTransform(svgContent.getScreenCTM().inverse());
+console.log(svgP);
+const circle = document.createElementNS(NS.SVG, 'circle');
+
+// 4. use svg point
+circle.setAttribute('cx', svgP.x);
+circle.setAttribute('cy', svgP.y);
+circle.setAttribute('r', 10);
+circle.setAttribute('fill', '#f00');
+svgContent.appendChild(circle); 
+
+
+___________________________________________________________________________________________________________
+
+
+
+
+114. 角度和弧度的转换
+1。= 2*PI / 360 = PI / 180
+20。= 20 * PI / 180 = PI / 9 
+
+
+
+
+
+___________________________________________________________________________________________________________
+
+
+
+115. DomMatrix
+a c e
+b d f
+0 0 1
+1. 旋转
+m = {
+    a: Math.cos(x), 
+    b: Math.sin(x), 
+    c: -Math.sin(x),
+    d: Math.cos(x),
+    e: 0,
+    f: 0
+}
+2. 平移
+m = {
+    a: 1, 
+    b: 0, 
+    c: 0,
+    d: 1,
+    e: dx,
+    f: dy
+}
+3. 缩放
+m = {
+    a: sx, 
+    b: 0, 
+    c: 0,
+    d: sy,
+    e: 0,
+    f: 0
+}
+4. 倾斜X skewX
+m = {
+    a: 1, 
+    b: 0, 
+    c: Math.tan(x),
+    d: 1,
+    e: 0,
+    f: 0
+}
+5. 倾斜Y skewY
+m = {
+    a: 1, 
+    b: Math.tan(x), 
+    c: 0,
+    d: 1,
+    e: 0,
+    f: 0
+}
+
+transform=`matrix(${m.a}, ${ma.b}, ....)`;
+
+
+
+
+___________________________________________________________________________________________________________
+
+
+
+116.设置preserveDrawingBuffer参数为true来重写canvas的getContext方法，防止canvas.toDataURL()方法拿到的图片是空白的
+<script>
+HTMLCanvasElement.prototype.getContext = function(origFn) {
+  return function(type, attributes) {
+    if (type === 'webgl') {
+      attributes = Object.assign({}, attributes, {
+        preserveDrawingBuffer: true,
+      });
+    }
+    return origFn.call(this, type, attributes);
+  };
+}(HTMLCanvasElement.prototype.getContext);
+</script>
 
 
 ___________________________________________________________________________________________________________

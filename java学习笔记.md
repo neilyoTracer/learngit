@@ -442,26 +442,7 @@ package_sample
    └─ mr
       └─ jun
          └─ Arrays.class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -————————————————————————————————————————————————
-
 @Configuration
 @ComponentScan
 @PropertySource("app.properties") // 表示读取classpath的app.properties
@@ -489,5 +470,20 @@ public class SmtpConfig {
 
     public int getPort() { 
         return port;
+    }
+}
+
+# Day8:
+1. public
+
+
+## 两个字符串比较，必须总是使用equals()方法
+## 要忽略大小写比较，使用equalsIgnoreCase()方法。
+public class Main {
+    public static void main(String[] args) {
+        String s1 = "hello";
+        String s2 = "HELLO".toLowerCase();
+        System.out.println(s1 == s2); // false
+        System.out.println(s1.equals(s2)); // true
     }
 }

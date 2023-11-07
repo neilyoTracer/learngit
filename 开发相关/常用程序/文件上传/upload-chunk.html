@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分片上传</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/spark-md5/3.0.2/spark-md5.min.js"></script>
+</head>
+<body>
+    分片上传
+
+    <form enctype="multipart/form-data">
+        <input type="file" name="fileInput" id="fileInput">
+        <input type="button" value="计算文件MD5" onclick="calculateFileMD5()">
+        <input type="button" value="上传" onclick="uploadFile()">
+        <input type="button" value="检测文件完整性" onclick="checkFile()">
+    </form>
+
+    <p>
+        文件MD5:
+        <span id="fileMd5"></span>
+    </p>
+
+    <p>
+        上传结果:
+        <span id="uploadResult"></span>
+    </p>
+
+    <p>
+        检测文件完整性:
+        <span id="checkFileRes"></span>
+    </p>
+
+    <script>
+        const chunkSize = 1 * 1024 * 1024;
+
+        const uploadResult = document.getElementById('uploadResult');
+        const fileMd5Span = document.getElementById('fileMd5');
+        const checkFileRes = document.getElementById('checkFileRes');
+        let fileMd5;
+
+        function calculateFileMD5() { 
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            getFileMd5(file).then(md5 => {
+                fileMd5 = md5;
+                fileMd5Span.innerHTML = md5;
+            });
+        }
+
+        /**
+         * 计算文件md5值
+         */
+        function getFileMd5(file) {
+            return new Promise((rs, rj) => { 
+                let fileReader = new FileReader();
+                fileReader.onload = function (e) {
+                    let fileMd5 = SparkMD5.ArrayBuffer.hash(e.target.result);
+                    rs(fileMd5);
+                }
+                fileReader.onerror = err => rj(err);
+                fileReader.readAsArrayBuffer(file);
+            });
+        }
+
+        function uploadFile() { 
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if(!file) return;
+            if(!fileMd5) return;
+
+            // 获取到文件
+            let fileArr = this.sliceFile(file);
+            // 保存文件名称
+            let fileName = file.name;
+        
+            fileArr.forEach((e, i) => { 
+                // 创建formdata对象
+                let data = new FormData();
+                data.append('totalNumber', fileArr.length);
+                data.append('chunkSize', chunkSize);
+                data.append('chunkNumber', i);
+                data.append('md5', fileMd5);
+                data.append('file', new File([e], fileName));
+                upload(data);
+            });
+        }
+        function upload(data) {
+
+            const xhr = new XMLHttpRequest();
+            // 上传完成调用
+            xhr.onload = function() {
+                if(xhr.status === 200) {
+                    uploadResult.append('上传成功: ' + data.get('chunkNumber' + '\t'));
+                }
+            }
+
+            xhr.onerror = function() { 
+                uploadResult.innerHTML = '上传失败!';
+            }
+
+            // 发送请求
+            xhr.open('POST', '/uploadBig', true);
+            xhr.send(data);
+        }
+
+        
+        function checkFile() { 
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                if(xhr.status === 200) { 
+                    checkFileRes.innerHTML = '检测文件完整性成功！' + xhr.responseText;
+                }
+            }
+
+            xhr.onerror = () => checkFileRes.innerHTML = '检测文件失败!';
+
+            xhr.open('POST', '/checkFile', true);
+            let data = new FormData();
+            data.append('md5', fileMd5);
+            xhr.send(data);
+        }
+
+        function sliceFile(file) { 
+            const chunks = [];
+            let start = 0;
+            let end;
+            while(start < file.size) { 
+                end = Math.min(start + chunkSize, file.size);
+                chunks.push(file.slice(start, end));
+                start = end;
+            }
+            return chunks;
+        }
+    </script>
+</body>
+</html>
