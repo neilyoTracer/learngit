@@ -329,7 +329,7 @@ function test(cb) {
   setTimeout(() => cb(), 5000)
 }
 
-// 5秒后依次打出1，2，3
+// 5秒后依次打出1，2，3 这里不是闭包，只是因为每个迭代函数上下文都是独立的
 
 __________________________________________________________________________________________________________
 
@@ -1279,8 +1279,8 @@ ________________________________________________________________________________
 
 ___________________________________________________________________________________________________________
 
-100. 5个比较实用的原生API
-1. getBoundingClientRect()
+****100. 5个比较实用的原生API
+1. getBoundingClientRect() ***这个方法的布局会受transform属性的影响***
 Element.getBoundingClientRect() 方法返回一个 DOMRect 对象，该对象提供有关元素大小及其相对于视口的位置的信息。
 domRect = element.getBoundingClientRect();
 返回左、上、右、下、x、y、宽度和高度元素的值。
@@ -1628,7 +1628,7 @@ ________________________________________________________________________________
 
 屏幕 -> 文档 的转换矩阵 getScreenCTM().inverse()
 
-文档 -> 屏幕 getBoundingClientRect()
+文档 -> 屏幕 getBoundingClientRect() ***这个方法的布局会受transform属性的影响***
 
 获取转换后的坐标
 svg.createSVGPoint().matrixTransform(getScreenCTM().inverse())
@@ -1744,6 +1744,134 @@ HTMLCanvasElement.prototype.getContext = function(origFn) {
   };
 }(HTMLCanvasElement.prototype.getContext);
 </script>
+
+
+___________________________________________________________________________________________________________
+
+
+117. angular自定义组件实现属性的双向绑定
+
+// 用法就是 <app-obum-panel [(openChange)]="boolean"></app-obum-panel>
+@Component({
+	selector: 'app-obum-panel',
+	templateUrl: './obum-panel.component.html',
+	styleUrls: ['./obum-panel.component.less']
+})
+export class ObumPanelComponent implements OnInit, OnDestroy, OnChanges {
+	@Input() open = false;
+	@Output() openChange = new EventEmitter<boolean>();
+	inputOpen = new Subject<boolean>();
+	maximized = false;
+
+	selectedMsg!: AET_Data;
+
+	unsub$ = new Subject<void>();
+	constructor(public el: ElementRef) {
+	}
+
+	ngOnInit(): void {
+		this.inputOpen.asObservable().pipe(
+			distinctUntilChanged(),
+			takeUntil(this.unsub$)
+		).subscribe(isOpen => {
+			this.openChange.emit(isOpen);
+		});
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		const openChange = changes['open'];
+		if(!openChange.isFirstChange()) {
+			this.inputOpen.next(this.open);
+		}
+	}
+
+	ngOnDestroy() {
+		this.unsub$.next();
+		this.unsub$.complete();
+	}
+
+	close() {
+		this.open = false;
+		this.inputOpen.next(this.open);
+	}
+}
+
+___________________________________________________________________________________________________________
+
+
+
+
+118. mergeMap, concatMap, switchMap
+这几个操作用于发请求的Observable时，效果是一样的，可能switchMap稍有区别，他会丢弃旧的请求结果
+发送请求的Observable，是一个发生一次就完成的Observable，所以可以用于forkjoin，这里注意forkjoin的用法，是所有的Observable都完成时，才发送结果的Observable
+
+
+
+___________________________________________________________________________________________________________
+
+
+
+119. 事件源头只触发了一次事件，但是在接受的地方却打印了两次，那么唯一的解释肯定就是接受的这个地方所属的组件被重复使用了
+
+
+
+___________________________________________________________________________________________________________
+
+
+
+120. 元素突然不显示，但在doc文档中
+有可能是overflow hidden了
+
+
+
+___________________________________________________________________________________________________________
+
+
+***121. 有时候dom没有显示，先检查dom结构，多半是样式的问题
+例子，arcgis的popup没有显示，也没有报错，最后发现popup的dom在文档下面，配置的arcgis的样式文件地址加了main.css?date=123
+造成本地找到这个样式文件，但linux服务器找到文件
+
+
+___________________________________________________________________________________________________________
+
+
+***122. 慎用 css 的transform属性
+此属性可能会导致 该元素的子元素 把该元素作为适口，影响包括getBoundingBox() 和 其子元素的fix 定位
+
+
+
+___________________________________________________________________________________________________________
+
+
+
+123. 开发Web Component
+class HTMLAppElement extends HTMLElement { 
+    private _shadowRoot: ShadowRoot;
+
+    constructor() {
+        super();
+        this._shadowRoot = this.attachShadow({mode: 'closed'});
+    }
+
+    async connentedCallback() {
+        const response = await fetch('./app-component.html', {
+            headers: { 
+                Accept: 'text/html; charset=UTF-8'
+            }
+        })
+        const rawHTML = await response.text()
+        const domParser = new DOMParser();
+        const templateDoc = domParser.parseFromString(rawHTML, 'text/html');
+        const tempalte = templateDoc.querySelector<HTMLTemplateElement>('#app-component-template')
+    }
+
+    window.customElements.define('app-component', HTMLAppElement)
+}
+
+<div class="container">
+    <app-component></app-component>
+</div>
+
 
 
 ___________________________________________________________________________________________________________
