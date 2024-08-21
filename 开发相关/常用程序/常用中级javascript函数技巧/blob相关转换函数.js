@@ -5,7 +5,7 @@
  * 2、然后把 base64 转换成 blob对象
  * 3、然后判断浏览器的类型，选择不同的方式把 blob 文件流下载到本地
  */
-// 转换成base64的方法
+// url -> base64(dataUrl)
 function convertUrlToBase64(url) {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -35,7 +35,7 @@ function convertUrlToBase64(url) {
     });
 }
 
-// 转换成 blob 对象
+// base64(dataUrl) -> blob
 function convertBase64UrlToBlob(base64) {
     const parts = base64.dataUrl.split(';base64,');
     const contentType = parts[0].split(':')[1];
@@ -70,7 +70,22 @@ function myBrowser() {
     } //判断是否Safari浏览器 AppleWebKit/534.57.2 Version/5.1.7 Safari/534.57.2
 }
 
+function getWebUrl(file: any) {
+    let url: any = null;
+    // @ts-ignore
+    if (window.createObjectURL != undefined) { // basic
+        // @ts-ignore
+        url = window.createObjectURL(file);
+    } else if (window.URL != undefined) { // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+}
+
 const url = 'test'
+
 // 图片转为base64
 convertUrlToBase64(url).then((base64) => {
     const blob = convertBase64UrlToBlob(base64); // 转为blob对象
@@ -95,4 +110,19 @@ function downloadByA(filename, href) {
     a.click()
     a.remove()
     window.URL.revokeObjectURL(href)
+}
+
+// blob -> base64(dataUrl)
+function blobToBase64(blob: Blob) {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            resolve(e.target!.result);
+        };
+        // readAsDataURL
+        fileReader.readAsDataURL(blob);
+        fileReader.onerror = () => {
+            reject(new Error('blobToBase64 error'));
+        };
+    });
 }
