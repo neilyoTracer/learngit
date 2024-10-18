@@ -1,5 +1,5 @@
 1. [providers 和 viewProviders 的区别是，providers 在遇到 transclude 的组件时不会隔离服务，而后者可以]
-2. (xxx ??= []).push(xxx); 没有就是建立空数组[]
+2. (a ??= []).push(b); 没有就是建立空数组[]
 3. angular 类的 constructor 函数体内就是[injecter context],这里面才能执行 inject 函数
 4. 问：我们可以监听到 [QueryList] 的变化吗?
 

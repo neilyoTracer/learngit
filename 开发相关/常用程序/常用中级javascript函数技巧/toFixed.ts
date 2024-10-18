@@ -1,5 +1,6 @@
 import {AbstractControl, ValidationErrors} from '@angular/forms';
 
+// 正整数验证
 export function posIntegerValidate(control: AbstractControl): ValidationErrors | null {
 	const value = control.value;
 	if ((!isNaN(value) && value > 0 && value % 1 === 0) || !value) {
@@ -15,7 +16,6 @@ export function posIntegerValidate(control: AbstractControl): ValidationErrors |
  * num操作数
  * s表示需要保留的小数位数
  */
-// num表示需要保留的小数位数
 function toFixed(num, s) {
 	var multiplier = Math.pow(10, s);
 	var fixedNum = Math.floor(num * multiplier) / multiplier;
@@ -30,9 +30,8 @@ function toFixed(num, s) {
 	  while (fixedStr.length - decimalIndex - 1 < s) {
 		fixedStr += '0';
 	  }
-	} else if (decimalIndex != -1) {
-	  fixedStr = fixedStr.substring(0, decimalIndex);
 	}
 	
 	return fixedStr;
   }
+  
