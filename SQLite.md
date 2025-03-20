@@ -767,3 +767,224 @@ LIMIT 5;
     ```
 
 23. [Update]
+    ```SQL
+        UPDATE employees
+        SET city = 'Toronto',
+            state = 'ON',
+            postalcode = 'M5P 2N7'
+        WHERE 
+            employeeid = 4;
+
+        UPDATE employees
+        SET email = LOWER(firstname || "." || lastname || "@chinookcorp.com")
+        ORDER BY firstname
+        LIMIT 1;
+
+        CREATE TABLE sales_employees (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            salary REAL NOT NULL
+        );
+
+        CREATE TABLE sales_performances (
+            sales_employee_id INT PRIMARY KEY,
+            score INTEGER NOT NULL CHECK (score BETWEEN 1 AND 5),
+            FOREIGN KEY (sales_employee_id) REFERENCES sales_employees(id)
+        );
+        INSERT INTO
+            sales_employees (name, salary)
+        VALUES
+            ('John Doe', 3000.0),
+            ('Jane Smith', 3200.0),
+            ('Michael Johnson', 2800.0);
+
+        INSERT INTO
+            sales_performances (sales_employee_id, score)
+        VALUES
+            (1, 3),
+            (2, 4),
+            (3, 2);
+        
+        UPDATE sales_employees AS e
+        SET 
+            salary = CASE s.score
+                WHEN 1 THEN salary * 1.02
+                WHEN 2 THEN salary * 1.04
+                WHEN 3 THEN salary * 1.06
+                WHEN 4 THEN salary * 1.08
+                WHEN 5 THEN salary * 1.10
+            END
+        FROM sales_performances AS s
+        WHERE
+            e.id = s.sales_employee_id;
+
+        CREATE TABLE inventory (
+            item_id INTEGER PRIMARY KEY,
+            item_name TEXT NOT NULL,
+            quantity INTEGER NOT NULL
+        ); 
+
+        CREATE TABLE sales (
+            sales_id INTEGER PRIMARY KEY,
+            item_id INTEGER,
+            quantity_sold INTEGER,
+            sales_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (item_id) REFERENCES inventory (item_id)
+        );
+
+        INSERT INTO
+            inventory (item_id, item_name, quantity)
+        VALUES
+            (1, 'Item A', 100),
+            (2, 'Item B', 150),
+            (3, 'Item C', 200);
+
+        INSERT INTO
+            sales (item_id, quantity_sold)
+        VALUES
+            (1, 20),
+            (1, 30),
+            (2, 25),
+            (3, 50);    
+
+        UPDATE inventory
+        SET
+            quantity = quantity - daily.qty
+        FROM
+            (
+                SELECT
+                    SUM(quantity_sold) AS qty
+                    item_id
+                FROM
+                    sales
+                GROUP BY
+                    item_id
+            ) AS daily
+        WHERE
+            inventory.item_id = daily.item_id;
+    ```
+
+24. [DELETE]
+    ```SQL
+    DELETE FROM artists_backup 
+    WHERE artistid = 1;
+
+    DELETE FROM artists_backup
+    WHERE name LIKE '%Santana%';
+    ```
+
+25. [REPLACE]
+    ```SQL
+    SELECT * FROM positions;
+
+    CREATE UNIQUE INDEX idx_positions_title
+    ON positions (title)
+
+    REPLACE INTO positions (title, min_salary)
+    VALUES ('Full Stack Developer', 140000);
+    ```
+26. [UPSERT]
+    ```SQL
+    CREATE TABLE search_stats (
+        id INTEGER PRIMARY KEY,
+        keyword TEXT UNIQUE NOT NULL,
+        search_count INT NOT NULL DEFAULT 1
+    );
+
+    INSERT INTO search_stats(keyword)
+    VALUE('SQLite');
+
+    INSERT INTO search_stats(keyword)
+    VALUES ('SQLite')
+    ON CONFLICT (keyword)
+    DO
+        UPDATE SET search_count = search_count + 1;
+
+    CREATE TABLE IF NOT EXISTS contacts (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        phone TEXT NOT NULL,
+        effective_date DATE NOT NULL
+    );
+
+    INSERT INTO contacts(name, email, phone, effective_date)
+    VALUES('Jane Doe', 'jane@test.com', '(408)-111-2222', '2024-04-05');
+
+    SELECT * FROM contacts;
+
+    id  name      email          phone           effective_date
+    --  --------  -------------  --------------  --------------
+    1   Jane Doe  jane@test.com  (408)-111-2222  2024-04-05
+
+    INSERT INTO
+        contacts (name, email, phone, effective_date)
+    VALUES
+        ('Jane Smith','jane@test.com','(408)-111-3333','2024-05-05')
+    ON CONFLICT (email) DO
+    UPDATE
+    SET 
+        name = excluded.name,
+        phone = excluded.phone,
+        effective_date = excluded.effective_date
+    WHERE
+        excluded.effective_date > contacts.effective_date;
+    
+    SELECT * FROM contacts;
+
+    id  name        email          phone           effective_date
+    --  ----------  -------------  --------------  --------------
+    1   Jane Smith  jane@test.com  (408)-111-3333  2024-05-05
+
+    /**
+    1. Upsert is a combination of insert and update.
+    2. Upsert allows you to update an existing row or insert a new row if it doesn’t exist in the table.
+    3. Use the excluded keyword to access the values you were trying to insert or update.
+     */
+    ```
+
+27. [RETURNING]
+    ```SQL
+    CREATE TABLE books(
+        id INTEGER PRIMARY KEY,
+        title TEXT NOT NULL,
+        isbn TEXT NOT NULL,
+        release_date DATE
+    );
+
+    INSERT INTO books(title, isbn, release_date)
+    VALUES('The Catcher in the Rye', '9780316769488', '1951-07-16')
+    RETURNING *;
+
+    id  title                   isbn           release_date
+    --  ----------------------  -------------  ------------
+    1   The Catcher in the Rye  9780316769488  1951-07-16
+
+    INSERT INTO books(title, isbn, release_date)
+    VALUES ('The Great Gatsby', '9780743273565', '1925-04-10')
+    RETURNING id;   
+
+    id
+    --
+    2 
+
+    INSERT INTO books(title, isbn, release_date)
+    VALUES('The Great Gatsby', '9780743273565', '1925-04-10')  
+    RETURNING
+        id AS book_id,
+        strftime('%Y', release_date) AS year;
+
+    book_id  year
+    -------  ----
+    3        1925
+
+    UPDATE books
+    SET isbn = '0141439512'
+    WHERE id = 1
+    RETURNING *;
+
+    DELETE FROM books
+    WHERE id = 1
+    RETURNING *;
+    ```
+28. [TRANSACTION]

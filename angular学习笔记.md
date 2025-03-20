@@ -1,3 +1,28 @@
+[RNode][RElement]
+RNode 全称是 Render Node，RElement 全称 Render Element。
+
+它们是 Angular 对 [DOMNode] 和 [HTMLElement] 的接口。Angular 不想直接依赖 DOM，所以它搞了这两个接口。
+如果环境是游览器，那最终实现这两个接口的就是 DOM Node 和 HTMLElement。
+
+[TNode]
+TNode 全称是 Template Node。顾名思义，它是节点的模型，用于生产出 [RNode]，就像 Template 生产出 View 那样。
+TNode -> RNode
+
+[TView]
+TView 全称是 Template View。顾名思义，Template 意味着它也是个模型。
+
+View 意味着它是一组 nodes 的 frame。合在一起大致意思就是一个 nodes frame 的模型。
+
+按推理，*一组 TNode 会形成一个 [TView]*，然后 [TView] 用于生产 [RView]。
+
+这个推理只对了一半，TView 确实包裹着一组 TNode，但 TView 并不生产 RView，它生产的是 [LView]。
+
+[LView] 就是一个javascript对象，*类似React的Virtual DOM*
+
+
+
+
+
 1. [providers 和 viewProviders 的区别是，providers 在遇到 transclude 的组件时不会隔离服务，而后者可以]
 2. (a ??= []).push(b); 没有就是建立空数组[]
 3. angular 类的 constructor 函数体内就是[injecter context],这里面才能执行 inject 函数
@@ -108,6 +133,10 @@ private injector = inject(injector);
 async append() {
 const {DynComponent} = await import('./dyn-component');
 const embeddedView = this.tplRef.createEmbeddedView();
+// 如果是插入embeddedView
+// 1. viewContainerRef.createEmbeddedView(this.tplRef);
+// 2. viewContainerRef.insert(embeddedView); 
+// dyncomponentRef.hostView和ng-template的embeddedView的抽象都是ViewRef
 const dynComponentRef = viewContainerRef.createComponent(DynComponent, {
 
     enviromentInjector: this.injector.get(EnvironmentInjector),
@@ -116,6 +145,13 @@ const dynComponentRef = viewContainerRef.createComponent(DynComponent, {
 
 })
 }
+
+NOTE:
+动态组件和ng-template的重要区别
+1. 动态组件
+通过viewContainerRef.createComponent()方法生成的动态组件，其injector没有传入的话，会自动使用viewContainerRef.parentViewInjector,通常就是用于动态组件生成的容器组件
+2. ng-template
+通过templateRef.createEmbeddedView()生成的embeddedview,如果没有传入injector的话，默认是undefined，不能inject NodeInjector(这里指注册在某个组件上的服务)
 ```
 
 10. [NgForOf] 指令会以 person.name 作为识别 person 对象的 key，在 people 发生变成 (比如排序) 时，以 ViewContainerRef.move 取代 ViewContainerRef.createEmbededView 来进行需改，这样性能就会比较好。

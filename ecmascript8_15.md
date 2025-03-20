@@ -96,3 +96,59 @@
     console.log(str.replace(/(?<left>[a-z])(a)(?<right>t)/g, '$<left>*$<right>'));
     
    ```
+
+# es10 2019
+9. [动态import]
+   ```javascript
+    if(user.is_admin) {
+        const admin = await import('./admin.js');
+        admin.setupDashboard(); 
+    }
+
+    // 基于用户或变量输入加载模块...
+    const language = 'french';
+    const translations = await import(`./translations/${language}.js`);
+   ```
+10. [Object.fromEntries()]
+    ```javascript
+        const entries = [['name', 'John'], ['age', 30]];
+        const obj = Object.fromEntries(entries);
+        console.log(obj); // { name: 'John', age: 30 }
+    ```   
+11. [trimStart()和trimEnd()]    
+    ```javascript
+        const str = '   Hello, World!   ';
+        console.log(str.trimStart()); // 'Hello, World!   '
+        console.log(str.trimEnd());   // '   Hello, World!'
+    ```
+12. [BigInt]
+    ```javascript
+    const bigInt = BigInt('23483329048902384092830489902384023840823');
+    ```
+
+# es13 
+13. [顶级await]
+    
+# es14
+14. [toSorted()toReversed()toSpliced()]
+    ```javascript
+        const numbers = [3, 1, 4, 1, 5];
+        const sorted = numbers.toSorted((a, b) => a - b);
+        console.log(sorted); // [1, 1, 3, 4, 5]
+        console.log(numbers); // [3, 1, 4, 1, 5]
+    ```
+
+15. [findLast()和findLastIndex()]
+16. [数组的with()]
+
+# es15
+17. [groupBy]
+    ```javascript
+
+        const fruits = [  { name: 'pineapple🍍', color: '🟡' },  { name: 'apple🍎', color: '🔴' },  { name: 'banana🍌', color: '🟡' },  { name: 'strawberry🍓', color: '🔴' },];const groupedByColor = Object.groupBy(  fruits,  (fruit, index) => fruit.color);// 原生 group by 示例console.log(groupedByColor);
+
+        const array = [1, 2, 3, 4, 5];
+        const odd = { odd: true };
+        const even = { even: true };
+        Map.groupBy(array, (num, index) => {  return num % 2 === 0 ? even : odd;});// => Map { {odd: true}: [1, 3, 5], {even: true}: [2, 4] }
+    ```
