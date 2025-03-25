@@ -481,7 +481,34 @@ git config --global --unset user.email
 
 这样就可以在不同的仓库，已不同的账号登录。
 
+__________________________________________________________________________________________________________
+
+git线上仓库的地址改变后，怎么把本地代码提交到新的仓库
+
+如果线上是空仓库
+1. 本地切换分支到主分支，然后更新代码
+2. git remote rename origin old-origin
+3. git remote add origin http://192.168.0.90/web-transactive/schematiceditor.git
+4. git push -u origin --all
+5. git push -u origin --tags
 
 
+1. 查看当前远程仓库地址
+git remote -v
+origin  https://old-repo-url.git (fetch)
+origin  https://old-repo-url.git (push)
 
+2. 修改远程仓库地址
+git remote rename origin old-origin
+git remote add origin http://192.168.0.90/web-transactive/schematiceditor.git
 
+3. 验证修改是否成功
+git remote -v
+old-origin	http://192.168.0.90/web_scada/hmi.git (fetch)
+old-origin	http://192.168.0.90/web_scada/hmi.git (push)
+origin	http://192.168.0.90/web-transactive/schematiceditor.git (fetch)
+origin	http://192.168.0.90/web-transactive/schematiceditor.git (push)
+
+4. 查看当前分支，并到线上新的仓库建立同名分支
+
+5. 推送代码到同名分支，然后合并到master 记得git push -u origin --tags
