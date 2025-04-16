@@ -137,6 +137,7 @@ animationFrameScheduler
 queueScheduler
 它是同步的, 但它可不是默认的同步机制哦, 默认的同步 (当我们没有设置时) 的效果和 queueScheduler 是有微小区别的, 下面会详细讲. 
 11. [custom] operator
+a. 直接传输
 function myOperator(config: { dependObs: Observable<unknown> }): OperatorFunction<number, string> {
 
     const { dependObs }= config;  
@@ -149,6 +150,7 @@ function myOperator(config: { dependObs: Observable<unknown> }): OperatorFunctio
         const dependObsSub = dependObs.subscribe(() => console.log('do something'));
   
         // 当下游stream被订阅，直接订阅上游stream
+        // 这里在下游流里订阅上游的流，是因为要直接传值，如果要缓存值的话，就需要单独订阅上游的流
         const upstreamSub = upstreamObs.subscribe({
           next: upstreamValue => {
             const downStreamValue = upstreamValue + 'downstream value'; // decorate value for downstream
@@ -175,3 +177,47 @@ function myOperator(config: { dependObs: Observable<unknown> }): OperatorFunctio
 const source = timer(1000);
 const dependObs = new Subject();
 source.pipe(myOperator({ dependObs })).subscribe(v => console.log(v));
+
+b. 缓存传输
+import { Observable, OperatorFunction, Subject, takeUntil } from "rxjs";
+
+const MAX_QUEUE_SIZE = 50;
+export function ccbufferTime<T>(interval: Observable<number>): OperatorFunction<Observable<T>, Observable<T>> {
+    let queue: T[] | null = [];
+    let destroy$: Subject<void> | null = new Subject<void>;
+
+    return upstreamObs => {
+        const downstreamObs = new Observable<any>(subscriber => {
+            upstreamObs.pipe(takeUntil(destroy$!)).subscribe({
+                next: data => {
+                    if(queue!.length >= MAX_QUEUE_SIZE) {
+                        queue!.shift();
+                    }
+                    queue!.push(data as T);
+                },
+                error: error => subscriber.error(error),
+                complete: () => {
+                    subscriber.complete();
+                }
+            });
+
+            interval.pipe(takeUntil(destroy$!)).subscribe(() => {
+                let bs = 20;
+				while (queue!.length > 0 && bs-- > 0) {
+					const value = queue!.shift();
+					subscriber.next(value);
+				}
+                // console.log(queue);
+            });
+
+            return () => {
+                destroy$!.next();
+                destroy$!.complete();
+                queue = destroy$ = null;
+            }
+
+        });
+
+        return downstreamObs;
+    }
+}
