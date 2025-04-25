@@ -16,5 +16,9 @@ int cstrcmp(char *s, char *t);
 char *cstrcat(char *s, char *t);
 char *cstrcat(char *s, char *t);
 int cstrend(char *s, char *t);
+int cgetline(char*, int);
+void cswap(char *[], int, int);
+int day_of_year(int year, int month, int day);
+void month_day(int year, int yearday, int *pmonth, int *pday);
 
 #endif

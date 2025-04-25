@@ -5,10 +5,11 @@
 
  int cstrcmp(char *s, char *t) 
  {
-    while(*s++ == *t++) {
+    while(*s == *t) {
         if(!*s) {
             return 0;
         }
+        s++;t++; // 这里必须先比较再++，如果直接写在while的括号里面，它就时同时比较然后又++，这样当不同的时候，后面仍然返回的下一位的比较值，而不是当前位
     }
     return *s - *t;
  }
