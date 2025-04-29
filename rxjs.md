@@ -150,7 +150,6 @@ function myOperator(config: { dependObs: Observable<unknown> }): OperatorFunctio
         const dependObsSub = dependObs.subscribe(() => console.log('do something'));
   
         // 当下游stream被订阅，直接订阅上游stream
-        // 这里在下游流里订阅上游的流，是因为要直接传值，如果要缓存值的话，就需要单独订阅上游的流
         const upstreamSub = upstreamObs.subscribe({
           next: upstreamValue => {
             const downStreamValue = upstreamValue + 'downstream value'; // decorate value for downstream

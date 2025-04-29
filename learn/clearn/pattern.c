@@ -41,6 +41,7 @@ int getlineb(char s[], int lim)
 }
 
 /** strindex函数，return the t's index that in s, if not found, it return -1 */
+// 指针的版本在chapter5 dir
 int strindex(char s[], char t[])
 {
     int i, j, k;
