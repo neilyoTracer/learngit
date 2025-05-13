@@ -16,6 +16,6 @@ int main(int argc, char *argv[]) {
     }
     printf("\n");
     return 0; */
-    char *p = cstrstr("ttabcdababc", "abc");
+    char *p = (char *)cstrstr("ttabcdababc", "abc");
     printf("%s\n", p);
 }

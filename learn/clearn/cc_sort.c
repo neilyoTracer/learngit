@@ -10,8 +10,8 @@ char *lineptr[MAXLINES];
 int readlines(char *lineptr[], int nlines);
 void writelines(char *lineptr[], int nlines);
 
-void qsort(char *lineptr[], int left, int right, int (*com)(void *, void *));
-void bubblesort(char *lineptr[], int, int (*com)(void *, void *));
+void qsort(void *lineptr[], int left, int right, int (*com)(void *, void *));
+void bubblesort(void *lineptr[], int, int (*com)(void *, void *));
 
 int main(int argc, char *argv[]) {
     // test getline
@@ -29,8 +29,8 @@ int main(int argc, char *argv[]) {
         clock_t start, end;
         double cpu_time_used;
         start = clock();
-        qsort(lineptr, 0, i-1, (int (*)(void *, void *))cstrcmp);
-        // bubblesort(lineptr, i, (int (*)(void *, void *))cstrcmp);
+        qsort((void **)lineptr, 0, i-1, (int (*)(void *, void *))cstrcmp);
+        // bubblesort((void **)lineptr, i, (int (*)(void *, void *))cstrcmp);
         end = clock();
 
         cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;

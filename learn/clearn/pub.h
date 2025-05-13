@@ -4,22 +4,22 @@
 #define NUMBER '0'
 void push(double);
 double pop(void);
-int getop(char []);
+int getop(char *);
 int getch(void);
 void ungetch(int);
-int getint(int *p);
-int cstrlen(char *s);
+int getint(int *);
+int cstrlen(char *);
 char *alloc(int n);
-void afree(char *p);
-void cstrcpy(char *t, char *s);
-int cstrcmp(char *s, char *t);
-char *cstrcat(char *s, char *t);
-char *cstrcat(char *s, char *t);
-int cstrend(char *s, char *t);
-int cgetline(char*, int);
+void afree(char *);
+void cstrcpy(char *, char *);
+int cstrcmp(char *, char *);
+char *cstrcat(char *, char *);
+char *cstrcat(char *, char *);
+int cstrend(char *, char *);
+int cgetline(char *, int);
 void cswap(char *[], int, int);
-int day_of_year(int year, int month, int day);
-void month_day(int year, int yearday, int *pmonth, int *pday);
+int day_of_year(int, int, int);
+void month_day(int, int, int *, int *);
 char *cstrstr(char *, char *);
 
 #endif
