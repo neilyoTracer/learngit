@@ -3,7 +3,7 @@
  * 该函数是s和t由前向后逐字比较时遇到的第一个不相等字符处的字符差值
  */
 
- int cstrcmp(char *s, char *t) 
+int cstrcmp(char *s, char *t) 
  {
     while(*s == *t) {
         if(!*s) {

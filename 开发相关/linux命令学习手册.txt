@@ -152,4 +152,16 @@ networksetup -setv6off "你网卡名字"
 3.设置ip地址
 networksetup -setmanual "网卡名字" 192.168.31.2 255.255.255.0 192.168.1.1
 
+14.shopt -s dotglob
+shopt：Bash 的 shell 内置命令，管理 shell 的行为选项（"shell options"）
+-s：启用某个选项（等于 set）
+dotglob：这个选项控制 通配符 * 是否匹配以 . 开头的隐藏文件
+$ ls -l
+.   ..   file1   file2   .hiddenfile
+$ echo *
+file1 file2
+
+$ shopt -s dotglob
+$ echo *
+.file1 file2 .hiddenfile
 
