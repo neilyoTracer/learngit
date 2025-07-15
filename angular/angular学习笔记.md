@@ -1,8 +1,8 @@
-[RNode][RElement]
+[RNode] [RElement]
 RNode 全称是 Render Node，RElement 全称 Render Element。
 
-它们是 Angular 对 [DOMNode] 和 [HTMLElement] 的接口。Angular 不想直接依赖 DOM，所以它搞了这两个接口。
-如果环境是游览器，那最终实现这两个接口的就是 DOM Node 和 HTMLElement。
+它们是 Angular 对 [DOMNode] 和 [HTMLElement] 的接口。Angular 不想直接依赖 DOM，所以它搞了这两个接口。 
+如果环境是游览器，那最终实现这两个接口的就是 [DOMNode] 和 [HTMLElement]。
 
 [TNode]
 TNode 全称是 Template Node。顾名思义，它是节点的模型，用于生产出 [RNode]，就像 Template 生产出 View 那样。
@@ -11,47 +11,47 @@ TNode -> RNode
 [TView]
 TView 全称是 Template View。顾名思义，Template 意味着它也是个模型。
 
-View 意味着它是一组 nodes 的 frame。合在一起大致意思就是一个 nodes frame 的模型。
+View 意味着它是一组 [TNode] 的 frame。合在一起大致意思就是一个 nodes frame 的模型。
 
-按推理，*一组 TNode 会形成一个 [TView]*，然后 [TView] 用于生产 [RView]。
+按推理，***一组 [TNode] 会形成一个 [TView]***，然后 [TView] 用于生产 [RView]。
 
-这个推理只对了一半，TView 确实包裹着一组 TNode，但 TView 并不生产 RView，它生产的是 [LView]。
+[这个推理只对了一半]，[TView] 确实包裹着一组 [TNode]，但 TView 并不生产 RView，它生产的是 [LView]。
 
-[LView] 就是一个javascript对象，*类似React的Virtual DOM*
-
-
+[LView] 就是一个javascript对象，***类似React的Virtual DOM***
 
 
 
-1. [providers 和 viewProviders 的区别是，providers 在遇到 transclude 的组件时不会隔离服务，而后者可以]
+
+
+1. [providers 和 viewProviders 的区别是，providers 在遇到 [transclude] 的组件时不会隔离服务，而后者可以]
 2. (a ??= []).push(b); 没有就是建立空数组[]
-3. angular 类的 constructor 函数体内就是[injecter context],这里面才能执行 inject 函数
+3. angular 类的 [constructor] 函数体内就是[injecter context],这里面才能执行 inject 函数
 4. 问：我们可以监听到 [QueryList] 的变化吗?
 
-答：可以，通过 QueryList.changes 方法，它会返回一个 RxJS Observable，subscribe 它就可以了，每当 QueryList 有变化 (append / removeChild) 它就会发布。
+答：[可以]，通过 QueryList.changes 方法，它会返回一个 RxJS Observable，subscribe 它就可以了，每当 QueryList 有变化 (append / removeChild) 它就会发布。
 
-```javascript
+```js
 console.log('Old Length', this.titleQueryList.length);
 this.titleQueryList.changes.subscribe(() => {
-console.log('New Length', this.titleQueryList.length);
+  console.log('New Length', this.titleQueryList.length);
 });
 ```
 
 5. [createComponent]
    ```javascript
-   const dynamicComponentRef = createComponent(DyncComponent, {
-    enviromentInjector: appNodeInjector.get(EnviromentInjector),
-    elementInjector: appNodeInjector // 这里传入 appNodeInjector 后，dynamicComponentRef 可以 inject(AppComponent, {optional: true})
+    const dynamicComponentRef = createComponent(DyncComponent, {
+      enviromentInjector: appNodeInjector.get(EnviromentInjector),
+      elementInjector: appNodeInjector // 这里传入 appNodeInjector 后，dynamicComponentRef 可以 inject(AppComponent, {optional: true})
     })
     ```
 
-6.  [ViewContainerRef] 就是让我们把 Dynamic Component 插入 Logical View Tree 的工具。
-7.  [ViewContainerRef] remove 和 detech 最大的不同是，
+6. [ViewContainerRef] 就是让我们把 Dynamic Component 插入 Logical View Tree [LView] 的工具。
+7. [ViewContainerRef] remove 和 detech 最大的不同是，
     detech 只是把 LView 抽出 LContainer，
     remove 则是 LView.destroy 摧毁它。
 
-8.  [TemplateContextTypeGuard 指令]
-   ```javascript
+8. [TemplateContextTypeGuard 指令]
+   ```js
     import { Directive, Input } from '@angular/core';
 
     @Directive({
@@ -59,24 +59,24 @@ console.log('New Length', this.titleQueryList.length);
     standalone: true,
     })
     export class TemplateContextTypeGuardDirective<T> {
-    @Input('templateContextType')
-    type!: T;
+      @Input('templateContextType')
+      type!: T;
 
-    static ngTemplateContextGuard<T>(
+      static ngTemplateContextGuard<T>(
 
-        _dir: TemplateContextTypeGuardDirective<T>,
-        ctx: unknown
+          _dir: TemplateContextTypeGuardDirective<T>,
+          ctx: unknown
 
-    ): ctx is T {
+      ): ctx is T {
 
-        return true;
+          return true;
 
-    }
+      }
     }
     ```
   <ng-template [templateContextType]="type" />
 
-1.  动态组件里的[content-project]
+9. 动态组件里的[content-project]
 
 方法 1: 通过 DOM Manipulation 和 reflectConponentType
 首先，定义 template (不是 ng-template)
@@ -90,27 +90,26 @@ console.log('New Length', this.titleQueryList.length);
 template!: ElementRef<HTMLTemplateElement>
 
 然后 clone template and reflectComponentType
+```js
 // 1. clone template
 const template = this.template.nativeElement;
 const content = template.content.cloneNode(true) as DocumentFragment;
 
 const projectableNodes: Node[][] = [];
 // 2. 通过反射调出动态组件的 ng-content selector，这个反射挺好用的, ** 注意这里是不用 new 这个组件的就可以拿到组件的各种属性 **
-```javascript
 const dynComponentMirror = reflectComponentType(DynComponent);
 
 for (const cssSelector of dynComponentMirror.ngContentSelectors) {
 
-    const notes = Array.from(content.querySelectorAll(cssSelector)) {
-      projectableNodes.push(nodes);
-    }
+  const notes = Array.from(content.querySelectorAll(cssSelector));
+  projectableNodes.push(nodes);
 
 }
 
 const dynComponentRef = createComponent(DynComponent, {
-enviromentInjector: appStandaloneInjector,
-elementInjector: appNodeInjector,
-projectableNodes
+  enviromentInjector: appStandaloneInjector,
+  elementInjector: appNodeInjector,
+  projectableNodes
 });
 ```
 
@@ -126,30 +125,26 @@ projectableNodes
 
 ```javascript
 @ViewChild('template'): tplRef!: TemplateRef<void>;
-@ViewCHild('container', {read: ViewContainerRef})
+@ViewChild('container', {read: ViewContainerRef})
 viewContainerRef!: ViewContainerRef;
 
 private injector = inject(injector);
 async append() {
-const {DynComponent} = await import('./dyn-component');
-const embeddedView = this.tplRef.createEmbeddedView();
-// 如果是插入embeddedView
-// 1. viewContainerRef.createEmbeddedView(this.tplRef);
-// 2. viewContainerRef.insert(embeddedView); 
-// dyncomponentRef.hostView和ng-template的embeddedView的抽象都是ViewRef
-const dynComponentRef = viewContainerRef.createComponent(DynComponent, {
-
+  const {DynComponent} = await import('./dyn-component');
+  const embeddedView = this.viewContainerRef.createEmbeddedView(this.tplRef);
+  // dyncomponentRef.hostView和ng-template的embeddedView的抽象都是ViewRef
+  const dynComponentRef = viewContainerRef.createComponent(DynComponent, {
     enviromentInjector: this.injector.get(EnvironmentInjector),
     elementInjector: this.injector,
     projectableNodes: [embeddedView.rootNodes]
-
-})
+  })
 }
 
 NOTE:
 动态组件和ng-template的重要区别
 1. 动态组件
 通过viewContainerRef.createComponent()方法生成的动态组件，其injector没有传入的话，会自动使用viewContainerRef.parentViewInjector,通常就是用于动态组件生成的容器组件
+但如果使用顶层vcr的话呢，就不能注入局部服务(不能inject NodeInjector)，这个时候就需要elementInjector
 2. ng-template
 通过templateRef.createEmbeddedView()生成的embeddedview,如果没有传入injector的话，默认是undefined，不能inject NodeInjector(这里指注册在某个组件上的服务)
 ```
@@ -171,14 +166,14 @@ NOTE:
 复制代码
 ```javascript
 class ServiceA {
-injector = inject(Injector);
-method() {
+  injector = inject(Injector);
+  method() {
 
     runInInjectionContext(this.injector, () => {
       const serviceB = inject(ServiceB);
     });
 
-}
+  }
 }
 ```
 
@@ -186,9 +181,7 @@ method() {
 # 通过@Injectable 的 provideIn
 ```javascript
 @Injectable({
-
-        providedIn: 'root'
-
+  providedIn: 'root'
 })
 export class TestService
 ```
@@ -212,7 +205,7 @@ const TEST_SERVICE_TOKEN = new InjectionToken('TestService', {
 14. [我该使用 NgModule 管理 Provider 吗]
     NgModule providers 对 Tree Shaking 不友好。
 
-NgModule 管理 Provider 和管理组件的逻辑不一致，这很容易造成混淆。
+    NgModule 管理 Provider 和管理组件的逻辑不一致，这很容易造成混淆。
 
 **_providedIn: 'root' 完全可以取代 NgModule Provider，它俩唯一的区别是 NgModule 需要一个 “激活动作” -- import NgModule。_**
 
@@ -237,7 +230,7 @@ NgModule 管理 Provider 和管理组件的逻辑不一致，这很容易造成�
 async sendRequest() {
 
     const products = await firstValueFrom(
-      this.httpClient.get<Product[]>('https://192.168.1.152:44300/products'));
+    this.httpClient.get<Product[]>('https://192.168.1.152:44300/products'));
     console.log(products); // [{ id: 1, name: 'iPhone14' }, { id: 2, name: 'iPhone15' }]
 
 }
@@ -248,9 +241,9 @@ async sendRequest() {
 # download text file // arraybuffer
 ```javascript
 const memoryStream = await firstValueFrom(
-this.httpClient.get('https://192.168.1.152:44300/data.txt', {
-responseType: 'arraybuffer',
-})
+  this.httpClient.get('https://192.168.1.152:44300/data.txt', {
+    responseType: 'arraybuffer',
+  })
 );
 const bytes = new Uint8Array(memoryStream);
 const textDecoder = new TextDecoder();
@@ -263,9 +256,9 @@ console.log(text); // 'Hello World'
 Video 通常 size 比较大，用 ArrayBuffer 怕内存会不够，所以用 Blob 会比较合适。
 ```javascript
 const blob = await firstValueFrom(
-this.httpClient.get('https://192.168.1.152:44300/video.mp4', {
-responseType: 'blob',
-})
+  this.httpClient.get('https://192.168.1.152:44300/video.mp4', {
+    responseType: 'blob',
+  })
 );
 console.log(blob.size / 1024); // 124,645 kb
 console.log(blob.type);
@@ -276,21 +269,21 @@ console.log(blob.type);
 首先是 HttpClient.get 的设置
 ```javascript
 const httpEvent$ = this.httpClient.get('https://192.168.1.152:44300/video.mp4', {
-responseType: 'blob', // response 类型是 blob
-observe: 'events', // 返回 Observable<HttpEvent>
-reportProgress: true, // 要监听 progress
+  responseType: 'blob', // response 类型是 blob
+  observe: 'events', // 返回 Observable<HttpEvent>
+  reportProgress: true, // 要监听 progress
 });
 
 // 接着过滤出 download progress event
 const downloadProgressEvent$ = httpEvent$.pipe(
 // 过滤出 download progress event
-filter((e): e is HttpDownloadProgressEvent => e.type === HttpEventType.DownloadProgress)
+  filter((e): e is HttpDownloadProgressEvent => e.type === HttpEventType.DownloadProgress)
 )
 //接着 subscribe
 downloadProgressEvent$.subscribe(e => {
-const percentage = ((e.loaded / e.total!) * 100).toFixed(2) + '%';
-console.log(percentage);
-console.log(e.partialText);
+  const percentage = ((e.loaded / e.total!) * 100).toFixed(2) + '%';
+  console.log(percentage);
+  console.log(e.partialText);
 });
 ```
 HttpDownloadProgressEvent 有 loaded 和 total 属性，可以计算出 percentage。
@@ -299,28 +292,28 @@ HttpDownloadProgressEvent 有 loaded 和 total 属性，可以计算出 percenta
 由于 HttpClient 基于 RxJS，所以它很容易实现 retry。
 ```javascript
 try {
-const products = await firstValueFrom(
-this.httpClient.get<Product[]>('https://192.168.1.152:44300/products').pipe(
-retry({
-delay: (error, retryCount) => {
-console.log('failed', retryCount);
-// 条件：只可以 retry 3 次，只有 status 503 才 retry
-if (retryCount <= 3 && error instanceof HttpErrorResponse && error.status === 503) {
-return timer(1000); // 延迟 1 秒后才发出 retry request
-}
-else {
-return error; // 其它情况不 retry，直接返回 error
-}
-},
-resetOnSuccess: true, // reset retry count when success
-})
-)
-);
+  const products = await firstValueFrom(
+    this.httpClient.get<Product[]>('https://192.168.1.152:44300/products').pipe(
+      retry({
+        delay: (error, retryCount) => {
+          console.log('failed', retryCount);
+          // 条件：只可以 retry 3 次，只有 status 503 才 retry
+          if (retryCount <= 3 && error instanceof HttpErrorResponse && error.status === 503) {
+            return timer(1000); // 延迟 1 秒后才发出 retry request
+          }
+          else {
+            return error; // 其它情况不 retry，直接返回 error
+          }
+        },
+        resetOnSuccess: true, // reset retry count when success
+      })
+    )
+  );
 
-console.log('succeeded', products); // 成功
+  console.log('succeeded', products); // 成功
 }
 catch {
-console.log('total failed 4 times'); // retry 3 次还是失败，加第一次总共 4 次 request
+  console.log('total failed 4 times'); // retry 3 次还是失败，加第一次总共 4 次 request
 }
 ```
 e. [HttpContext] HttpClient 和 Interceptors 们之间的沟通
@@ -332,14 +325,14 @@ javascript
 let context = new HttpContext();
 context = context.set(byPassInterceptorToken, true);
 const products = await firstValueFrom(
-this.httpClient.get<Product[]>('https://192.168.1.152:44300/products', {
-context,
-})
+  this.httpClient.get<Product[]>('https://192.168.1.152:44300/products', {
+    context,
+  })
 );
 
 const httpInterceptorFn: HttpInterceptorFn = (request, next) => {
-// 如果是 by pass 直接 next
-if(request.context.get(byPassInterceptorToken)) {return next(request)}
+  // 如果是 by pass 直接 next
+  if(request.context.get(byPassInterceptorToken)) {return next(request)}
 }
 ```
 
