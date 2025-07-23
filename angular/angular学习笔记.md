@@ -20,7 +20,7 @@ View 意味着它是一组 [TNode] 的 frame。合在一起大致意思就是一
 [LView] 就是一个javascript对象，***类似React的Virtual DOM***
 
 
-
+动态内容都可以借助[ng-template] 和 [dync-component]来实现, 在视图的某个位置打开某个弹窗，但弹窗会[动态变化]，这个时候，适合把弹窗做成[动态模版]
 
 
 1. [providers 和 viewProviders 的区别是，providers 在遇到 [transclude] 的组件时不会隔离服务，而后者可以]
