@@ -403,13 +403,13 @@ router.createUrlTree(['about']).toString(); // '/about'
 # Query Parameters
 ```javascript
 router.createUrlTree(['about'], {queryParams: {key1: 'value1'}}).toString(); 
-// 'about?key1=value' ，注: Angular 会替我们 encode
+// '/about?key1=value' ，注: Angular 会替我们 encode
 ```
 
 # Fragment
 ```javascript
 router.createUrlTree(['about'], {fragment: 'target-id'}).toString(); // '/about#target-id'
-router.createUrlTree(['products', 'iphone-14']).toString(); // 'products/iphone-14'
+router.createUrlTree(['products', 'iphone-14']).toString(); // '/products/iphone-14'
 ```
 
 # Segment Parameters (a.k.a Matrix Parameters)
@@ -431,20 +431,21 @@ router.createUrlTree(
     { outlets: { primary: ['iphone-14'], secondary: ['contact'], tertiary: ['blog'] } }
   ]); // Note: '/products/(iphone-14//secondary:contact//tertiary:blog)'
 ```
-# [Route]
+# Route
 UrlTree、Route Tree、ActivatedRoute Tree、OutletContext Tree
 [UrlTree]
-UrlTree 是 URL string 的树形版本，这个树形结构是依据 URL string 解析出来的，它跟 Route、ActivatedRoute、Outlet 都没有关系。
+UrlTree 是 URL string 的树形版本，这个树形结构是依据 URL string 解析出来的，
+它跟 [Route]、[ActivatedRoute]、[Outlet] 都没有关系。
 只要给 Angular 一个 URL string 它就可以生成出 UrlTree 对象。
 
-[Route Tree]
+# Route Tree
 Route Tree 指的是我们配置的 Routes Array。
 Route 的树形结构完全是由我们自己掌控的。
 
-[ActivatedRoute Tree]
-ActivatedRoute Tree 是配对成功的 Route Tree，所以它的树形结构不会脱离 Route Tree。
+# ActivatedRoute Tree
+ActivatedRoute Tree 是[配对成功的] Route Tree，所以它的树形结构不会脱离 Route Tree。
 
-[OutletContext Tree]
+# OutletContext Tree
 通过 inject ChildrenOutletContexts，我们可以获取到 OutletContext Tree。
 ```javascript
 export class AppComponent {
@@ -461,25 +462,28 @@ console.log('childrenOutletContexts', childrenOutletContexts);
 ```
 
 c.[Routing 相关服务]
+
 [PlatformLocation]
 所以在 Angular 内部，它们不直接操作 window.location 和 window.history，取而代之的是通过 PlatformLocation 间接操作。
+
 **[LocationStrategy]**
-LocationStrategy 是对 PlatformLocation 的又一层封装。
-下面这个是默认的 URL，又称为 path 版本 URL
+[LocationStrategy] 是对 [PlatformLocation] 的又一层封装。
+
+下面这个是默认的 URL，又称为 [path] 版本 URL
 
 http://localhost:4200/products/iphone-14
 
-下面这个则是 hash 版本 URL
+下面这个则是 [hash] 版本 URL
 
 http://localhost:4200/#/products/iphone-14
 
-关键是在中间多了个 /#/
+[关键]是在中间多了个 [/#/]
 
-它的用意是在 refresh browser 的时候，服务端是否需要处理多种不同路径还是只需要处理一种路径。
+它的用意是在 refresh browser 的时候，[服务端是否需要处理多种不同路径还是只需要处理一种路径]。
 
 在 refresh browser 的时候，游览器一定会发请求到服务端。
 
-如果使用 path URL，路径可能是
+如果使用 [path] URL，路径可能是
 
 [http://localhost:4200/products/iphone-14]
 
@@ -487,9 +491,14 @@ http://localhost:4200/#/products/iphone-14
 
 [http://localhost:4200/contact]
 
-只要是前端能匹配的路径都有可能在 refresh browser 时被发送到服务端作为请求
+只要是前端能[匹配的路径]都有可能在 refresh browser 时被[发送到服务端作为请求]
 
-服务端需要处理所有的路径，通通返回同样的 index.html 内容。
+# Note
+path模式如果用到nginx, nginx配置需要
+root /xx/xx/xx/xx/xx;
+index index.html index.html;
+try_files $uri /index.html;
+[服务端需要处理所有的路径]，通通返回同样的 index.html 内容。
 
 如果使用 hash URL 情况就不同了
 
@@ -501,23 +510,22 @@ http://localhost:4200/#/products/iphone-14
 
 只要是前端能匹配的路径都有可能在 refresh browser 时被发送到服务端作为请求
 
-由于 # 后面的路径是不会被发送到服务端的 (这个是 browser 的行为)，所以上面所有请求路径，通通会变成 http://localhost:4200/。
-
-那服务端就只需要处理这一个路径就够了。
+由于 # 后面的路径是[不会被发送到服务端的](这个是browser的行为)，所以上面所有请求路径，通通会变成 http://localhost:4200/。
+[那服务端就只需要处理这一个路径就够了]。
 
 [Location]
 # 看名字就猜到了，Location 是对 LocationStrategy 的又又一层封装。 Angular Team 真的是好喜欢一层一层啊 😔
 
 [UrlSerializer]
 # UrlSerializer 负责把 URL string 转换成 UrlTree 和把 UrlTree 转换成 URL string
-# Router.parseUrl 内部就是调用了 UrlSerializer.parse 方法
-# UrlTree.toString 方法内部就是调用了 UrlSerializer.serialize 方法
+# Router.parseUrl 内部就是调用了 UrlSerializer.[parse] 方法
+# UrlTree.toString 方法内部就是调用了 UrlSerializer.[serialize] 方法
 
 [StateManager]
-# StateManager 负责维护当前的 UrlTree 和 RouterState (ActivatedRoute Tree)，同时也负责更新 browser URL
+# StateManager 负责维护当前的 UrlTree 和 [RouterState] (ActivatedRoute Tree)，同时也负责更新 browser URL
 
 [NavigationTransitions]
-# NavigationTransitions 负责启动导航和处理导航中的各个阶段，比如：UrlTree 与 Route 配对 
+# NavigationTransitions 负责[启动导航]和[处理导航中的各个阶段]，比如：UrlTree 与 Route 配对 
 # -> 创建 ActivatedRoute Tree 
 # -> 创建组件插入 router-outlet 等等。
 
@@ -526,15 +534,18 @@ http://localhost:4200/#/products/iphone-14
 # 它之所以与 Routing 有关是因为导航后移动 scrollbar 是游览器的默认行为，比如 next page scroll to top，history back 恢复之前的 scrolled position。
 
 [RouterScroller]
-# RouterScroller 的职责是监听 NavigationTransitions 发出的导航事件，然后调用 ViewportScroller 完成 next page scroll to top，history back 恢复之前的 scrolled position 等等操作。
+# RouterScroller 的职责是监听 [NavigationTransitions] 发出的导航事件，然后调用 [ViewportScroller] 完成 next page scroll to top，history back 恢复之前的 scrolled position 等等操作。
 
 [Router]
-parseUrl
-createUrlTree
-routerState
-navigate
-navigateByUrl
-events
+(parseUrl)
+(createUrlTree)
+(routerState)
+(navigate)
+(navigateByUrl)
+(events)
+
+[# review 250723]
+-----------------
 
 20.[Signal]
 # [Writable] signals
@@ -711,7 +722,9 @@ export class CustomCheckbox {
 ```
 # Model inputs do not support input transforms.
 
-j. [Signal] [queries]
+j. 
+[Signal] 
+[queries]
 [viewChild]
 [viewChildren]
 [contentChild]
