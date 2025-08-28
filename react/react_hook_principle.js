@@ -59,8 +59,8 @@ function Gallery() {
 }
 
 function updateDOM() {
-  // Reset the current Hook index
-  // before rendering the component.
+  // !Reset the current Hook index
+  // !before rendering the component.
   currentHookIndex = 0;
   let output = Gallery();
 
