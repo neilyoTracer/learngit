@@ -53,3 +53,81 @@ export default function TodoList({todo, tab, theme}) {
     )
 }
 ```
+
+# 模拟React19推出的useEffectEvent
+在 React 18 中如何模拟它
+方法一：手写 shim（推荐）
+
+你可以参考 Dan Abramov 提出的一个经典写法。这是社区广泛认可的一种实现方式：
+```javascript
+import { useRef, useLayoutEffect, useCallback } from 'react';
+
+export function useEvent(fn) {
+  const ref = useRef(null);
+  useLayoutEffect(() => {
+    ref.current = fn;
+  }, [fn]); // 每次 fn 变化都更新 ref
+
+  return useCallback((...args) => {
+    const f = ref.current;
+    return f(...args);
+  }, []); // 返回一个身份始终不变的函数
+}
+```
+
+# State as a Snapshot
+```javascript
+import { useState } from 'react';
+
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    <>
+      <h1>{number}</h1>
+      <button onClick={() => {
+        setNumber(number + 5);
+        setTimeout(() => {
+          console.log(number) // it's 0 in 2000ms
+        }, 2000);
+        /**
+            it's equivalent to 
+           setTimeout(() => {
+                console.log(0)
+           }, 2000) 
+         */
+      }}>+5</button>
+    </>
+  )
+}
+```
+<The state stored in React may have changed by the time the alert runs, but it was scheduled using a snapshot of the state at the time the user interacted with it!>
+
+# Race Condition
+why the useData can solve "Race Condition"
+```javascript
+function useData(url) {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    let ignore = false;
+    fetch(url)
+      .then(response => response.json())
+      .then(
+        // 1. this is a function with the closure ignore
+        // 2. when url is change , the ignore change to true
+        // 3. react rendering, this will generate a new closure
+        // 4. so the previours closure in previours query funtion is true
+        // 5. and this logic will never be excute except the newest query result coming up
+        json => {
+        if (!ignore) {
+          setData(json);
+        }
+      }
+      );
+    return () => {
+      ignore = true;
+    };
+  }, [url]);
+  return data;
+}
+```
