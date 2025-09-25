@@ -131,3 +131,73 @@ function useData(url) {
   return data;
 }
 ```
+
+# useCallback的用法分为两步
+1. 在定义函数的组件中使用[useCallback],然后传给子组件
+2. 子组件用useMemo或者memo包装
+3. 这样子组件就不会每次父组件更新都重新渲染
+```javascript
+const ShippingForm = memo(function ShippingForm({ onSubmit }) {
+  // ...
+});
+
+or
+
+const ShippingForm = useMemo(() => <ShippingForm onSubmit={onSubmit}/>, [onSubmit]);
+```
+If you’re already familiar with useMemo, you might find it helpful to think of useCallback as this:
+```javascript
+// Simplified implementation (inside React)
+function useCallback(fn, dependencies) {
+  return useMemo(() => fn, dependencies);
+}
+
+```
+
+# forwardRef()
+
+forwardRef 是 React 16.3 引入的一个 API，在 React 18 中依然使用，主要作用是 让函数组件可以接收父组件传递下来的 ref，并把它转发（forward）到子组件中的某个真实 DOM 元素或 class 组件实例上。
+
+为什么需要 forwardRef
+
+默认情况下，ref 只能直接绑定到原生 DOM 元素或者 class 组件上。
+
+函数组件是没有实例的，父组件直接给函数组件传 ref 会报错。
+
+有时我们需要父组件直接访问子组件内部的某个 DOM 节点（例如：input、button 等），这时就需要用 forwardRef 把 ref 转发到子组件里的 DOM 节点。
+
+基本用法
+```javascript
+import React, { forwardRef, useRef } from "react";
+
+const MyInput = forwardRef((props, ref) => {
+  return <input ref={ref} {...props} />;
+});
+
+export default function App() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus(); // 父组件直接操作子组件里的 input
+  };
+
+  return (
+    <div>
+      <MyInput ref={inputRef} placeholder="Type here..." />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
+
+[核心点]
+
+forwardRef 接受一个 渲染函数，参数是 (props, ref)。
+
+props 是父组件传递的普通属性。
+
+ref 是父组件传递的 ref 对象。
+
+这个 ref 可以绑定到子组件里的 DOM 元素或 class 组件上。
+
+结合 [useImperativeHandle] 可以更精细地暴露子组件的功能（比如只暴露 focus 方法）。

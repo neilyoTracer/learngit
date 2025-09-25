@@ -25,7 +25,7 @@ int main()
 {
     while (gettoken() != EOF)
     {
-        // 改行的第一个记号是数据类型
+        // 该行的第一个记号是数据类型
         strcpy(datatype, token);
         out[0] = '\0';
         dcl(); // 分析该行的其余部分
@@ -41,6 +41,7 @@ int gettoken(void)
 {
     int c, getch(void);
     void ungetch(int);
+    // 创建一个指针p指向token
     char *p = token;
 
     while ((c = getch()) == ' ' || c == '\t')
@@ -60,9 +61,11 @@ int gettoken(void)
     }
     else if (c == '[')
     {
+        // 给token的第一位赋值c，指针往后移动继续赋值
         for (*p++ = c; (*p++ = getch()) != ']';)
             ;
         *p = '\0';
+        // 而这里是]，不用放回直接返回Bracket
         return tokentype = BRACKETS;
     }
     else if (isalpha(c))
@@ -70,9 +73,10 @@ int gettoken(void)
         for (*p++ = c; isalnum(c = getch());)
             *p++ = c;
         *p = '\0';
-        ungetch(c);
+        ungetch(c); // 这里不再是数字和字母之后需要把c放回缓存，后面接着处理
         return tokentype = NAME;
     }
+    // maybe *
     else
         return tokentype = c;
 }
