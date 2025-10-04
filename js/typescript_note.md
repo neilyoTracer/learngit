@@ -71,3 +71,16 @@ function handleRequst(url: string, method: "GET" | "POST"): void {}
 const req = {url: "https://example.com", method: "GET"} as const;
 handleRequst(req.url, req.method);
 ```
+# is
+<Using type predicates>
+We’ve worked with existing JavaScript constructs to handle narrowing so far, however sometimes you want more direct control over how types change throughout your code.
+
+To define a user-defined type guard, we simply need to define a function whose return type is a type predicate:
+```ts
+function isFish(pet: Fish | Bird): pet is Fish {
+  return (pet as Fish).swim !== undefined;
+}
+```
+
+<pet is Fish is our type predicate in this example.>
+<In addition>, classes can use this is Type to narrow their type.
